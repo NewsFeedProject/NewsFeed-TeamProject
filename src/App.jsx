@@ -1,5 +1,9 @@
+import React from 'react'
+
 function App() {
-  return <>메인페이지</>;
+  return (
+    <div>App</div>
+  )
 }
 
-export default App;
+export default App
