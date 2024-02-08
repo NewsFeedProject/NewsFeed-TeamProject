@@ -8,7 +8,14 @@ import { useNavigate } from 'react-router'
 
 function SignUp() {
   const navigate = useNavigate();
-  const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
+  const {
+    userEmail,
+    setUserEmail,
+    userPassword,
+    setUserPassword,
+    userInfo,
+    setUserInfo,
+  } = useContext(LoginContext);
   const {
     imgURL,
     setImgURL,
@@ -70,7 +77,23 @@ function SignUp() {
     if (userPassword !== reUserPassword) {
       alert("비밀번호를 다시 확인해주세요!");
     }
+    setUserEmail(`${userId}@${userMail}`);
+    const newUserInfo = {
+      userEmail,
+      userPassword,
+      userName,
+      userProfileImage: imgURL,
+    }
+    setUserInfo((prev) => [...prev, newUserInfo]);
     navigate('/');
+  }
+  const DuplicateCheck = (e) => {
+    e.preventDefault();
+    setUserEmail(`${userId}@${userMail}`);
+    const checked = userInfo.map((item) => {
+      item.userEmail === userEmail ? alert("중복되는게 없어요!") : alert("중복됩니다 다시 입력해주세요!");
+    })
+    return checked;
   }
   return (
     <SingUpWrap>
@@ -114,7 +137,7 @@ function SignUp() {
             <option value="gmail.com">gmail.com</option>
             <option value="github.com">github.com</option>
           </select>
-          <button>중복확인</button>
+          <button onClick={DuplicateCheck}>중복확인</button>
         </InputGroup>
         <InputGroup>
           <label>비밀번호 <StarStyle>*</StarStyle></label>

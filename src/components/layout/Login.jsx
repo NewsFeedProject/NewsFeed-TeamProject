@@ -12,7 +12,7 @@ function Login() {
       userEmail,
       userPassword,
     }
-    setUserInfo(newUserInfo);
+    setUserInfo((prev) => [...prev, newUserInfo]);
   }
   return (
     <LoginBackground>
