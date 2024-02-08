@@ -1,4 +1,4 @@
-import Login from './components/Login'
+import Login from 'components/layout/Login'
 import React from 'react'
 
 function App() {

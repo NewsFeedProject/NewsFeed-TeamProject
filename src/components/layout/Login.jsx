@@ -1,12 +1,10 @@
 import React from 'react'
-import LoginPage from './LoginPage'
-import SignUp from './SignUp'
+import LoginPage from 'components/layout/LoginPage'
 
 function Login() {
   return (
     <>
       <LoginPage />
-      <SignUp />
     </>
   )
 }
