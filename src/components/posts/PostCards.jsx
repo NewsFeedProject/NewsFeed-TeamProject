@@ -13,6 +13,8 @@ const StLi = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 `;
 
 const StDivRow = styled.div`
@@ -20,6 +22,8 @@ const StDivRow = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 5px;
+  padding: 5px;
 `;
 const StDivColume = styled.div`
   display: flex;
@@ -36,13 +40,14 @@ const StImgContainer = styled.div`
 
 const StImg = styled.img`
   width: 100%;
-  height: auto;
 `;
 
 function PostCards({ post }) {
-  const { postId, userEmail, postTitle, postText, postImage, postDate, userProfileImage } = post;
+  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage } = post;
 
-  console.log(postDate);
+  const splitUserEmail = userEmail.split("@")[0];
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
+
   const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "numeric",
@@ -51,17 +56,18 @@ function PostCards({ post }) {
     minute: "numeric",
     second: "numeric"
   });
+
   return (
     <article>
       <StLi>
-        <StDivRow>
+        <StDivRow style={{ width: "500px", alignContent: "flex-start" }}>
           <div>
             <img src={userProfileImage} />
           </div>
           <StDivRow>
             <StDivColume>
-              <StDivRow>
-                <span>{userEmail}</span>
+              <StDivRow style={{ gap: "10px" }}>
+                <span>{userNickname}</span>
                 <span>{formattedDate}</span>
               </StDivRow>
 
@@ -71,11 +77,10 @@ function PostCards({ post }) {
             <StImgContainer>
               <StImg src={postImage} />
             </StImgContainer>
-
             <div>⭐️</div>
           </StDivRow>
         </StDivRow>
-        <StDivRow>
+        <StDivRow style={{ width: "500px", justifyContent: "space-between" }}>
           <div>추천 👍 댓글 : 2</div>
           <button>상세보기</button>
         </StDivRow>
