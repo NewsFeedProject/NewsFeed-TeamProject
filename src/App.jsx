@@ -1,9 +1,11 @@
-import Login from 'components/layout/Login'
 import React from 'react'
+import RouterTest from "shared/RouterTest"
 
 function App() {
   return (
-    <Login />
+    <>
+      <RouterTest />
+    </>
   )
 }
 
