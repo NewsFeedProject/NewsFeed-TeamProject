@@ -1,7 +1,7 @@
 import { LoginContext } from 'context/LoginContext';
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { GoogleLogin } from 'react-google-login';
+import GoogleLoginBtn from './GoogleLoginBtn';
 
 function LoginPage() {
   const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
@@ -32,7 +32,7 @@ function LoginPage() {
         <ButtonGroup>
           <ButtonStyle onClick={onClickHandler}>로그인</ButtonStyle>
           <SignUpStyle>회원가입</SignUpStyle>
-          <ButtonStyle>구글로 로그인 하기</ButtonStyle>
+          <GoogleLoginBtn></GoogleLoginBtn>
           <ButtonStyle>깃허브로 로그인 하기</ButtonStyle>
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
