@@ -50,7 +50,7 @@ function SignUp() {
     setReUserPassword(e.target.value);
   }
   const checkBoxChangeHandler = () => {
-    setCheckBox(true);
+    checkBox === false ? setCheckBox(true) : setCheckBox(false);
   }
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -100,7 +100,7 @@ function SignUp() {
       <SignUpForm>
         <SignUpTitle>회원가입</SignUpTitle>
         <InputGroup>
-          <ProfileText>프로필 사진 <StarStyle>*</StarStyle></ProfileText>
+          <AllLabelStyle>프로필 사진 <StarStyle>*</StarStyle></AllLabelStyle>
           <ImageStyle src={imgURL ? imgURL : profileUser} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
           <InputFileStyle
@@ -111,28 +111,28 @@ function SignUp() {
           />
         </InputGroup>
         <InputGroup>
-          <label>이름 <StarStyle>*</StarStyle></label>
-          <input
+          <AllLabelStyle>이름 <StarStyle>*</StarStyle></AllLabelStyle>
+          <AllInputStyle
             type="text"
             value={userName}
             onChange={nameChangeHandler}
           />
         </InputGroup>
         <InputGroup>
-          <label>아이디 <StarStyle>*</StarStyle></label>
-          <input
+          <AllLabelStyle>아이디 <StarStyle>*</StarStyle></AllLabelStyle>
+          <IdInputStyle
             type="text"
             value={userId}
             onChange={userIdChangeHandler}
           />
           <span>@</span>
-          <input
+          <IdInputStyle
             type="text"
             value={userMail}
             onChange={userMailChangeHandler}
           />
           <select onChange={userMailChangeHandler}>
-            <option value={null}>직겁입력▼</option>
+            <option value={''}>직겁입력▼</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="github.com">github.com</option>
@@ -140,29 +140,29 @@ function SignUp() {
           <button onClick={DuplicateCheck}>중복확인</button>
         </InputGroup>
         <InputGroup>
-          <label>비밀번호 <StarStyle>*</StarStyle></label>
-          <input
+          <AllLabelStyle>비밀번호 <StarStyle>*</StarStyle></AllLabelStyle>
+          <AllInputStyle
             type="password"
             value={userPassword}
             onChange={userPasswordChangeHandler}
           />
         </InputGroup>
         <InputGroup>
-          <label>비밀번호 재확인 <StarStyle>*</StarStyle></label>
-          <input
+          <AllLabelStyle>비밀번호 재확인 <StarStyle>*</StarStyle></AllLabelStyle>
+          <AllInputStyle
             type="password"
             value={reUserPassword}
             onChange={reUserPasswordChangeHandler}
           />
         </InputGroup>
-        <InputGroup>
+        <CenterInputGroup>
           <input
             type="checkbox"
             value={checkBox}
             onChange={checkBoxChangeHandler}
           />
           <span>위의 개인정보 수집 및 이용에 동의합니다.</span>
-        </InputGroup>
+        </CenterInputGroup>
         <BtnAlign>
           <SingUpBTN onClick={singUpClickHandler}>회원가입</SingUpBTN>
         </BtnAlign>
@@ -178,27 +178,30 @@ const SingUpWrap = styled.div`
   height: 100vh;
 `
 const SignUpForm = styled.form`
-  /* Header 와 side 대비해서 margin/(size)정해지면 바꿔야함 */
-  margin-top: 100px;
-  margin-left: 300px;
+  padding-top: 100px;
   display: flex;
   flex-direction: column;
-  padding: 50px
+  margin: auto;
 `
-const ProfileText = styled.p`
-  display: inline-block;
-`
+
 const InputGroup = styled.div`
   margin-bottom: 30px;
+  margin-left: 400px;
+`
+const CenterInputGroup = styled.div`
+  margin-bottom: 30px;
+  text-align:center;
 `
 const SignUpTitle = styled.h2`
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
+  margin-bottom: 20px;
 `
 const ImageStyle = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
+  margin: 0 2.5%;
 `
 
 const LabelFileStyle = styled.label`
@@ -212,10 +215,34 @@ const InputFileStyle = styled.input`
   text-indent: -85px;
 `
 
+const AllLabelStyle = styled.label`
+  display: inline-block;
+  width: 13%;
+  text-align: right;
+  margin-right: 2.5%;
+`
+const AllInputStyle = styled.input`
+  display: inline-block;
+  width: 40%;
+  border-radius: 5px;
+`
+const IdInputStyle = styled.input`
+  display: inline-block;
+  border-radius: 5px;
+  width: 10%;
+  margin-right: 1%;
+  &+span{
+    margin-right: 1%;
+  }
+  &+select{
+    margin-right: 1%;
+  }
+`
+
 const BtnAlign = styled.div`
   text-align: center;
 `
 
 const SingUpBTN = styled.button`
-  width: 50%;
+  width: 40%;
 `

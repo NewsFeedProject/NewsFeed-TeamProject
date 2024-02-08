@@ -36,8 +36,8 @@ function Login() {
           <Link to="/SignUp">
             <SignUpStyle>회원가입</SignUpStyle>
           </Link>
-          <GoogleLoginBtn></GoogleLoginBtn>
-          <ButtonStyle>깃허브로 로그인 하기</ButtonStyle>
+          <GoogleLoginBtn />
+          <ButtonStyle>GitHub로 로그인 하기</ButtonStyle>
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
       </FormStyle>

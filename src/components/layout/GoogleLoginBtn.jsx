@@ -21,9 +21,6 @@ function GoogleLoginBtn() {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
-        style={{
-          width: "90%",
-        }}
       />
     </GoogleBtnStyle>
   )
