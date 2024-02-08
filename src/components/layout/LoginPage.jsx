@@ -1,18 +1,36 @@
-import React from 'react'
+import { LoginContext } from 'context/LoginContext';
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { GoogleLogin } from 'react-google-login';
 
 function LoginPage() {
+  const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
+  const onClickHandler = () => {
+    const newUserInfo = {
+      userEmail,
+      userPassword,
+    }
+    setUserInfo(newUserInfo);
+  }
   return (
     <LoginBackground>
       <FormStyle>
         <TitleStyle>NextMove</TitleStyle>
         <CloseStyle>X</CloseStyle>
         <LabelStyle>아이디</LabelStyle>
-        <InputStyle type="text" />
+        <InputStyle
+          type="text"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
+        />
         <LabelStyle>비밀번호</LabelStyle>
-        <InputStyle type="password" />
+        <InputStyle
+          type="password"
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
+        />
         <ButtonGroup>
-          <ButtonStyle>로그인</ButtonStyle>
+          <ButtonStyle onClick={onClickHandler}>로그인</ButtonStyle>
           <SignUpStyle>회원가입</SignUpStyle>
           <ButtonStyle>구글로 로그인 하기</ButtonStyle>
           <ButtonStyle>깃허브로 로그인 하기</ButtonStyle>
