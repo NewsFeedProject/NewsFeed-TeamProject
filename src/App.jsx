@@ -1,5 +1,14 @@
+import PostProvider from "./context/PostContext";
+import Router from "./shared/Router";
+
 function App() {
-  return <>메인페이지</>;
+  return (
+    <>
+      <PostProvider>
+        <Router />
+      </PostProvider>
+    </>
+  );
 }
 
 export default App;
