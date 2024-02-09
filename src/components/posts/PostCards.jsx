@@ -76,7 +76,6 @@ function PostCards({ post }) {
                 <span>{userNickname}</span>
                 <span>{formattedDate}</span>
               </StDivRow>
-
               <p>{postTitle}</p>
               <p>{postText}</p>
             </StDivColume>

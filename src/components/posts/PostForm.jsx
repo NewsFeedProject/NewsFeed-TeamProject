@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
+
 const StMain = styled.main`
   display: flex;
   flex-direction: column;
@@ -32,7 +34,25 @@ const StBtn = styled.button`
   width: 100px;
 `;
 function PostForm() {
-  const { posts, setPosts, addPostSubmit } = useContext(PostContext);
+  const navigate = useNavigate();
+  const { posts, setPosts, addPostSubmit, category } = useContext(PostContext);
+
+  /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
+  // const [selectCategory, setSelectCategory] = useState("interview");
+  // const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
+
+  // const selectCategoryChangeHandler = (event) => {
+  //   const selectFunc = (category) => {
+  //     if (category === "interview") {
+  //       return <option>"면접 후기"</option>;
+  //     } else if (category === "workInfo") {
+  //       return <option>"취업 정보"</option>;
+  //     } else if (category === "company") {
+  //       <option>"회사 정보 공유"</option>;
+  //     }
+  //   };
+  //   setSelectCategory(selectFunc(event.target.value));
+  // };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -40,21 +60,19 @@ function PostForm() {
 
   /* 포스트 글 추가하기 */
 
-  // const [title, setTitle] = useState("");
-  // const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
 
-  // const addTitleHandler = (event) => {
-  //   setTitle(event.target.value);
-  // };
+  const addTitleHandler = (event) => {
+    setTitle(event.target.value);
+  };
 
-  // const addTextHandler = (event) => {
-  //   setText(event.target.value);
-  // };
+  const addTextHandler = (event) => {
+    setText(event.target.value);
+  };
+
   const addPostBtnClickHandler = (event) => {
     event.preventDefault();
-
-    const title = event.target.title.value;
-    const text = event.target.text.value;
 
     // 빈 태그 입력 막기
     if (!title.trim() && text.trim()) {
@@ -77,12 +95,22 @@ function PostForm() {
       postText: text,
       postImage: "첨부파일",
       postId: crypto.randomUUID(),
-      postDate: date
+      postDate: date,
+      userProfileImage: profileImg
     });
 
-    event.target.reset();
+    setTitle("");
+    setText("");
+    alert("글이 등록되었습니다. ");
+    navigate("/detail");
   };
-  console.log(posts);
+
+  // 포스트 글쓰기 취소하기
+  const cancelBtnClickHandler = () => {
+    alert("글쓰기를 취소합니다.");
+    navigate("/detail");
+  };
+
   return (
     <>
       <StMain>
@@ -91,14 +119,19 @@ function PostForm() {
           <StDiv>
             제목
             <select>
-              <option value="">면접 후기</option>
-              <option value="">취업 정보</option>
-              <option value="">회사 정보 공유</option>
+              <option>면접 후기</option>
+              <option>취업 정보</option>
+              <option>회사 정보 공유</option>
             </select>
           </StDiv>
-          <input type="text" name="title" placeholder="제목을 입력해주세요." />
+          <input value={title} onChange={addTitleHandler} placeholder="제목을 입력해주세요." />
           내용
-          <input type="text" name="text" placeholder="내용을 입력해주세요." style={{ height: "200px" }} />
+          <input
+            value={text}
+            onChange={addTextHandler}
+            placeholder="내용을 입력해주세요."
+            style={{ height: "200px" }}
+          />
           <StDiv>
             <button type="button">첨부파일</button>
             파일 1. jpg
@@ -108,7 +141,9 @@ function PostForm() {
             <StBtn type="submit" onClick={addPostBtnClickHandler}>
               등록하기
             </StBtn>
-            <StBtn type="button">취소하기</StBtn>
+            <StBtn type="button" onClick={cancelBtnClickHandler}>
+              취소하기
+            </StBtn>
           </StDiv>
         </StForm>
       </StMain>
