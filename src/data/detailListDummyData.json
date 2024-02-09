@@ -6,7 +6,8 @@
     "postImage": "https://now.rememberapp.co.kr/wp-content/uploads/2022/04/%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5%E1%84%82%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%87%E1%85%A5.png",
     "postId": "1",
     "postDate": "2024-02-07",
-    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg"
+    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
+    "postCategory": "company"
   },
   {
     "userEmail": "456789@google.com",
@@ -15,7 +16,8 @@
     "postImage": "https://www.opinionnews.co.kr/news/photo/202110/56938_42713_3933.jpg",
     "postId": "2",
     "postDate": "2024-02-07",
-    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg"
+    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg",
+    "postCategory": "interview"
   },
   {
     "userEmail": "789012@naver.com",
@@ -24,6 +26,7 @@
     "postImage": "",
     "postId": "3",
     "postDate": "2024-02-07",
-    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg"
+    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg",
+    "postCategory": "workInfo"
   }
 ]
