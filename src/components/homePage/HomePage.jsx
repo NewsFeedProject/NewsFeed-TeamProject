@@ -9,9 +9,7 @@ import ListSection from "./ListSection";
 export default function HomePage() {
   return (
     <MainPage>
-      <Header />
       <HomeContents>
-        <Navbar />
         <SectionBoxs>
           <MainSection />
           <ListSectionBoxs>
