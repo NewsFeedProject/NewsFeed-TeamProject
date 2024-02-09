@@ -1,5 +1,11 @@
+import Home from "pages/Home";
+
 function App() {
-  return <>메인페이지</>;
+  return (
+    <div>
+      <Home />
+    </div>
+  );
 }
 
 export default App;
