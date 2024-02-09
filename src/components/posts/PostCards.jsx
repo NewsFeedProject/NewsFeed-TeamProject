@@ -42,6 +42,12 @@ const StImg = styled.img`
   width: 100%;
 `;
 
+const ProfileImg = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+`;
+
 function PostCards({ post }) {
   const { userEmail, postTitle, postText, postImage, postDate, userProfileImage } = post;
 
@@ -62,7 +68,7 @@ function PostCards({ post }) {
       <StLi>
         <StDivRow style={{ width: "500px", alignContent: "flex-start" }}>
           <div>
-            <img src={userProfileImage} />
+            <ProfileImg src={userProfileImage} />
           </div>
           <StDivRow>
             <StDivColume>
