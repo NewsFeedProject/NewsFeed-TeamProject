@@ -1,10 +1,13 @@
-import Home from "pages/Home";
+import PostProvider from "./context/PostContext";
+import Router from "./shared/Router";
 
 function App() {
   return (
-    <div>
-      <Home />
-    </div>
+    <>
+      <PostProvider>
+        <Router />
+      </PostProvider>
+    </>
   );
 }
 
