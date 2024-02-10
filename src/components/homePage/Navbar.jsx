@@ -1,13 +1,36 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
+import { useContext } from "react";
+import { PostContext } from "../../context/PostContext";
 
 export default function Navbar() {
   const [login, setLogin] = useState(dummyData);
   const logInedUserEmail = login.userEmail;
   const logInedUserProfil = login.userProfileImage;
   console.log(login.userProfileImage);
+
+  //카테고리 문자열 주고 핸들 서브밋 줘가지고 포스트스가 전체 데이터므로 얘내를 불러와서
+  //p 태그로 클릭했을때 콜백함수를 불러왔을때 문자열로 된 카테고리를
+  //포스트스 전체 데이터를 콜백함수로 받은 문자열이랑 전체 데이터 안에 있는 포스트 카테고리를 필터링해서
+  //필터링해서 남은 데이터만 따로 변수를 지정해주고 그거를 컨텍스트 프로바이더 벨류로 지정해놔서
+  //애초에 디테일 페이지를 필터링 된 데이터가 나오도록 만들어줌
+
+  const { category, posts, setSelectCategory } = useContext(PostContext); // category 대신 selectCategory 사용
+
+  const navigate = useNavigate();
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+  useEffect(() => {
+    const filteredPosts = posts.filter((post) => post.postCategory === category); // category로 필터링
+    setFilteredPosts(filteredPosts);
+  }, [category, posts]);
+
+  const handleCategory = (category) => {
+    setSelectCategory(category);
+    navigate("/detail");
+  };
 
   return (
     <NavBar>
@@ -26,9 +49,9 @@ export default function Navbar() {
           )}
         </CatchLoginLogout>
         <ShowMenu>
-          <p>면접후기</p>
-          <p>취업정보</p>
-          <p>회사 정보 공유</p>
+          <p onClick={() => handleCategory("interview")}>면접후기</p>
+          <p onClick={() => handleCategory("workInfo")}>취업정보</p>
+          <p onClick={() => handleCategory("company")}>회사 정보 공유</p>
         </ShowMenu>
       </div>
       <JobOpening>
@@ -37,8 +60,6 @@ export default function Navbar() {
     </NavBar>
   );
 }
-
-//면접후기, 취업정보, 회사정보공유 Link태그로 바꾸기 기억하세용
 
 const NavBar = styled.nav`
   display: flex;

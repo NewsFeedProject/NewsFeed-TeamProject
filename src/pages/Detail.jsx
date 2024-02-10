@@ -26,19 +26,18 @@ const WriteBtn = styled.button`
 `;
 function Detail() {
   const { category, posts } = useContext(PostContext);
-
-  // const sortCategoryFunction = (category) => {
-  //   switch (category) {
-  //     case "interview":
-  //       return <StP>면접 후기</StP>;
-  //     case "workInfo":
-  //       return <StP>취업 정보</StP>;
-  //     case "company":
-  //       return <StP>회사 정보 공유</StP>;
-  //     default:
-  //       return;
-  //   }
-  // };
+  const sortCategoryFunction = (category) => {
+    switch (category) {
+      case "interview":
+        return <StP>면접 후기</StP>;
+      case "workInfo":
+        return <StP>취업 정보</StP>;
+      case "company":
+        return <StP>회사 정보 공유</StP>;
+      default:
+        return;
+    }
+  };
 
   const navigate = useNavigate();
   console.log(posts);
@@ -46,7 +45,7 @@ function Detail() {
   return (
     <main>
       <StCategory>
-        <StP>면접 후기</StP>
+        <StP>{sortCategoryFunction}</StP>
         <WriteBtn
           onClick={() => {
             navigate("/detail/write");
