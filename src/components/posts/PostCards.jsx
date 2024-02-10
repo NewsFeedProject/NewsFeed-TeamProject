@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 const StLi = styled.li`
   border: 1px solid black;
@@ -49,7 +50,8 @@ const ProfileImg = styled.img`
 `;
 
 function PostCards({ post }) {
-  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage } = post;
+  const navigate = useNavigate();
+  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, postId } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
@@ -87,7 +89,13 @@ function PostCards({ post }) {
         </StDivRow>
         <StDivRow style={{ width: "500px", justifyContent: "space-between" }}>
           <div>추천 👍 댓글 : 2</div>
-          <button>상세보기</button>
+          <button
+            onClick={() => {
+              navigate(`/detail/${postId}`);
+            }}
+          >
+            상세보기
+          </button>
         </StDivRow>
       </StLi>
     </article>

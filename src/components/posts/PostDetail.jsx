@@ -17,6 +17,7 @@ const PostDetail = () => {
   //삭제기능
   const handleDelete = () => {
     if (window.confirm("정말로 삭제하시겠습니까?") === true) {
+      alert("삭제되었습니다");
       const deleteData = posts.filter((item) => item.postId !== postId);
       setPosts(deleteData);
       navigate("/detail");
@@ -39,17 +40,16 @@ const PostDetail = () => {
 
   //수정버튼
   const onEditDone = () => {
-    // 수정사항이 없을 때의 조건을 수정
     if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
       setEditingTitleError("수정사항이 없습니다.");
       setEditingContentError("수정사항이 없습니다.");
-      return; // 이후 로직 실행을 막기 위해 반환
+      return;
     } else {
       setEditingTitleError("");
       setEditingContentError("");
     }
 
-    // 수정사항이 있을 때의 로직은 그대로 유지
+    // 수정사항이 있을 때
     const answer = window.confirm("수정하시겠습니까?");
     if (!answer) return;
     alert("수정되었습니다.");
