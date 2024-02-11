@@ -33,26 +33,43 @@ const StDiv = styled.div`
 const StBtn = styled.button`
   width: 100px;
 `;
+const UploadImg = styled.img`
+  width: 300px;
+`;
 function PostForm() {
   const navigate = useNavigate();
-  const { posts, setPosts, addPostSubmit, category } = useContext(PostContext);
+  const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
+    useContext(PostContext);
+
+  /* 이미지 파일 업로드하기 */
+
+  const fileUploadHandler = (e) => {
+    const file = e.target.files[0];
+    setPostImg([...postImg, file]);
+
+    const fileRead = new FileReader();
+    fileRead.onload = () => {
+      setPreviewImg(fileRead.result);
+    };
+    fileRead.readAsDataURL(file);
+  };
 
   /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
-  // const [selectCategory, setSelectCategory] = useState("interview");
-  // const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
+  const [selectCategory, setSelectCategory] = useState("interview");
+  const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
 
-  // const selectCategoryChangeHandler = (event) => {
-  //   const selectFunc = (category) => {
-  //     if (category === "interview") {
-  //       return <option>"면접 후기"</option>;
-  //     } else if (category === "workInfo") {
-  //       return <option>"취업 정보"</option>;
-  //     } else if (category === "company") {
-  //       <option>"회사 정보 공유"</option>;
-  //     }
-  //   };
-  //   setSelectCategory(selectFunc(event.target.value));
-  // };
+  const selectCategoryChangeHandler = (event) => {
+    const selectFunc = (category) => {
+      if (category === "interview") {
+        return <option>"면접 후기"</option>;
+      } else if (category === "workInfo") {
+        return <option>"취업 정보"</option>;
+      } else if (category === "company") {
+        <option>"회사 정보 공유"</option>;
+      }
+    };
+    setSelectCategory(selectFunc(event.target.value));
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -93,7 +110,7 @@ function PostForm() {
       userEmail: "userEmail",
       postTitle: title,
       postText: text,
-      postImage: "첨부파일",
+      postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
       userProfileImage: profileImg
@@ -101,6 +118,8 @@ function PostForm() {
 
     setTitle("");
     setText("");
+    setPostImg([]);
+    setPreviewImg(null);
     alert("글이 등록되었습니다. ");
     navigate("/detail");
   };
@@ -132,9 +151,9 @@ function PostForm() {
             placeholder="내용을 입력해주세요."
             style={{ height: "200px" }}
           />
-          <StDiv>
-            <button type="button">첨부파일</button>
-            파일 1. jpg
+          <StDiv style={{ flexDirection: "column" }}>
+            <input type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
+            {previewImg && <UploadImg alt="Uploaded" src={previewImg} />}
             <button type="button">삭제</button>
           </StDiv>
           <StDiv style={{ justifyContent: "center", gap: "50px" }}>

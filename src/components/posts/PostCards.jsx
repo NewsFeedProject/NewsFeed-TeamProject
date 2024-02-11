@@ -49,8 +49,8 @@ const ProfileImg = styled.img`
 `;
 
 function PostCards({ post }) {
-  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage } = post;
-
+  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
+  console.log(postImage);
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
 
