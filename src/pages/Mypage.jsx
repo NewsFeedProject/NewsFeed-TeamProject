@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UsersContext } from "../context/UsersContext";
 import styled from "styled-components";
+import MyPostList from "../components/mypage/MyPostList";
+import Profile from "../components/mypage/Profile";
 
 function Mypage() {
   const params = useParams();
@@ -10,32 +12,18 @@ function Mypage() {
     return user.uid === params.uid;
   });
 
-  // const [userData, setUserData] = useState({
-  //   uid: params.uid,
-  //   userName: "",
-  //   userEmail: "",
-  //   userPassword: "",
-  //   userProfileImage: ""
-  // });
-  // const [emailPrefix, setEmailPrefix] = useState("");
-  // const [emailSuffix, setEmailSuffix] = useState("");
-  // const [customSuffix, setCustomSuffix] = useState("");
-  // const [isCustomSuffix, setIsCustomSuffix] = useState(true);
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [errorMessage, setErrorMessage] = useState("");
-  // const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
-  // const [profileImageFile, setProfileImageFile] = useState(null);
+  const [showPosts, setShowPosts] = useState(true);
+  const [showUserInfo, setShowUserInfo] = useState(false);
 
-  // useEffect(() => {
-  //   const currentUser = usersContext.users.find((user) => user.uid === params.uid);
-  //   setUserData(currentUser);
-  //   const [prefix, suffix] = currentUser.userEmail.split("@");
-  //   setEmailPrefix(prefix);
-  //   setEmailSuffix(suffix);
-  //   if (suffix !== "") {
-  //     setIsCustomSuffix(true);
-  //   }
-  // }, [params.uid, usersContext.users]);
+  const handlePostsClick = () => {
+    setShowPosts(true);
+    setShowUserInfo(false);
+  };
+
+  const handleUserInfoClick = () => {
+    setShowPosts(false);
+    setShowUserInfo(true);
+  };
 
   return (
     <>
@@ -46,7 +34,14 @@ function Mypage() {
         )}
         {foundUser.userEmail}님
       </div>
-      <div></div>
+      <div>
+        <button onClick={handlePostsClick}>내가 작성한 글</button>
+        <button onClick={handleUserInfoClick}>개인정보변경</button>
+      </div>
+      <div>
+        {showPosts && <MyPostList />}
+        {showUserInfo && <Profile />}
+      </div>
     </>
   );
 }
