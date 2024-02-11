@@ -13,7 +13,17 @@ const PostProvider = ({ children }) => {
     setPosts((posts) => [newpost, ...posts]);
   };
 
-  return <PostContext.Provider value={{ posts, setPosts, addPostSubmit, category }}>{children}</PostContext.Provider>;
+  /* 글 쓰기 - img 추가하기 */
+  const [postImg, setPostImg] = useState([]);
+  const [previewImg, setPreviewImg] = useState(null);
+
+  return (
+    <PostContext.Provider
+      value={{ posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg }}
+    >
+      {children}
+    </PostContext.Provider>
+  );
 };
 
 export default PostProvider;
