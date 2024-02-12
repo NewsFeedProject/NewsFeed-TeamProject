@@ -51,7 +51,7 @@ const ProfileImg = styled.img`
 
 function PostCards({ post }) {
   const navigate = useNavigate();
-  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, postId } = post;
+  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, postId, postCategory } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
@@ -91,7 +91,7 @@ function PostCards({ post }) {
           <div>추천 👍 댓글 : 2</div>
           <button
             onClick={() => {
-              navigate(`/detail/${postId}`);
+              navigate(`/category/${postCategory}/${postId}`);
             }}
           >
             상세보기

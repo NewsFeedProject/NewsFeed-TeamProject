@@ -17,19 +17,10 @@ export default function Navbar() {
   //필터링해서 남은 데이터만 따로 변수를 지정해주고 그거를 컨텍스트 프로바이더 벨류로 지정해놔서
   //애초에 디테일 페이지를 필터링 된 데이터가 나오도록 만들어줌
 
-  const { category, posts, setSelectCategory } = useContext(PostContext); // category 대신 selectCategory 사용
-
   const navigate = useNavigate();
-  const [filteredPosts, setFilteredPosts] = useState([]);
-
-  useEffect(() => {
-    const filteredPosts = posts.filter((post) => post.postCategory === category); // category로 필터링
-    setFilteredPosts(filteredPosts);
-  }, [category, posts]);
 
   const handleCategory = (category) => {
-    setSelectCategory(category);
-    navigate("/detail");
+    navigate(`/category/${category}`); // 클릭한 카테고리에 해당하는 디테일 페이지로 이동
   };
 
   return (

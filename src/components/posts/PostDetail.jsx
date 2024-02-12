@@ -10,6 +10,7 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const [postCard] = posts.filter((item) => item.postId === postId);
   const postUser = postCard.userEmail;
+  const { postCategory } = useParams();
 
   const splitUserEmail = postUser.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
@@ -20,7 +21,7 @@ const PostDetail = () => {
       alert("삭제되었습니다");
       const deleteData = posts.filter((item) => item.postId !== postId);
       setPosts(deleteData);
-      navigate("/detail");
+      navigate(`/category/${postCategory}`);
     }
   };
 
@@ -79,7 +80,7 @@ const PostDetail = () => {
       <DetailTiTle>
         <LinkGoHome
           onClick={() => {
-            navigate("/detail");
+            navigate(`/category/${postCategory}`);
           }}
         >
           뒤로가기

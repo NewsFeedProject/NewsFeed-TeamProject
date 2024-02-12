@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import PostList from "../components/posts/PostList";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PostContext } from "../context/PostContext";
 
 const StCategory = styled.div`
@@ -25,27 +25,45 @@ const WriteBtn = styled.button`
   font-size: larger;
 `;
 function Detail() {
-  const { category, posts } = useContext(PostContext);
-  const sortCategoryFunction = (category) => {
-    switch (category) {
+  const navigate = useNavigate();
+  const { posts } = useContext(PostContext);
+  const { postCategory } = useParams();
+
+  console.log(postCategory);
+
+  // const sortCategoryFunction = (category) => {
+  //   switch (category) {
+  //     case "interview":
+  //       return <StP>면접 후기</StP>;
+  //     case "workInfo":
+  //       return <StP>취업 정보</StP>;
+  //     case "company":
+  //       return <StP>회사 정보 공유</StP>;
+  //     default:
+  //       return;
+  //   }
+  // };
+
+  const [selectCategory, setSelectCategory] = useState("");
+  useEffect(() => {
+    switch (postCategory) {
       case "interview":
-        return <StP>면접 후기</StP>;
+        return setSelectCategory("면접 후기");
       case "workInfo":
-        return <StP>취업 정보</StP>;
+        return setSelectCategory("취업 정보");
       case "company":
-        return <StP>회사 정보 공유</StP>;
+        return setSelectCategory("회사 정보 공유");
       default:
         return;
     }
-  };
+  }, [postCategory]);
 
-  const navigate = useNavigate();
-  console.log(posts);
+  const filteredPostsCategory = posts.filter((post) => post.postCategory === postCategory);
 
   return (
     <main>
       <StCategory>
-        <StP>{sortCategoryFunction}</StP>
+        <StP>{selectCategory}</StP>
         <WriteBtn
           onClick={() => {
             navigate("/detail/write");
@@ -55,7 +73,7 @@ function Detail() {
         </WriteBtn>
       </StCategory>
       <br />
-      <PostList />
+      <PostList posts={filteredPostsCategory} />
     </main>
   );
 }
