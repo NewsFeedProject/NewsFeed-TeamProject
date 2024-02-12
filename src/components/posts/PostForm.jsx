@@ -22,6 +22,12 @@ const StForm = styled.form`
 
   padding: 50px;
   width: 400px;
+
+  & input,
+  textarea {
+    padding: 5px;
+    border-radius: 10px;
+  }
 `;
 
 const StDiv = styled.div`
@@ -35,7 +41,9 @@ const StBtn = styled.button`
 `;
 const UploadImg = styled.img`
   width: 300px;
+  padding: 10px;
 `;
+
 function PostForm() {
   const navigate = useNavigate();
   const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
@@ -60,27 +68,11 @@ function PostForm() {
     setPreviewImg(null);
   };
 
-  // /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
-  // const [selectCategory, setSelectCategory] = useState("interview");
-  // const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
-
-  // const selectCategoryChangeHandler = (event) => {
-  //   const selectFunc = (category) => {
-  //     if (category === "interview") {
-  //       return <option>"면접 후기"</option>;
-  //     } else if (category === "workInfo") {
-  //       return <option>"취업 정보"</option>;
-  //     } else if (category === "company") {
-  //       <option>"회사 정보 공유"</option>;
-  //     }
-  //   };
-  //   setSelectCategory(selectFunc(event.target.value));
-  // };
-
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-  // };
-
+  /* 카테고리 선택하기 */
+  const [selectCategory, setSelectCategory] = useState("면접후기");
+  const onSelectHandler = (event) => {
+    setSelectCategory(event.target.value);
+  };
   /* 포스트 글 추가하기 */
 
   const [title, setTitle] = useState("");
@@ -119,7 +111,8 @@ function PostForm() {
       postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: profileImg
+      userProfileImage: profileImg,
+      postCategory: selectCategory
     });
 
     setTitle("");
@@ -129,6 +122,7 @@ function PostForm() {
     alert("글이 등록되었습니다. ");
     navigate("/detail");
   };
+  console.log(posts);
 
   // 포스트 글쓰기 취소하기
   const cancelBtnClickHandler = () => {
@@ -143,7 +137,7 @@ function PostForm() {
         <StForm>
           <StDiv>
             제목
-            <select>
+            <select onChange={onSelectHandler} value={selectCategory}>
               <option>면접 후기</option>
               <option>취업 정보</option>
               <option>회사 정보 공유</option>
@@ -151,10 +145,11 @@ function PostForm() {
           </StDiv>
           <input value={title} onChange={addTitleHandler} placeholder="제목을 입력해주세요." />
           내용
-          <input
+          <textarea
             value={text}
             onChange={addTextHandler}
-            placeholder="내용을 입력해주세요."
+            placeholder="최대 300자까지 입력 가능합니다."
+            maxLength={300}
             style={{ height: "200px" }}
           />
           <StDiv style={{ flexDirection: "column" }}>
