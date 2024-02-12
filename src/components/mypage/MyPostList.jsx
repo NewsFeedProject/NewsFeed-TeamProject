@@ -2,6 +2,7 @@ import { UsersContext } from "../../context/UsersContext";
 import { PostContext } from "../../context/PostContext";
 import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router";
+import styled from "styled-components";
 
 function MyPostList() {
   const navigate = useNavigate();
@@ -20,23 +21,22 @@ function MyPostList() {
         ) : (
           filteredPost.map((post) => {
             return (
-              <div
+              <StMyPost
                 key={post.postId}
-                style={{ border: "1px solid green", padding: "20px" }}
                 onClick={() => {
                   navigate(`/detail/${post.postId}`);
                 }}
               >
-                <div style={{ border: "1px solid green", borderRadius: "10px", width: "150px", padding: "10px" }}>
+                <StPostCategory>
                   {post.postCategory === "interview"
                     ? "면접후기"
                     : post.postCategory === "workInfo"
                     ? "취업정보"
                     : "회사 정보 공유"}
-                </div>
-                <p>{post.postTitle}</p>
-                <p>{post.postText}</p>
-              </div>
+                </StPostCategory>
+                <StP>{post.postTitle}</StP>
+                <StP>{post.postText}</StP>
+              </StMyPost>
             );
           })
         )}
@@ -46,3 +46,24 @@ function MyPostList() {
 }
 
 export default MyPostList;
+
+const StMyPost = styled.div`
+  margin: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+`;
+
+const StPostCategory = styled.div`
+  text-align: center;
+  width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  background-color: #d9d9d9;
+`;
+
+const StP = styled.p`
+  margin: 10px 0;
+  line-height: 24px;
+  font-size: 16px;
+`;
