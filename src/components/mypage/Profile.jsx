@@ -1,6 +1,7 @@
 import { UsersContext } from "../../context/UsersContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import styled from "styled-components";
 
 function Profile() {
   const params = useParams();
@@ -110,23 +111,20 @@ function Profile() {
   };
 
   return (
-    <>
-      <div>Profile</div>
+    <ProfileArea>
       <form onSubmit={handleSubmit}>
         <div>
-          프로필 사진*
-          {foundUser.userProfileImage && (
-            <img style={{ width: "50px", height: "50px" }} src={userData.userProfileImage} alt="프로필 이미지" />
-          )}
+          프로필 사진<StSpan>*&nbsp;</StSpan>
+          {foundUser.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />}
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
-        <div>
-          이름*
-          <input type="text" name="userName" value={foundUser.userName} onChange={handleInputChange} required />
-        </div>
-        <div>
-          아이디*
-          <input type="text" name="emailPrefix" value={emailPrefix} onChange={handleInputChange} required />
+        <StDiv>
+          이름<StSpan>*&nbsp;</StSpan>
+          <StInput type="text" name="userName" value={foundUser.userName} onChange={handleInputChange} required />
+        </StDiv>
+        <StDiv>
+          아이디<StSpan>*&nbsp;</StSpan>
+          <StInput type="text" name="emailPrefix" value={emailPrefix} onChange={handleInputChange} required />
           @
           <input type="text" name="emailSuffix" value={emailSuffix} onChange={handleInputChange} required />
           <select value={isCustomSuffix ? "직접 입력" : emailSuffix} onChange={handleSelectChange}>
@@ -140,28 +138,50 @@ function Profile() {
             중복 확인
           </button>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        </div>
+        </StDiv>
 
-        <div>
-          비밀번호*
-          <input
+        <StDiv>
+          비밀번호<StSpan>*&nbsp;</StSpan>
+          <StInput
             type="password"
             name="userPassword"
             value={userData.userPassword}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div>
-          비밀번호 재확인*
-          <input type="password" onChange={(event) => setConfirmPassword(event.target.value)} required />
-        </div>
-        <div>
-          <button type="submit">정보 수정</button>
-        </div>
+        </StDiv>
+        <StDiv>
+          비밀번호 재확인<StSpan>*&nbsp;</StSpan>
+          <StInput type="password" onChange={(event) => setConfirmPassword(event.target.value)} required />
+        </StDiv>
+        <StDiv>
+          <button type="submit">변경하기</button>
+        </StDiv>
       </form>
-    </>
+    </ProfileArea>
   );
 }
 
 export default Profile;
+
+const ProfileArea = styled.div`
+  padding: 10px 0 10px 20px;
+`;
+
+const StImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+
+const StDiv = styled.div`
+  margin-top: 20px;
+`;
+
+const StInput = styled.input`
+  border: 1px solid black;
+  border-radius: 10px;
+`;
+
+const StSpan = styled.span`
+  color: red;
+`;
