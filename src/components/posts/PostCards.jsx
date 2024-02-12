@@ -1,6 +1,10 @@
 import styled from "styled-components";
-
-const StLi = styled.li`
+const ListWrapper = styled.article`
+  display: flex;
+  justify-content: center;
+`;
+const List = styled.li`
+  width: 800px;
   border: 1px solid black;
   border-radius: 10px;
 
@@ -16,6 +20,27 @@ const StLi = styled.li`
 
   overflow: hidden;
 `;
+const TopContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+
+  width: auto;
+`;
+
+const BottomContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 500px;
+  margin: 5px;
+  padding: 5px;
+
+  width: auto;
+`;
 
 const StDivRow = styled.div`
   display: flex;
@@ -25,15 +50,22 @@ const StDivRow = styled.div`
   margin: 5px;
   padding: 5px;
 `;
-const StDivColume = styled.div`
+
+const ContentContaniner = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+`;
+const NickName = styled.div`
+  gap: 150px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
-
 const StImgContainer = styled.div`
-  width: 500px;
+  width: 200px;
 
   overflow: hidden;
 `;
@@ -48,9 +80,38 @@ const ProfileImg = styled.img`
   border-radius: 50%;
 `;
 
+const Content = styled.p`
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  margin: 10px;
+`;
+
+const Title = styled.p`
+  font-size: larger;
+  margin: 10px;
+`;
+
+const ClickBtn = styled.button`
+  border-color: transparent;
+  background-color: lightgray;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+  }
+`;
+
 function PostCards({ post }) {
   const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
-  console.log(postImage);
+
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
 
@@ -64,33 +125,32 @@ function PostCards({ post }) {
   });
 
   return (
-    <article>
-      <StLi>
-        <StDivRow style={{ width: "500px", alignContent: "flex-start" }}>
+    <ListWrapper>
+      <List>
+        <TopContainer>
           <div>
             <ProfileImg src={userProfileImage} />
           </div>
           <StDivRow>
-            <StDivColume>
-              <StDivRow style={{ gap: "10px" }}>
+            <ContentContaniner>
+              <NickName>
                 <span>{userNickname}</span>
                 <span>{formattedDate}</span>
-              </StDivRow>
-              <p>{postTitle}</p>
-              <p>{postText}</p>
-            </StDivColume>
+              </NickName>
+              <Title>{postTitle}</Title>
+              <Content>{postText}</Content>
+            </ContentContaniner>
             <StImgContainer>
               <StImg src={postImage} />
             </StImgContainer>
-            <div>⭐️</div>
           </StDivRow>
-        </StDivRow>
-        <StDivRow style={{ width: "500px", justifyContent: "space-between" }}>
+        </TopContainer>
+        <BottomContainer>
           <div>추천 👍 댓글 : 2</div>
-          <button>상세보기</button>
-        </StDivRow>
-      </StLi>
-    </article>
+          <ClickBtn>상세보기</ClickBtn>
+        </BottomContainer>
+      </List>
+    </ListWrapper>
   );
 }
 
