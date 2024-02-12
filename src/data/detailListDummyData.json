@@ -7,7 +7,7 @@
     "postId": "1",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
-    "postCategory": "company"
+    "postCategory": "회사 정보 공유"
   },
   {
     "userEmail": "456789@google.com",
@@ -17,7 +17,7 @@
     "postId": "2",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg",
-    "postCategory": "interview"
+    "postCategory": "면접 후기"
   },
   {
     "userEmail": "789012@naver.com",
@@ -27,6 +27,6 @@
     "postId": "3",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg",
-    "postCategory": "workInfo"
+    "postCategory": "취업 정보"
   }
 ]
