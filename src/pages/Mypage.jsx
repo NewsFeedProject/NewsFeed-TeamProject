@@ -38,7 +38,7 @@ function Mypage() {
         <button onClick={handlePostsClick}>내가 작성한 글</button>
         <button onClick={handleUserInfoClick}>개인정보변경</button>
       </div>
-      <div>
+      <div style={{ border: "1px solid black", padding: "10px", margin: "10px 20px" }}>
         {showPosts && <MyPostList />}
         {showUserInfo && <Profile />}
       </div>
