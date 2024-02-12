@@ -26,24 +26,61 @@ function Mypage() {
   };
 
   return (
-    <>
-      <h3>Mypage</h3>
+    <MypageArea>
+      <StUser>
+        {foundUser.userProfileImage && <StImg src={foundUser.userProfileImage} alt="프로필 이미지" />}
+        <StUserNickName>{foundUser.userEmail}님</StUserNickName>
+      </StUser>
       <div>
-        {foundUser.userProfileImage && (
-          <img style={{ width: "50px", height: "50px" }} src={foundUser.userProfileImage} alt="프로필 이미지" />
-        )}
-        {foundUser.userEmail}님
+        <StMypageBtn selected={showPosts} onClick={handlePostsClick}>
+          내가 작성한 글
+        </StMypageBtn>
+        <StMypageBtn selected={showUserInfo} onClick={handleUserInfoClick}>
+          개인정보변경
+        </StMypageBtn>
       </div>
-      <div>
-        <button onClick={handlePostsClick}>내가 작성한 글</button>
-        <button onClick={handleUserInfoClick}>개인정보변경</button>
-      </div>
-      <div style={{ border: "1px solid black", padding: "10px", margin: "10px 20px" }}>
+      <ContentArea>
         {showPosts && <MyPostList />}
         {showUserInfo && <Profile />}
-      </div>
-    </>
+      </ContentArea>
+    </MypageArea>
   );
 }
 
 export default Mypage;
+const MypageArea = styled.div`
+  margin: 50px;
+`;
+
+const StUser = styled.div`
+  margin-bottom: 25px;
+  display: flex;
+`;
+
+const StImg = styled.img`
+  width: 50px;
+  border-radius: 50%;
+`;
+
+const StUserNickName = styled.p`
+  margin: 15px 0 0 25px;
+`;
+
+const StMypageBtn = styled.button`
+  margin: 0 15px 25px 0;
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  color: ${(props) => (props.selected ? "red" : "#333")};
+  text-align: center;
+
+  &:hover {
+    color: red;
+  }
+`;
+
+const ContentArea = styled.div`
+  border: 1px solid black;
+  border-radius: 20px;
+`;

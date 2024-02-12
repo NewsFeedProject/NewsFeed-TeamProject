@@ -14,18 +14,19 @@ function MyPostList() {
   const filteredPost = posts.filter((post) => post.userEmail === foundUser.userEmail);
   return (
     <>
-      <div>MyPostList</div>
-      <div
-        onClick={() => {
-          navigate(`/detail/${post.postId}`);
-        }}
-      >
+      <div>
         {filteredPost.length === 0 ? (
           <p>면접 후기를 남겨주세요!</p>
         ) : (
           filteredPost.map((post) => {
             return (
-              <div key={post.postId} style={{ border: "1px solid green", padding: "20px" }}>
+              <div
+                key={post.postId}
+                style={{ border: "1px solid green", padding: "20px" }}
+                onClick={() => {
+                  navigate(`/detail/${post.postId}`);
+                }}
+              >
                 <div style={{ border: "1px solid green", borderRadius: "10px", width: "150px", padding: "10px" }}>
                   {post.postCategory === "interview"
                     ? "면접후기"
