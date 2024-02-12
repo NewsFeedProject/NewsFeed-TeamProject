@@ -54,26 +54,32 @@ function PostForm() {
     fileRead.readAsDataURL(file);
   };
 
-  /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
-  const [selectCategory, setSelectCategory] = useState("interview");
-  const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
-
-  const selectCategoryChangeHandler = (event) => {
-    const selectFunc = (category) => {
-      if (category === "interview") {
-        return <option>"면접 후기"</option>;
-      } else if (category === "workInfo") {
-        return <option>"취업 정보"</option>;
-      } else if (category === "company") {
-        <option>"회사 정보 공유"</option>;
-      }
-    };
-    setSelectCategory(selectFunc(event.target.value));
+  /* 이미지 파일 삭제하기 */
+  const deleteImgFileHandler = () => {
+    setPostImg([]);
+    setPreviewImg(null);
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-  };
+  // /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
+  // const [selectCategory, setSelectCategory] = useState("interview");
+  // const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
+
+  // const selectCategoryChangeHandler = (event) => {
+  //   const selectFunc = (category) => {
+  //     if (category === "interview") {
+  //       return <option>"면접 후기"</option>;
+  //     } else if (category === "workInfo") {
+  //       return <option>"취업 정보"</option>;
+  //     } else if (category === "company") {
+  //       <option>"회사 정보 공유"</option>;
+  //     }
+  //   };
+  //   setSelectCategory(selectFunc(event.target.value));
+  // };
+
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  // };
 
   /* 포스트 글 추가하기 */
 
@@ -134,7 +140,7 @@ function PostForm() {
     <>
       <StMain>
         <Link to="/">홈으로</Link>
-        <StForm onSubmit={submitHandler}>
+        <StForm>
           <StDiv>
             제목
             <select>
@@ -154,7 +160,9 @@ function PostForm() {
           <StDiv style={{ flexDirection: "column" }}>
             <input type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
             {previewImg && <UploadImg alt="Uploaded" src={previewImg} />}
-            <button type="button">삭제</button>
+            <button type="button" onClick={deleteImgFileHandler}>
+              삭제
+            </button>
           </StDiv>
           <StDiv style={{ justifyContent: "center", gap: "50px" }}>
             <StBtn type="submit" onClick={addPostBtnClickHandler}>
