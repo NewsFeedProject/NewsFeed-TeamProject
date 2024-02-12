@@ -64,8 +64,8 @@ function Profile() {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
     setProfileImageFile(file);
   };
 
@@ -116,7 +116,7 @@ function Profile() {
         <div>
           프로필 사진<StSpan>*&nbsp;</StSpan>
           {foundUser.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />}
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <input type="file" accept="image/*" onChange={handleImageChange} style={{ marginLeft: "10px" }} />
         </div>
         <StDiv>
           이름<StSpan>*&nbsp;</StSpan>
@@ -124,19 +124,19 @@ function Profile() {
         </StDiv>
         <StDiv>
           아이디<StSpan>*&nbsp;</StSpan>
-          <StInput type="text" name="emailPrefix" value={emailPrefix} onChange={handleInputChange} required />
-          @
-          <input type="text" name="emailSuffix" value={emailSuffix} onChange={handleInputChange} required />
-          <select value={isCustomSuffix ? "직접 입력" : emailSuffix} onChange={handleSelectChange}>
+          <StInputEmail type="text" name="emailPrefix" value={emailPrefix} onChange={handleInputChange} required />
+          &nbsp;@&nbsp;
+          <StInputEmail type="text" name="emailSuffix" value={emailSuffix} onChange={handleInputChange} required />
+          <StSelect value={isCustomSuffix ? "직접 입력" : emailSuffix} onChange={handleSelectChange}>
             <option value="직접 입력">직접 입력</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="yahoo.com">yahoo.com</option>
             <option value="hotmail.com">hotmail.com</option>
-          </select>
-          <button type="button" onClick={handleDuplicateCheck}>
+          </StSelect>
+          <StDuplicateCheckBtn type="button" onClick={handleDuplicateCheck}>
             중복 확인
-          </button>
+          </StDuplicateCheckBtn>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </StDiv>
 
@@ -154,9 +154,9 @@ function Profile() {
           비밀번호 재확인<StSpan>*&nbsp;</StSpan>
           <StInput type="password" onChange={(event) => setConfirmPassword(event.target.value)} required />
         </StDiv>
-        <StDiv>
-          <button type="submit">변경하기</button>
-        </StDiv>
+        <StSubmit>
+          <StSubmitBtn type="submit">변경하기</StSubmitBtn>
+        </StSubmit>
       </form>
     </ProfileArea>
   );
@@ -178,10 +178,44 @@ const StDiv = styled.div`
 `;
 
 const StInput = styled.input`
-  border: 1px solid black;
+  border: 1px solid #8f8f8f;
   border-radius: 10px;
+`;
+
+const StInputEmail = styled.input`
+  width: 130px;
+  border: 1px solid #8f8f8f;
+  border-radius: 10px;
+`;
+
+const StSelect = styled.select`
+  margin-left: 5px;
+  padding: 3px;
+  width: 130px;
+  border: 1px solid #8f8f8f;
+`;
+
+const StDuplicateCheckBtn = styled.button`
+  margin-left: 10px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  background-color: #d9d9d9;
 `;
 
 const StSpan = styled.span`
   color: red;
+`;
+
+const StSubmit = styled.div`
+  margin-top: 20px;
+  text-align: center;
+`;
+
+const StSubmitBtn = styled.button`
+  width: 200px;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  background-color: #d9d9d9;
 `;

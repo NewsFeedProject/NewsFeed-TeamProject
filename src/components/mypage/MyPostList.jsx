@@ -17,7 +17,7 @@ function MyPostList() {
     <>
       <div>
         {filteredPost.length === 0 ? (
-          <p>면접 후기를 남겨주세요!</p>
+          <StNotice>{foundUser.userName} 님의 면접후기 / 취업정보를 남겨주세요!</StNotice>
         ) : (
           filteredPost.map((post) => {
             return (
@@ -46,6 +46,10 @@ function MyPostList() {
 }
 
 export default MyPostList;
+
+const StNotice = styled.p`
+  margin: 30px;
+`;
 
 const StMyPost = styled.div`
   margin: 20px;
