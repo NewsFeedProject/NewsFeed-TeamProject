@@ -12,6 +12,9 @@ function LoginContextProvider({ children }) {
   const [userInfo, setUserInfo] = useState([]);
   // google API 값
   const [gData, setGData] = useState(googleData.web);
+
+
+
   return (
     <LoginContext.Provider value={{
       userEmail,

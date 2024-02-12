@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StarStyle } from 'styles/common'
 import profileUser from 'assets/images/profile-user.png'
 import styled from 'styled-components'
 import { LoginContext } from 'context/LoginContext'
 import { SingUpContext } from 'context/SingUpContext'
 import { useNavigate } from 'react-router'
+import { db } from 'data/firebase'
+import { collection, addDoc } from 'firebase/firestore';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -31,6 +33,22 @@ function SignUp() {
     setCheckBox,
   } = useContext(SingUpContext);
 
+  useEffect(() => {
+    console.log('userInfo:', userInfo);
+    const temp = async (userInfo) => {
+      try {
+        const usersCollection = collection(db, 'users');
+        const doc = await addDoc(usersCollection, {
+          "userInfo": userInfo,
+        });
+        console.log("Document written with ID: ", doc.id);
+      } catch (e) {
+        console.error("Error adding document ");
+      }
+    };
+    temp(userInfo);
+  }, [userInfo]);
+
   const imgChangeHandler = (e) => {
     setImgURL(e.target.value);
   }
@@ -52,6 +70,10 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   }
+
+
+
+
   const singUpClickHandler = (e) => {
     e.preventDefault();
     if (!userId) {
@@ -79,22 +101,33 @@ function SignUp() {
     }
     setUserEmail(`${userId}@${userMail}`);
     const newUserInfo = {
-      userEmail,
-      userPassword,
-      userName,
+      userEmail: userEmail,
+      userPassword: userPassword,
+      userName: userName,
       userProfileImage: imgURL,
     }
     setUserInfo((prev) => [...prev, newUserInfo]);
     navigate('/');
+    setCheckBox(false);
+
   }
   const DuplicateCheck = (e) => {
     e.preventDefault();
-    setUserEmail(`${userId}@${userMail}`);
-    const checked = userInfo.map((item) => {
-      item.userEmail === userEmail ? alert("중복되는게 없어요!") : alert("중복됩니다 다시 입력해주세요!");
-    })
-    return checked;
+    const newEmail = `${userId}@${userMail}`;
+    setUserEmail(newEmail);
+
+    const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
+    if (isDuplicate) {
+      alert("중복됩니다. 다시 입력해주세요!");
+      setUserId('');
+      setUserMail('');
+    } else {
+      alert("중복되는게 없어요!");
+    }
+    return isDuplicate;
   }
+
+
   return (
     <SingUpWrap>
       <SignUpForm>

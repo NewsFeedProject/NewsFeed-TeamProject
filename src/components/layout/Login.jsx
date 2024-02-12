@@ -3,14 +3,19 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GoogleLoginBtn from 'components/layout/GoogleLoginBtn';
 import { Link } from 'react-router-dom';
+import { SingUpContext } from 'context/SingUpContext';
 
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
+  const { userName, imgURL } = useContext(SingUpContext);
   const onClickHandler = (e) => {
     e.preventDefault();
+    // 파이어베이스 데이터 비교 로직으로 대체
     const newUserInfo = {
       userEmail,
       userPassword,
+      userName: userName,
+      userProfileImage: imgURL,
     }
     setUserInfo((prev) => [...prev, newUserInfo]);
   }
