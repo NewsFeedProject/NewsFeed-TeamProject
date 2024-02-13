@@ -49,6 +49,12 @@ function PostForm() {
   const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
 
+  /* 데이터 추가하기 */
+  // const addPost = async (event) =>{
+  //   event.preventDefault()
+  //   const newPost = {}
+  // }
+
   /* 이미지 파일 업로드하기 */
 
   const fileUploadHandler = (e) => {
@@ -124,7 +130,6 @@ function PostForm() {
     alert("글이 등록되었습니다. ");
     navigate(-1);
   };
-  console.log(posts);
 
   // 포스트 글쓰기 취소하기
   const cancelBtnClickHandler = () => {

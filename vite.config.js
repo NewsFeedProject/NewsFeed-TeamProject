@@ -18,7 +18,6 @@ export default defineConfig({
       { find: "context", replacement: "/src/context" },
       { find: "rootPages", replacement: "/src/rootPages" },
       { find: "mypage", replacement: "/src/mypage" },
-      { find: "posts", replacement: "/src/posts" },
     ]
   }
 });
