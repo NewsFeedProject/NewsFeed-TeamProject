@@ -11,7 +11,6 @@ import Interview from "../rootPages/Interview";
 import WorkInfo from "../rootPages/WorkInfo";
 import CompanyInfo from "../rootPages/CompanyInfo";
 
-
 const router = createBrowserRouter([
   {
     path: "/",

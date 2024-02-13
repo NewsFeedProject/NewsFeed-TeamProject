@@ -30,32 +30,23 @@ const WriteBtn = styled.button`
     font-weight: 600;
   }
 `;
-function Detail() {
-  const { category, posts } = useContext(PostContext);
-  const { userInfo } = useContext(LoginContext);
-
+function Detail({ category }) {
   const navigate = useNavigate();
 
   return (
     <main>
       <StCategory>
-        <StP>면접 후기</StP>
-        {userInfo ? (
-          <WriteBtn
-            onClick={() => {
-              navigate("/detail/write");
-            }}
-          >
-            글쓰기
-          </WriteBtn>
-        ) : (
-          <div>
-            <Login />
-          </div>
-        )}
+        <StP>{category}</StP>
+        <WriteBtn
+          onClick={() => {
+            navigate("/write");
+          }}
+        >
+          글쓰기
+        </WriteBtn>
       </StCategory>
       <br />
-      <PostList />
+      <PostList category={category} />
     </main>
   );
 }

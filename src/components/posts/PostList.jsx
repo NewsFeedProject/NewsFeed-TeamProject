@@ -2,16 +2,16 @@ import { useContext } from "react";
 import { PostContext } from "context/PostContext";
 import PostCards from "./PostCards";
 
-function PostList() {
+function PostList({ category }) {
   const { posts } = useContext(PostContext);
   const filteredPost = posts.filter((post) => {
-    post.postCategory === "면접 후기";
-    console.log(post.postCategory);
+    return post.postCategory === category;
   });
+  console.log(filteredPost);
   return (
     <>
       <ul>
-        {posts.map((post) => {
+        {filteredPost.map((post) => {
           return <PostCards key={post.postId} post={post} />;
         })}
       </ul>
