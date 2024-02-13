@@ -8,19 +8,21 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { GithubButton } from 'components/layout/GithubBtn';
 
 function Login() {
-  const { userEmail, setUserEmail, userPassword, setUserPassword, userInfo } = useContext(LoginContext);
-  const singInLogInFunction = async (userInfo) => {
+  const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
+  const singInLogInFunction = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        userInfo.userEmail,
-        userInfo.userPassword
+        userEmail,
+        userPassword
       );
       console.log("user with signIn", userCredential.user);
     } catch (error) {
       console.log(error);
     }
   };
+  console.log("Email-->", userEmail);
+  console.log("Password-->", userPassword);
   const onClickHandler = (e) => {
     e.preventDefault();
     // 파이어베이스 데이터 비교 로직으로 대체
@@ -31,7 +33,7 @@ function Login() {
     //   userProfileImage: imgURL,
     // }
     // setUserInfo((prev) => [...prev, newUserInfo]);
-    singInLogInFunction(userInfo);
+    singInLogInFunction();
   }
 
   return (

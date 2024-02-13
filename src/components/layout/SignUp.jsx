@@ -60,8 +60,8 @@ function SignUp() {
     try {
       const createdUser = await createUserWithEmailAndPassword(
         auth,
-        userInfo.userEmail,
-        userInfo.userPassword
+        userEmail,
+        userPassword
       );
       const updateProfile = await updateProfile(auth.currentUser, {
         displayName: userInfo.userName,
