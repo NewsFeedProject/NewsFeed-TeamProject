@@ -11,6 +11,7 @@ import SignUp from "components/login/SignUp";
 import Interview from "rootPages/Interview";
 import WorkInfo from "rootPages/WorkInfo";
 import CompanyInfo from "rootPages/CompanyInfo";
+import PostDetail from "../components/posts/PostDetail";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
       { path: "companyInfo", element: <CompanyInfo /> },
       { path: "signup", element: <SignUp /> },
       { path: "mypage/:uid", element: <Mypage /> },
-      { path: "detail", element: <Detail /> }
+      { path: "detail", element: <Detail /> },
+      { path: "postdetail/:id", element: <PostDetail /> }
     ]
   },
   {
