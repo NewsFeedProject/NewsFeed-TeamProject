@@ -1,34 +1,32 @@
 import { LoginContext } from "context/LoginContext";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import GoogleLoginBtn from "components/layout/GoogleLoginBtn";
+import GoogleLoginBtn from "components/login/GoogleLoginBtn";
 import { Link } from "react-router-dom";
 import { auth } from "data/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { GithubButton } from "components/layout/GithubBtn";
+import { GithubButton } from "components/login/GithubBtn";
 
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
+
+  useEffect(() => {
+    // login 어찌해야할까?
+    const user = auth.currentUser;
+    console.log(user);
+  }, []);
+
   const singInLogInFunction = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
-  console.log("Email-->", userEmail);
-  console.log("Password-->", userPassword);
   const onClickHandler = (e) => {
     e.preventDefault();
-    // 파이어베이스 데이터 비교 로직으로 대체
-    // const newUserInfo = {
-    //   userEmail,
-    //   userPassword,
-    //   userName: userName,
-    //   userProfileImage: imgURL,
-    // }
-    // setUserInfo((prev) => [...prev, newUserInfo]);
+
     singInLogInFunction();
   };
 

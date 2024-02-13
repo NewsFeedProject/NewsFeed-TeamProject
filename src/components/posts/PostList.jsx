@@ -8,7 +8,7 @@ function PostList({ category }) {
   const filteredPost = posts.filter((post) => {
     return post.postCategory === category;
   });
-  // console.log(filteredPost);
+
   return (
     <>
       <ul>

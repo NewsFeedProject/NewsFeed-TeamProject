@@ -6,8 +6,8 @@ import Mypage from "pages/Mypage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Login from "components/layout/Login";
-import SignUp from "components/layout/SignUp";
+import Login from "components/login/Login";
+import SignUp from "components/login/SignUp";
 import Interview from "rootPages/Interview";
 import WorkInfo from "rootPages/WorkInfo";
 import CompanyInfo from "rootPages/CompanyInfo";
