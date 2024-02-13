@@ -28,8 +28,8 @@ export default function Navbar() {
           )}
         </CatchLoginLogout>
         <ShowMenu>
-          <Link to="/detail">면접후기</Link>
-          <Link to="/detail">취업정보</Link>
+          <Link to="/interView">면접후기</Link>
+          <Link to="/workInfo">취업정보</Link>
           <Link to="/detail">회사 정보 공유</Link>
         </ShowMenu>
       </div>
