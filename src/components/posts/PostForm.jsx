@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
@@ -22,6 +22,12 @@ const StForm = styled.form`
 
   padding: 50px;
   width: 400px;
+
+  & input,
+  textarea {
+    padding: 5px;
+    border-radius: 10px;
+  }
 `;
 
 const StDiv = styled.div`
@@ -33,29 +39,39 @@ const StDiv = styled.div`
 const StBtn = styled.button`
   width: 100px;
 `;
+const UploadImg = styled.img`
+  width: 300px;
+  padding: 10px;
+`;
+
 function PostForm() {
   const navigate = useNavigate();
-  const { posts, setPosts, addPostSubmit, category } = useContext(PostContext);
+  const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
+    useContext(PostContext);
 
-  /* 카테고리 클릭 시, 해당 포스트만 뜨기 */
-  // const [selectCategory, setSelectCategory] = useState("interview");
-  // const categories = ["면접 후기", "취업 정보", "회사 정보 공유"];
+  /* 이미지 파일 업로드하기 */
 
-  // const selectCategoryChangeHandler = (event) => {
-  //   const selectFunc = (category) => {
-  //     if (category === "interview") {
-  //       return <option>"면접 후기"</option>;
-  //     } else if (category === "workInfo") {
-  //       return <option>"취업 정보"</option>;
-  //     } else if (category === "company") {
-  //       <option>"회사 정보 공유"</option>;
-  //     }
-  //   };
-  //   setSelectCategory(selectFunc(event.target.value));
-  // };
+  const fileUploadHandler = (e) => {
+    const file = e.target.files[0];
+    setPostImg([...postImg, file]);
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+    const fileRead = new FileReader();
+    fileRead.onload = () => {
+      setPreviewImg(fileRead.result);
+    };
+    fileRead.readAsDataURL(file);
+  };
+
+  /* 이미지 파일 삭제하기 */
+  const deleteImgFileHandler = () => {
+    setPostImg([]);
+    setPreviewImg(null);
+  };
+
+  /* 카테고리 선택하기 */
+  const [selectCategory, setSelectCategory] = useState("면접 후기");
+  const onSelectHandler = (event) => {
+    setSelectCategory(event.target.value);
   };
 
   /* 포스트 글 추가하기 */
@@ -85,6 +101,7 @@ function PostForm() {
       alert("제목과 내용을 입력해주세요.");
       return;
     }
+
     // 현재 날짜 불러오기
     const date = Date.now();
 
@@ -93,32 +110,36 @@ function PostForm() {
       userEmail: "userEmail",
       postTitle: title,
       postText: text,
-      postImage: "첨부파일",
+      postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: profileImg
+      userProfileImage: profileImg,
+      postCategory: selectCategory
     });
 
     setTitle("");
     setText("");
+    setPostImg([]);
+    setPreviewImg(null);
     alert("글이 등록되었습니다. ");
-    navigate("/detail");
+    navigate(-1);
   };
+  console.log(posts);
 
   // 포스트 글쓰기 취소하기
   const cancelBtnClickHandler = () => {
     alert("글쓰기를 취소합니다.");
-    navigate("/detail");
+    navigate(-1);
   };
 
   return (
     <>
       <StMain>
         <Link to="/">홈으로</Link>
-        <StForm onSubmit={submitHandler}>
+        <StForm>
           <StDiv>
             제목
-            <select>
+            <select onChange={onSelectHandler} value={selectCategory}>
               <option>면접 후기</option>
               <option>취업 정보</option>
               <option>회사 정보 공유</option>
@@ -126,16 +147,19 @@ function PostForm() {
           </StDiv>
           <input value={title} onChange={addTitleHandler} placeholder="제목을 입력해주세요." />
           내용
-          <input
+          <textarea
             value={text}
             onChange={addTextHandler}
-            placeholder="내용을 입력해주세요."
+            placeholder="최대 300자까지 입력 가능합니다."
+            maxLength={300}
             style={{ height: "200px" }}
           />
-          <StDiv>
-            <button type="button">첨부파일</button>
-            파일 1. jpg
-            <button type="button">삭제</button>
+          <StDiv style={{ flexDirection: "column" }}>
+            <input type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
+            {previewImg && <UploadImg alt="Uploaded" src={previewImg} />}
+            <button type="button" onClick={deleteImgFileHandler}>
+              삭제
+            </button>
           </StDiv>
           <StDiv style={{ justifyContent: "center", gap: "50px" }}>
             <StBtn type="submit" onClick={addPostBtnClickHandler}>

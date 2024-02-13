@@ -7,7 +7,7 @@
     "postId": "1",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
-    "postCategory": "company"
+    "postCategory": "회사 정보 공유"
   },
   {
     "userEmail": "456789@google.com",
@@ -17,7 +17,7 @@
     "postId": "2",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg",
-    "postCategory": "interview"
+    "postCategory": "면접 후기"
   },
   {
     "userEmail": "789012@naver.com",
@@ -27,26 +27,6 @@
     "postId": "3",
     "postDate": "2024-02-07",
     "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg",
-    "postCategory": "workInfo"
-  },
-  {
-    "userEmail": "test2@naver.com",
-    "postTitle": "취업 정보",
-    "postText": "저희 회사에서는 Figma와 같은 디자인 도구를 업무에 활용하는 것이 중요하다고 생각해요. Figma는 디자이너와 개발자가 함께 작업하고 아이디어를 공유하는 데에 큰 도움이 되는데요. 저희 회사 직원들도 디자인 작업을 할 때 Figma를 자주 사용하고 있어서 Figma를 경험해 본 분들을 저희 회사에서 우대하고 있어요. 함께 성장하고 싶은 분들은 지금 지원해보세요! 🌟",
-    "postImage": "",
-    "postId": "4",
-    "postDate": "2024-02-01",
-    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/37.jpg",
-    "postCategory": "workInfo"
-  },
-  {
-    "userEmail": "test2@naver.com",
-    "postTitle": "면접 보고 왔습니다.",
-    "postText": "구글 면접은 정말 어렵더라구요... 깊은 기술적 질문과 복잡한 문제들로 정말 머리를 쥐어짰어요. 대답하기가 참 어려웠지만, 그만큼 도전적이고 뜻깊은 경험이었습니다! 이런 시간을 통해 더 나은 개발자가 되기 위해 더 열심히 준비해야겠어요. 함께 힘내봐요! 🚀",
-    "postImage": "https://www.opinionnews.co.kr/news/photo/202110/56938_42713_3933.jpg",
-    "postId": "5",
-    "postDate": "2024-02-07",
-    "userProfileImage": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/646.jpg",
-    "postCategory": "interview"
+    "postCategory": "취업 정보"
   }
 ]

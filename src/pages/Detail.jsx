@@ -3,6 +3,8 @@ import PostList from "../components/posts/PostList";
 import styled from "styled-components";
 import { useContext } from "react";
 import { PostContext } from "../context/PostContext";
+import { LoginContext } from "../context/LoginContext";
+import Login from "components/layout/Login";
 
 const StCategory = styled.div`
   display: flex;
@@ -23,40 +25,28 @@ const WriteBtn = styled.button`
   background-color: transparent;
   color: red;
   font-size: larger;
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 600;
+  }
 `;
-function Detail() {
-  const { category, posts } = useContext(PostContext);
-
-  // const sortCategoryFunction = (category) => {
-  //   switch (category) {
-  //     case "interview":
-  //       return <StP>면접 후기</StP>;
-  //     case "workInfo":
-  //       return <StP>취업 정보</StP>;
-  //     case "company":
-  //       return <StP>회사 정보 공유</StP>;
-  //     default:
-  //       return;
-  //   }
-  // };
-
+function Detail({ category }) {
   const navigate = useNavigate();
-  console.log(posts);
 
   return (
     <main>
       <StCategory>
-        <StP>면접 후기</StP>
+        <StP>{category}</StP>
         <WriteBtn
           onClick={() => {
-            navigate("/detail/write");
+            navigate("/write");
           }}
         >
           글쓰기
         </WriteBtn>
       </StCategory>
       <br />
-      <PostList />
+      <PostList category={category} />
     </main>
   );
 }
