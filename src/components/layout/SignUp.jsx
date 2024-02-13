@@ -103,9 +103,10 @@ function SignUp() {
     setCheckBox(false);
   };
   const DuplicateCheck = (e) => {
-    e.preventDefault();
-    const newEmail = `${userId}@${userMail}`;
-    setUserEmail(newEmail);
+    if (userPassword !== reUserPassword) {
+      alert("비밀번호를 다시 확인해주세요!");
+      return;
+    }
 
     const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
     if (isDuplicate) {

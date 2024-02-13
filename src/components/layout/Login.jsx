@@ -1,15 +1,14 @@
 import { LoginContext } from "context/LoginContext";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import GoogleLoginBtn from "components/layout/GoogleLoginBtn";
 import { Link } from "react-router-dom";
-// import { auth } from 'data/firebase';
+import { auth } from "data/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { GithubButton } from "components/layout/GithubBtn";
-import { login } from "../../api/firebase";
 
 function Login() {
-  const { userEmail, setUserEmail, userPassword, setUserPassword, handleLogin } = useContext(LoginContext);
+  const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
   const singInLogInFunction = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
@@ -33,10 +32,6 @@ function Login() {
     singInLogInFunction();
   };
 
-  // const handleLogin = () => {
-  //   login().then(setUser);
-  // };
-
   return (
     <LoginBackground>
       <FormStyle>
@@ -53,7 +48,7 @@ function Login() {
           <Link to="/signup">
             <SignUpStyle>회원가입</SignUpStyle>
           </Link>
-          <button onClick={handleLogin}>구글</button>
+          <GoogleLoginBtn />
           <GithubButton />
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>

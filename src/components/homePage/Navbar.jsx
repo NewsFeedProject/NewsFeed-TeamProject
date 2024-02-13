@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
+import { LoginContext } from "context/LoginContext";
 
 export default function Navbar() {
+  const { userEmail } = useContext(LoginContext);
   const [login, setLogin] = useState(dummyData);
   const logInedUserEmail = login.userEmail;
   const logInedUserProfil = login.userProfileImage;

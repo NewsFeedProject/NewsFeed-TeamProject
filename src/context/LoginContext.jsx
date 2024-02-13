@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import googleData from "data/googleLogin.json";
-import { login, logout } from "../../src/api/firebase";
 
 export const LoginContext = createContext(null);
 
@@ -14,15 +13,6 @@ function LoginContextProvider({ children }) {
   // google API 값
   const [gData, setGData] = useState(googleData.web);
 
-  //구글 로그인 상태값
-  const [user, setUser] = useState("");
-  const handleLogin = () => {
-    login().then(setUser);
-  };
-  const handleLogout = () => {
-    logout().then(setUser);
-  };
-
   return (
     <LoginContext.Provider
       value={{
@@ -33,11 +23,7 @@ function LoginContextProvider({ children }) {
         userInfo,
         setUserInfo,
         gData,
-        setGData,
-        user,
-        setUser,
-        handleLogin,
-        handleLogout
+        setGData
       }}
     >
       {children}
