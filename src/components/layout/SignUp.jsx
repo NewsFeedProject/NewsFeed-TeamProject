@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { StarStyle } from 'styles/common'
 import profileUser from 'assets/images/profile-user.png'
 import styled from 'styled-components'
 import { LoginContext } from 'context/LoginContext'
 import { SingUpContext } from 'context/SingUpContext'
 import { useNavigate } from 'react-router'
-import { db } from 'data/firebase'
-import { collection, addDoc } from 'firebase/firestore';
+import { auth } from 'data/firebase'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 function SignUp() {
   const navigate = useNavigate();
@@ -33,21 +33,7 @@ function SignUp() {
     setCheckBox,
   } = useContext(SingUpContext);
 
-  useEffect(() => {
-    console.log('userInfo:', userInfo);
-    const temp = async (userInfo) => {
-      try {
-        const usersCollection = collection(db, 'users');
-        const doc = await addDoc(usersCollection, {
-          "userInfo": userInfo,
-        });
-        console.log("Document written with ID: ", doc.id);
-      } catch (e) {
-        console.error("Error adding document ");
-      }
-    };
-    temp(userInfo);
-  }, [userInfo]);
+
 
   const imgChangeHandler = (e) => {
     setImgURL(e.target.value);
@@ -70,9 +56,24 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   }
-
-
-
+  const singUpFunction = async (userInfo) => {
+    try {
+      const createdUser = await createUserWithEmailAndPassword(
+        auth,
+        userInfo.userEmail,
+        userInfo.userPassword,
+        userEmail,
+        userPassword,
+      );
+      const updateProfile = await updateProfile(auth.currentUser, {
+        displayName: userInfo.name,
+        userProfileImage: userInfo.imgURL,
+      });
+      console.log(createdUser, updateProfile);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -109,7 +110,7 @@ function SignUp() {
     setUserInfo((prev) => [...prev, newUserInfo]);
     navigate('/');
     setCheckBox(false);
-
+    singUpFunction(userInfo);
   }
   const DuplicateCheck = (e) => {
     e.preventDefault();
