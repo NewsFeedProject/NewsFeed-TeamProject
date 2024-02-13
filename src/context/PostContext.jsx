@@ -11,17 +11,6 @@ const PostProvider = ({ children }) => {
   /* firebase 데이터 불러오기 */
   useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "postInfo"));
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-      });
-    };
-    fetchData();
-  }, []);
-
-  /* firebase 데이터 불러오기 */
-  useEffect(() => {
-    const fetchData = async () => {
       const q = query(collection(db, "postInfo"));
       const querySnapshot = await getDocs(q);
 
