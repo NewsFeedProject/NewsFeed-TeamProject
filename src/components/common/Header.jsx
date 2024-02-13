@@ -1,4 +1,5 @@
 import Button from "components/homePage/Button";
+import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import styled from "styled-components";
 
@@ -13,8 +14,12 @@ export default function Header() {
         </SearchButton>
       </SearchBox>
       <div>
-        <Button text="로그인" />
-        <Button text="회원가입" color="red" />
+        <Link to="/login">
+          <Button text="로그인" />
+        </Link>
+        <Link to="/signup">
+          <Button text="회원가입" color="red" />
+        </Link>
       </div>
     </HeaderStyle>
   );

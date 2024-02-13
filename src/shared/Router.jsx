@@ -4,6 +4,8 @@ import Detail from "pages/Detail";
 import Home from "pages/Home";
 import Mypage from "pages/Mypage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "components/layout/Login";
+import SignUp from "components/layout/SignUp";
 
 const Router = () => {
   return (
@@ -14,6 +16,8 @@ const Router = () => {
           <Route path="mypage/:uid" element={<Mypage />} />
           <Route path="detail" element={<Detail />} />
           <Route path="detail/write" element={<PostForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Layout>
     </BrowserRouter>
