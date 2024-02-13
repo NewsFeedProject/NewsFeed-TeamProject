@@ -5,6 +5,7 @@ import GoogleLoginBtn from 'components/layout/GoogleLoginBtn';
 import { Link } from 'react-router-dom';
 import { auth } from 'data/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GithubButton } from 'components/layout/GithubBtn';
 // import { SingUpContext } from 'context/SingUpContext';
 
 function Login() {
@@ -58,7 +59,7 @@ function Login() {
             <SignUpStyle>회원가입</SignUpStyle>
           </Link>
           <GoogleLoginBtn />
-          <ButtonStyle>GitHub로 로그인 하기</ButtonStyle>
+          <GithubButton />
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
       </FormStyle>
