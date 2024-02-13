@@ -1,5 +1,5 @@
-import PostProvider from "./context/PostContext";
-import Router from "./shared/Router";
+import PostProvider from "context/PostContext";
+import Router from "shared/Router";
 
 function App() {
   return (
@@ -11,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
