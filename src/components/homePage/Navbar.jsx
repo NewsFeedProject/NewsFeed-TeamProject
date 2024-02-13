@@ -32,6 +32,7 @@ export default function Navbar() {
           <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
+
       <JobOpening>
         <p>채용공고</p>
       </JobOpening>
@@ -42,13 +43,18 @@ export default function Navbar() {
 //면접후기, 취업정보, 회사정보공유 Link태그로 바꾸기 기억하세용
 
 const NavBar = styled.nav`
+  width: 300px;
+  border-right: 1px solid grey;
+  white-space: nowrap;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 15%;
-  height: auto;
-  border-right: 1px solid grey;
-  white-space: nowrap;
+  padding-top: 170px;
+  background-color: #fff;
 
   @media (max-width: 1700px) {
     width: 20%;

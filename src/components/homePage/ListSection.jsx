@@ -24,7 +24,7 @@ export default function ListSection({ text }) {
 const ListSectionBox = styled.section`
   border: 1px solid grey;
   height: 45vh;
-  width: 40%;
+  width: 35%;
   border-radius: 2rem;
   padding: 1rem 5rem;
   /* position: relative; */
