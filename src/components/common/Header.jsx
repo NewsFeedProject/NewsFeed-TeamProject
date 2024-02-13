@@ -10,7 +10,7 @@ export default function Header() {
       <SearchBox>
         <SearchInput name="searchInfo" placeholder="검색어를 입력해 주세요." />
         <SearchButton>
-          {/* <FaMagnifyingGlass /> */}
+          <FaMagnifyingGlass />
         </SearchButton>
       </SearchBox>
       <div>
