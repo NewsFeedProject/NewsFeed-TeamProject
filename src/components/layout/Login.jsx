@@ -53,7 +53,7 @@ function Login() {
         />
         <ButtonGroup>
           <ButtonStyle onClick={onClickHandler}>로그인</ButtonStyle>
-          <Link to="/SignUp">
+          <Link to="/signup">
             <SignUpStyle>회원가입</SignUpStyle>
           </Link>
           <GoogleLoginBtn />

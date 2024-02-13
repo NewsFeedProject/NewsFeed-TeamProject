@@ -1,9 +1,14 @@
-import React from 'react'
+import PostProvider from "context/PostContext";
+import Router from "shared/Router";
 
 function App() {
   return (
-    <div>App</div>
-  )
+    <>
+      <PostProvider>
+        <Router />
+      </PostProvider>
+    </>
+  );
 }
 
 export default App
