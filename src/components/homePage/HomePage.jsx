@@ -1,7 +1,3 @@
-import React from "react";
-
-import Header from "components/common/Header";
-import Navbar from "./Navbar";
 import styled from "styled-components";
 import MainSection from "./MainSection";
 import ListSection from "./ListSection";
@@ -28,7 +24,6 @@ const MainPage = styled.div`
 
 const HomeContents = styled.aside`
   display: flex;
-  height: 87.1vh;
 `;
 
 const SectionBoxs = styled.aside`
@@ -37,14 +32,14 @@ const SectionBoxs = styled.aside`
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 87.1vh;
+  height: 87vh;
   width: 100%;
 `;
 
 const ListSectionBoxs = styled.aside`
   display: flex;
-  flex-direction: low;
+  flex-direction: row;
   justify-content: space-around;
-  height: 87.1vh;
+  /* height: 87.1vh; */
   width: 100%;
 `;

@@ -1,5 +1,6 @@
-import PostProvider from "context/PostContext";
-import Router from "shared/Router";
+import UserProvider from "./context/UsersContext";
+import PostProvider from "./context/PostContext";
+import Router from "./shared/Router";
 
 function App() {
   // useEffect(() => {
@@ -13,9 +14,11 @@ function App() {
   // }, []);
   return (
     <>
-      <PostProvider>
-        <Router />
-      </PostProvider>
+      <UserProvider>
+        <PostProvider>
+          <Router />
+        </PostProvider>
+      </UserProvider>
     </>
   );
 }
