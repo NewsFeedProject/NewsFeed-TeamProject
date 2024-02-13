@@ -7,8 +7,8 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <div style={{ display: "flex" }}>
-        <Navbar />
+      <Navbar />
+      <div>
         <div>{children}</div>
         <Outlet />
       </div>

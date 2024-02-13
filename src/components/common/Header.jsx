@@ -45,6 +45,12 @@ const HeaderStyle = styled.header`
   border-bottom: 1px solid grey;
   height: 10rem;
   padding: 2rem;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 9999;
 `;
 
 const LogoImg = styled.img`
