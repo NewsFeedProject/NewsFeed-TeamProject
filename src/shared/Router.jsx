@@ -31,29 +31,7 @@ const router = createBrowserRouter([
 ]);
 
 function Router() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return <RouterProvider router={router} />;
 }
 
 export default Router;
-
-{
-  /* <Link to="/interView">면접 후기</Link>
-<Link to="/workInfo">취업 정보</Link>
-<Link to="/companyInfo */
-}
-
-// const Router = () => {
-//   return (
-//     <BrowserRouter>
-//       <Layout>
-//         <Routes>
-//           <Route path="/" element={<Home />} />
-//           <Route path="detail" element={<Detail />} />
-//           <Route path="detail/write" element={<PostForm />} />
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/signup" element={<SignUp />} />
-//         </Routes>
-//       </Layout>
-//     </BrowserRouter>
-//   );
-// };
