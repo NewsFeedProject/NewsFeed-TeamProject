@@ -1,0 +1,30 @@
+[
+  {
+    "uid": "0",
+    "userEmail": "test1@naver.com",
+    "userPassword": "12345",
+    "userName": "홍길동",
+    "userProfileImage": "https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+  },
+  {
+    "uid": "1",
+    "userEmail": "test2@naver.com",
+    "userPassword": "12345",
+    "userName": "김길동",
+    "userProfileImage": "https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+  },
+  {
+    "uid": "2",
+    "userEmail": "test3@naver.com",
+    "userPassword": "12345",
+    "userName": "이길동",
+    "userProfileImage": "https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+  },
+  {
+    "uid": "3",
+    "userEmail": "test4@naver.com",
+    "userPassword": "12345",
+    "userName": "박길동",
+    "userProfileImage": "https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+  }
+]
