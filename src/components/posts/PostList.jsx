@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PostContext } from "../../context/PostContext";
+import { PostContext } from "context/PostContext";
 import PostCards from "./PostCards";
 
 function PostList() {

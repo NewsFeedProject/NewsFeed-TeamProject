@@ -3,6 +3,8 @@ import PostList from "../components/posts/PostList";
 import styled from "styled-components";
 import { useContext } from "react";
 import { PostContext } from "../context/PostContext";
+import { LoginContext } from "../context/LoginContext";
+import Login from "components/layout/Login";
 
 const StCategory = styled.div`
   display: flex;
@@ -30,21 +32,27 @@ const WriteBtn = styled.button`
 `;
 function Detail() {
   const { category, posts } = useContext(PostContext);
+  const { userInfo } = useContext(LoginContext);
 
   const navigate = useNavigate();
-  console.log(posts);
 
   return (
     <main>
       <StCategory>
         <StP>면접 후기</StP>
-        <WriteBtn
-          onClick={() => {
-            navigate("/detail/write");
-          }}
-        >
-          글쓰기
-        </WriteBtn>
+        {userInfo ? (
+          <WriteBtn
+            onClick={() => {
+              navigate("/detail/write");
+            }}
+          >
+            글쓰기
+          </WriteBtn>
+        ) : (
+          <div>
+            <Login />
+          </div>
+        )}
       </StCategory>
       <br />
       <PostList />
