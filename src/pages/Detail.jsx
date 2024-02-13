@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
-import PostList from "../components/posts/PostList";
+import PostList from "components/posts/PostList";
 import styled from "styled-components";
 import { useContext } from "react";
-import { PostContext } from "../context/PostContext";
+import { PostContext } from "context/PostContext";
 
 const StCategory = styled.div`
   display: flex;
