@@ -5,9 +5,10 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import { PostContext } from "context/PostContext";
+import { LoginContext } from "context/LoginContext";
 
 export default function Header() {
-  const { posts } = useContext(PostContext);
+  const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,6 +32,7 @@ export default function Header() {
       return;
     }
     navigate(`/${category}?search=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm("");
   };
 
   return (
@@ -43,18 +45,24 @@ export default function Header() {
           <option value="workInfo">취업 정보</option>
           <option value="companyInfo">회사 정보 공유</option>
         </SelectCategory>
-        <SearchInput name="searchInfo" placeholder="검색어를 입력해 주세요." onChange={handleSearch} />
+        <SearchInput value={searchTerm} placeholder="검색어를 입력해 주세요." onChange={handleSearch} />
         <SearchButton>
           <FaMagnifyingGlass />
         </SearchButton>
       </SearchBox>
       <div>
-        <Link to="/login">
-          <Button text="로그인" />
-        </Link>
-        <Link to="/signup">
-          <Button text="회원가입" color="red" />
-        </Link>
+        {!userEmail ? (
+          <>
+            <Link to="/login">
+              <Button text="로그인" />
+            </Link>
+            <Link to="/signup">
+              <Button text="회원가입" color="red" />
+            </Link>
+          </>
+        ) : (
+          <button>로그아웃</button>
+        )}
       </div>
     </HeaderStyle>
   );
