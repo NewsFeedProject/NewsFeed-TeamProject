@@ -5,22 +5,24 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 
 export default function Navbar() {
-  const { userEmail } = useContext(LoginContext);
-  const [login, setLogin] = useState(dummyData);
-  const logInedUserEmail = login.userEmail;
-  const logInedUserProfil = login.userProfileImage;
+  const { userEmail, imgURL } = useContext(LoginContext);
+  // const [login, setLogin] = useState(dummyData);
+  // const logInedUserEmail = login.userEmail;
+  // const logInedUserProfil = login.userProfileImage;
 
   const navigate = useNavigate();
+  console.log("뭐불러와?", userEmail);
+  console.log("사진뭐불러와?", imgURL);
 
   return (
     <NavBar>
       <div>
         <CatchLoginLogout>
-          {logInedUserEmail ? (
+          {userEmail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={logInedUserProfil} alt="User Profile" />
+              <ProfileImg src={imgURL} alt="User Profile" />
               <UserEmailId>
-                {logInedUserEmail}님<br />
+                {userEmail}님<br />
                 안녕하세요.
               </UserEmailId>
             </ShowUserInfoBox>
