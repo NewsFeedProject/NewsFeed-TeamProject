@@ -1,22 +1,20 @@
-import PostList from "components/posts/PostList";
 import React from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
+import Interview from "../../rootPages/Interview";
+import WorkInfo from "rootPages/WorkInfo";
 
-export default function ListSection({ text }) {
-  const navigate = useNavigate();
-
-  const onClickInterview = () => {
-    navigate("/detail");
-  };
-
+export default function ListSection({ text, onClick, category }) {
+  let ComponentToRender = null;
+  if (category === "면접후기") {
+    ComponentToRender = Interview;
+  } else if (category === "취업정보") {
+    ComponentToRender = WorkInfo;
+  }
   return (
     <ListSectionBox>
       <MenuTilte>{text}</MenuTilte>
-      <MenuLink onClick={onClickInterview}>더보기</MenuLink>
-      <MainPostSample>
-        <PostList />
-      </MainPostSample>
+      <MenuLink onClick={onClick}>더보기</MenuLink>
+      <MainPostSample>{ComponentToRender && <ComponentToRender />}</MainPostSample>
     </ListSectionBox>
   );
 }
@@ -24,7 +22,7 @@ export default function ListSection({ text }) {
 const ListSectionBox = styled.section`
   border: 1px solid grey;
   height: 45vh;
-  width: 40%;
+  width: 35%;
   border-radius: 2rem;
   padding: 1rem 5rem;
   /* position: relative; */
