@@ -64,8 +64,8 @@ function SignUp() {
         userPassword
       );
       const updateProfile = await updateProfile(auth.currentUser, {
-        displayName: userInfo.userName,
-        photoURL: userInfo.userProfileImage,
+        displayName: userName,
+        photoURL: imgURL,
       });
       console.log(createdUser, updateProfile);
     } catch (error) {
