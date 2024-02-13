@@ -46,7 +46,7 @@ const UploadImg = styled.img`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
+  const { addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
 
   /* 데이터 추가하기 */

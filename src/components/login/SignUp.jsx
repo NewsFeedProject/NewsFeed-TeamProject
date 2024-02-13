@@ -31,13 +31,22 @@ function SignUp() {
     setReUserPassword,
     checkBox,
     setCheckBox,
+    prevImg,
+    setPrevImg
   } = useContext(SingUpContext);
 
 
 
   const imgChangeHandler = (e) => {
-    setImgURL(e.target.value);
-  }
+    const file = e.target.files[0];
+    setPrevImg([...prevImg, file])
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imageDataURL = reader.result;
+      setImgURL(imageDataURL);
+    };
+    reader.readAsDataURL(file);
+  };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
   }
@@ -88,7 +97,7 @@ function SignUp() {
       return;
     }
     if (!reUserPassword) {
-      alert("비밀번호를 재확인해야 합니다!");
+      alert("비밀번호확인를 입력해주세요!");
       return;
     }
     if (checkBox === false) {
@@ -97,6 +106,7 @@ function SignUp() {
     }
     if (userPassword !== reUserPassword) {
       alert("비밀번호를 다시 확인해주세요!");
+      return;
     }
     setUserEmail(`${userId}@${userMail}`);
     const newUserInfo = {
@@ -106,7 +116,6 @@ function SignUp() {
       userProfileImage: imgURL,
     }
     setUserInfo((prev) => [...prev, newUserInfo]);
-    navigate('/');
     singUpFunction();
     setUserId('');
     setUserMail('');
@@ -114,6 +123,7 @@ function SignUp() {
     setReUserPassword('');
     setUserName('');
     setCheckBox(false);
+    navigate('/login');
   }
   const DuplicateCheck = (e) => {
     e.preventDefault();
@@ -143,6 +153,7 @@ function SignUp() {
           <InputFileStyle
             id="inputFile"
             type="file"
+            accept=".png, .jpeg, .jpg, .gif"
             value={imgURL}
             onChange={imgChangeHandler}
           />
