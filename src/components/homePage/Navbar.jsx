@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
 
@@ -8,6 +8,8 @@ export default function Navbar() {
   const logInedUserEmail = login.userEmail;
   const logInedUserProfil = login.userProfileImage;
   console.log(login.userProfileImage);
+
+  const navigate = useNavigate();
 
   return (
     <NavBar>
@@ -26,9 +28,9 @@ export default function Navbar() {
           )}
         </CatchLoginLogout>
         <ShowMenu>
-          <p>면접후기</p>
-          <p>취업정보</p>
-          <p>회사 정보 공유</p>
+          <Link to="/interView">면접후기</Link>
+          <Link to="/workInfo">취업정보</Link>
+          <Link to="/detail">회사 정보 공유</Link>
         </ShowMenu>
       </div>
       <JobOpening>
@@ -45,7 +47,7 @@ const NavBar = styled.nav`
   flex-direction: column;
   justify-content: space-between;
   width: 15%;
-  height: 100%;
+  height: auto;
   border-right: 1px solid grey;
   white-space: nowrap;
 
@@ -59,7 +61,7 @@ const CatchLoginLogout = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  font-size: 13px;
+  font-size: 17px;
   padding-left: 1rem;
   padding-top: 1rem;
   margin: 0;
@@ -81,18 +83,20 @@ const ShowUserInfoBox = styled.span`
 `;
 
 const ProfileImg = styled.img`
-  width: 2.5rem;
+  width: 5rem;
 
   @media (max-width: 1200px) {
     display: none;
+    width: 2.5rem;
   }
 `;
 
 const UserEmailId = styled.p`
+  font-size: 25px;
   @media (max-width: 1200px) {
     /* margin-left: -10px; */
     padding-top: 1rem;
-    font-size: 7px;
+    font-size: 10px;
   }
 `;
 
@@ -101,7 +105,7 @@ const ShowMenu = styled.section`
   flex-direction: column;
   align-items: start;
   gap: 1rem;
-  font-size: 15px;
+  font-size: 30px;
   padding-left: 2rem;
   padding-top: 2rem;
   margin: 0;

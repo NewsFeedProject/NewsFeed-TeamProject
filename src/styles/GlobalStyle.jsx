@@ -30,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         line-height: 1;
         font-family: 'Noto Sans KR', sans-serif;
+        height: 100%;
     }
     ol, ul {
         list-style: none;
