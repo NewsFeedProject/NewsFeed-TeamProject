@@ -1,14 +1,6 @@
 import { useNavigate } from "react-router";
 import PostList from "components/posts/PostList";
 import styled from "styled-components";
-import { useContext } from "react";
-<<<<<<< HEAD
-import { PostContext } from "context/PostContext";
-=======
-import { PostContext } from "../context/PostContext";
-import { LoginContext } from "../context/LoginContext";
-import Login from "components/layout/Login";
->>>>>>> 5a9a0f17c8cdaad62b8618924d6d3b43edcf9e67
 
 const StCategory = styled.div`
   display: flex;

@@ -3,13 +3,20 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useContext } from "react";
+import { LoginContext } from "context/LoginContext";
 
 export default function Header() {
+  const { userEmail, setUserEmail, userPassword, setUserPassword, handleLogin, handleLogout, user } =
+    useContext(LoginContext);
   const navigate = useNavigate();
   const onClickHome = () => {
     navigate("/");
   };
   const handleSearchInfo = () => {};
+
+  console.log("누구야", user);
+
   return (
     <HeaderStyle>
       <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
@@ -26,12 +33,18 @@ export default function Header() {
         </SearchButton>
       </SearchBox>
       <div>
-        <Link to="/login">
-          <Button text="로그인" />
-        </Link>
-        <Link to="/signup">
-          <Button text="회원가입" color="red" />
-        </Link>
+        {!user ? (
+          <>
+            <Link to="/login">
+              <Button text="로그인" />
+            </Link>
+            <Link to="/signup">
+              <Button text="회원가입" color="red" />
+            </Link>
+          </>
+        ) : (
+          <Button text="로그아웃" onClick={handleLogout} />
+        )}
       </div>
     </HeaderStyle>
   );

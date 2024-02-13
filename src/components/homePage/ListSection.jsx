@@ -2,6 +2,7 @@ import PostList from "components/posts/PostList";
 import React from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import Interview from "../../rootPages/Interview";
 
 export default function ListSection({ text }) {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function ListSection({ text }) {
       <MenuTilte>{text}</MenuTilte>
       <MenuLink onClick={onClickInterview}>더보기</MenuLink>
       <MainPostSample>
-        <PostList />
+        <Interview />
       </MainPostSample>
     </ListSectionBox>
   );
