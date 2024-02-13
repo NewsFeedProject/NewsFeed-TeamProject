@@ -7,7 +7,6 @@ export default function Navbar() {
   const [login, setLogin] = useState(dummyData);
   const logInedUserEmail = login.userEmail;
   const logInedUserProfil = login.userProfileImage;
-  console.log(login.userProfileImage);
 
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ export default function Navbar() {
         <ShowMenu>
           <Link to="/interView">면접후기</Link>
           <Link to="/workInfo">취업정보</Link>
-          <Link to="/detail">회사 정보 공유</Link>
+          <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
       <JobOpening>
