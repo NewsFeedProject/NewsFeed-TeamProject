@@ -1,6 +1,6 @@
 import Button from "components/homePage/Button";
 import { Link } from "react-router-dom";
-// import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import styled from "styled-components";
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
       <SearchBox>
         <SearchInput name="searchInfo" placeholder="검색어를 입력해 주세요." />
         <SearchButton>
-          {/* <FaMagnifyingGlass /> */}
+          <FaMagnifyingGlass />
         </SearchButton>
       </SearchBox>
       <div>
