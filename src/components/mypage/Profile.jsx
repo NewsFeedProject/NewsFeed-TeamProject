@@ -22,6 +22,7 @@ function Profile() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
   const [profileImageFile, setProfileImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     const currentUser = usersContext.users.find((user) => user.uid === params.uid);
@@ -61,6 +62,17 @@ function Profile() {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setProfileImageFile(file);
+
+    // 파일 선택 시 프로필 사진 미리보기 설정
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -109,7 +121,11 @@ function Profile() {
       <form onSubmit={handleSubmit}>
         <div>
           프로필 사진<StSpan>*&nbsp;</StSpan>
-          {userData.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />}
+          {previewImage ? (
+            <StImg src={previewImage} alt="프로필 미리보기" />
+          ) : (
+            userData.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />
+          )}
           <input type="file" accept="image/*" onChange={handleImageChange} style={{ marginLeft: "10px" }} />
         </div>
         <StDiv>
