@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import MainSection from "./MainSection";
-import ListSection from "./ListSection";
+import MainSection from "components/homePage/MainSection";
+import ListSection from "components/homePage/ListSection";
 
 export default function HomePage() {
   return (

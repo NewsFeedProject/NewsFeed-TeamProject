@@ -5,11 +5,24 @@ import GoogleLoginBtn from 'components/layout/GoogleLoginBtn';
 import { Link } from 'react-router-dom';
 import { auth } from 'data/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-// import { SingUpContext } from 'context/SingUpContext';
+import { GithubButton } from 'components/layout/GithubBtn';
 
 function Login() {
-  const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo, userInfo } = useContext(LoginContext);
-  // const { userName, imgURL } = useContext(SingUpContext);
+  const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
+  const singInLogInFunction = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword
+      );
+      console.log("user with signIn", userCredential.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("Email-->", userEmail);
+  console.log("Password-->", userPassword);
   const onClickHandler = (e) => {
     e.preventDefault();
     // 파이어베이스 데이터 비교 로직으로 대체
@@ -20,25 +33,16 @@ function Login() {
     //   userProfileImage: imgURL,
     // }
     // setUserInfo((prev) => [...prev, newUserInfo]);
-    const singInLogInFunction = async (userInfo) => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          userInfo.userEmail,
-          userInfo.userPassword,
-        )
-        console.log("user with signIn", userCredential.user);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    singInLogInFunction(userInfo);
+    singInLogInFunction();
   }
+
   return (
     <LoginBackground>
       <FormStyle>
         <TitleStyle>NextMove</TitleStyle>
-        <CloseStyle>X</CloseStyle>
+        <Link to="/">
+          <CloseStyle>X</CloseStyle>
+        </Link>
         <LabelStyle>아이디</LabelStyle>
         <InputStyle
           type="text"
@@ -57,7 +61,7 @@ function Login() {
             <SignUpStyle>회원가입</SignUpStyle>
           </Link>
           <GoogleLoginBtn />
-          <ButtonStyle>GitHub로 로그인 하기</ButtonStyle>
+          <GithubButton />
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
       </FormStyle>

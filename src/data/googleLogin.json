@@ -1,11 +1,12 @@
 {
   "web":
   {
-    "client_id":"483375314196-uc0lc2k1koi9l4gpu6a1flp28lqi6hcg.apps.googleusercontent.com",
-    "project_id":"boxwood-mantra- 413701",
+    "client_id":"534335368031-84knqn9d5snrba23ii4rr8fkfj01v319.apps.googleusercontent.com",
+    "project_id":"project-test-2d43e",
     "auth_uri":"https://accounts.google.com/o/oauth2/auth",
     "token_uri":"https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret":"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",
     "javascript_origins":["http://localhost:5173"]
   }
 }
