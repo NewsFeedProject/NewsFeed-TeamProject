@@ -60,14 +60,12 @@ function SignUp() {
     try {
       const createdUser = await createUserWithEmailAndPassword(
         auth,
-        userInfo.userEmail,
-        userInfo.userPassword,
         userEmail,
-        userPassword,
+        userPassword
       );
       const updateProfile = await updateProfile(auth.currentUser, {
-        displayName: userInfo.name,
-        userProfileImage: userInfo.imgURL,
+        displayName: userInfo.userName,
+        photoURL: userInfo.userProfileImage,
       });
       console.log(createdUser, updateProfile);
     } catch (error) {
@@ -109,8 +107,13 @@ function SignUp() {
     }
     setUserInfo((prev) => [...prev, newUserInfo]);
     navigate('/');
-    setCheckBox(false);
     singUpFunction(userInfo);
+    setUserId('');
+    setUserMail('');
+    setUserPassword('');
+    setReUserPassword('');
+    setUserName('');
+    setCheckBox(false);
   }
   const DuplicateCheck = (e) => {
     e.preventDefault();

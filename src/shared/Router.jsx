@@ -8,9 +8,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Login from "components/layout/Login";
 import SignUp from "components/layout/SignUp";
-import Interview from "../rootPages/Interview";
-import WorkInfo from "../rootPages/WorkInfo";
-import CompanyInfo from "../rootPages/CompanyInfo";
+import Interview from "rootPages/Interview";
+import WorkInfo from "rootPages/WorkInfo";
+import CompanyInfo from "rootPages/CompanyInfo";
 
 const router = createBrowserRouter([
   {

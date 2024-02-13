@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { UsersContext } from "../context/UsersContext";
+import { UsersContext } from "context/UsersContext";
 import styled from "styled-components";
-import MyPostList from "../components/mypage/MyPostList";
-import Profile from "../components/mypage/Profile";
+import MyPostList from "components/mypage/MyPostList";
+import Profile from "components/mypage/Profile";
 
 function Mypage() {
   const params = useParams();
