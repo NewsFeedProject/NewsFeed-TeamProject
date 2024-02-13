@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { db } from "data/firebase";
+import { addDoc, collection, getDocs, query } from "firebase/firestore";
+
 const ListWrapper = styled.article`
   display: flex;
   justify-content: center;

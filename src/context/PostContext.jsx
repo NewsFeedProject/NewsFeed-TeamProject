@@ -1,10 +1,32 @@
-import { createContext, useState } from "react";
-import detailListDummyData from "../data/detailListDummyData.json";
+import { createContext, useEffect, useState } from "react";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db } from "data/firebase";
 
 export const PostContext = createContext(null);
 
 const PostProvider = ({ children }) => {
-  const [posts, setPosts] = useState(detailListDummyData);
+  const [posts, setPosts] = useState([]);
+
+  /* firebase 데이터 불러오기 */
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(collection(db, "postInfo"));
+      const querySnapshot = await getDocs(q);
+
+      const initialPosts = [];
+
+      querySnapshot.forEach((doc) => {
+        const data = {
+          id: doc.id,
+          ...doc.data()
+        };
+        console.log(data);
+        initialPosts.push(data);
+      });
+      setPosts(initialPosts);
+    };
+    fetchData();
+  }, []);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = (newpost) => {

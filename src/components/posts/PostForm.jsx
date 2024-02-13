@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
@@ -48,6 +48,12 @@ function PostForm() {
   const navigate = useNavigate();
   const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
+
+  /* 데이터 추가하기 */
+  // const addPost = async (event) =>{
+  //   event.preventDefault()
+  //   const newPost = {}
+  // }
 
   /* 이미지 파일 업로드하기 */
 
@@ -124,7 +130,6 @@ function PostForm() {
     alert("글이 등록되었습니다. ");
     navigate(-1);
   };
-  console.log(posts);
 
   // 포스트 글쓰기 취소하기
   const cancelBtnClickHandler = () => {
