@@ -1,12 +1,24 @@
 import Button from "components/homePage/Button";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const onClickHome = () => {
+    navigate("/");
+  };
+  const handleSearchInfo = () => {};
   return (
     <HeaderStyle>
-      <LogoImg src="/logo/logo.png" alt="Logo" />
-      <SearchBox>
+      <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
+      <SearchBox onSubmit={handleSearchInfo}>
+        <select>
+          <option value="">선택해주세요.</option>
+          <option value="">면접 후기</option>
+          <option value="/detail">취업 정보</option>
+          <option value="">회사 정보 공유</option>
+        </select>
         <SearchInput name="searchInfo" placeholder="검색어를 입력해 주세요." />
         <SearchButton>
           <FaMagnifyingGlass />
@@ -32,6 +44,7 @@ const HeaderStyle = styled.header`
 
 const LogoImg = styled.img`
   width: 10rem;
+  cursor: pointer;
 `;
 
 const SearchBox = styled.form`
