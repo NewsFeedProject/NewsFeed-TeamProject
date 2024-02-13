@@ -2,12 +2,15 @@ import Layout from "components/layout/Layout";
 import PostForm from "components/posts/PostForm";
 import Detail from "pages/Detail";
 import Home from "pages/Home";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Login from "components/layout/Login";
 import SignUp from "components/layout/SignUp";
 import Interview from "../rootPages/Interview";
 import WorkInfo from "../rootPages/WorkInfo";
 import CompanyInfo from "../rootPages/CompanyInfo";
+
 
 const router = createBrowserRouter([
   {
