@@ -2,8 +2,19 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 
 function PostCards({ post }) {
-  const { id, posts, setPosts, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } =
-    post;
+  const {
+    id,
+    posts,
+    setPosts,
+    userEmail,
+    postTitle,
+    postText,
+    postImage,
+    postDate,
+    userProfileImage,
+    previewImg,
+    postId
+  } = post;
   const navigate = useNavigate();
 
   const splitUserEmail = userEmail.split("@")[0];
@@ -63,7 +74,7 @@ function PostCards({ post }) {
           </div> */}
           <ClickBtn
             onClick={() => {
-              navigate(`/postdetail/${id}`);
+              navigate(`/postdetail/${postId}`);
             }}
           >
             상세보기
