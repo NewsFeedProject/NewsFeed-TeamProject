@@ -3,35 +3,66 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useContext, useState } from "react";
+import { PostContext } from "context/PostContext";
+import { LoginContext } from "context/LoginContext";
 
 export default function Header() {
+  const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
+  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const onClickHome = () => {
     navigate("/");
   };
-  const handleSearchInfo = () => {};
+
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchInfo = (e) => {
+    e.preventDefault();
+    if (!category || !searchTerm) {
+      alert("카테고리 선택과 검색어를 모두 입력해주세요😬");
+      return;
+    }
+    navigate(`/${category}?search=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm("");
+  };
+
   return (
     <HeaderStyle>
       <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
       <SearchBox onSubmit={handleSearchInfo}>
-        <select>
+        <SelectCategory onChange={handleCategory}>
           <option value="">선택해주세요.</option>
-          <option value="">면접 후기</option>
-          <option value="/detail">취업 정보</option>
-          <option value="">회사 정보 공유</option>
-        </select>
-        <SearchInput name="searchInfo" placeholder="검색어를 입력해 주세요." />
+          <option value="interview">면접 후기</option>
+          <option value="workInfo">취업 정보</option>
+          <option value="companyInfo">회사 정보 공유</option>
+        </SelectCategory>
+        <SearchInput value={searchTerm} placeholder="검색어를 입력해 주세요." onChange={handleSearch} />
         <SearchButton>
           <FaMagnifyingGlass />
         </SearchButton>
       </SearchBox>
       <div>
-        <Link to="/login">
-          <Button text="로그인" />
-        </Link>
-        <Link to="/signup">
-          <Button text="회원가입" color="red" />
-        </Link>
+        {!userEmail ? (
+          <>
+            <Link to="/login">
+              <Button text="로그인" />
+            </Link>
+            <Link to="/signup">
+              <Button text="회원가입" color="red" />
+            </Link>
+          </>
+        ) : (
+          <button>로그아웃</button>
+        )}
       </div>
     </HeaderStyle>
   );
@@ -81,6 +112,8 @@ const SearchButton = styled.button`
   cursor: pointer;
 `;
 
-// const ButtonBox = styled.div`
-//   padding: 2rem;
-// `;
+const SelectCategory = styled.select`
+  border: transparent;
+  margin-right: 1rem;
+  font-size: 15px;
+`;
