@@ -12,7 +12,6 @@ function Login() {
 
   useEffect(() => {
     const user = auth.currentUser;
-    console.log(user);
   }, [])
 
   const singInLogInFunction = async () => {
