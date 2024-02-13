@@ -49,7 +49,7 @@ const SectionBoxs = styled.aside`
 const ListSectionBoxs = styled.aside`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  /* height: 87.1vh; */
   width: 100%;
+  margin-left: 50%;
+  gap: 20px;
 `;
