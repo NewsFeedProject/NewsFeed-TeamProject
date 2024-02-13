@@ -138,7 +138,6 @@ function PostCards({ post }) {
     }
     setLiked(!liked);
   };
-  console.log(likedNumber);
 
   return (
     <ListWrapper>

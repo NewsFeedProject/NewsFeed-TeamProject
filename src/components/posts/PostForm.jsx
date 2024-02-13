@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
@@ -69,10 +69,11 @@ function PostForm() {
   };
 
   /* 카테고리 선택하기 */
-  const [selectCategory, setSelectCategory] = useState("면접후기");
+  const [selectCategory, setSelectCategory] = useState("면접 후기");
   const onSelectHandler = (event) => {
     setSelectCategory(event.target.value);
   };
+
   /* 포스트 글 추가하기 */
 
   const [title, setTitle] = useState("");
@@ -100,6 +101,7 @@ function PostForm() {
       alert("제목과 내용을 입력해주세요.");
       return;
     }
+
     // 현재 날짜 불러오기
     const date = Date.now();
 
@@ -120,14 +122,14 @@ function PostForm() {
     setPostImg([]);
     setPreviewImg(null);
     alert("글이 등록되었습니다. ");
-    navigate("/detail");
+    navigate(-1);
   };
   console.log(posts);
 
   // 포스트 글쓰기 취소하기
   const cancelBtnClickHandler = () => {
     alert("글쓰기를 취소합니다.");
-    navigate("/detail");
+    navigate(-1);
   };
 
   return (
