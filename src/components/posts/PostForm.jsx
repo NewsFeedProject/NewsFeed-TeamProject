@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
+import { addDoc, collection } from "firebase/firestore/lite";
 
 const StMain = styled.main`
   display: flex;

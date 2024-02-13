@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "data/firebase";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
@@ -114,7 +114,7 @@ const ClickBtn = styled.button`
 `;
 
 function PostCards({ post }) {
-  const { userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
+  const { posts, setPosts, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
