@@ -25,14 +25,7 @@ function Login() {
   console.log("Password-->", userPassword);
   const onClickHandler = (e) => {
     e.preventDefault();
-    // 파이어베이스 데이터 비교 로직으로 대체
-    // const newUserInfo = {
-    //   userEmail,
-    //   userPassword,
-    //   userName: userName,
-    //   userProfileImage: imgURL,
-    // }
-    // setUserInfo((prev) => [...prev, newUserInfo]);
+
     singInLogInFunction();
   }
 

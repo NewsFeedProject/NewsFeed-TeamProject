@@ -56,18 +56,18 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   }
-  const singUpFunction = async (userInfo) => {
+  const singUpFunction = async () => {
     try {
       const createdUser = await createUserWithEmailAndPassword(
         auth,
         userEmail,
         userPassword
       );
-      const updateProfile = await updateProfile(auth.currentUser, {
+      const updateProfiled = await updateProfile(auth.currentUser, {
         displayName: userName,
         photoURL: imgURL,
       });
-      console.log(createdUser, updateProfile);
+      console.log(createdUser, updateProfiled);
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +107,7 @@ function SignUp() {
     }
     setUserInfo((prev) => [...prev, newUserInfo]);
     navigate('/');
-    singUpFunction(userInfo);
+    singUpFunction();
     setUserId('');
     setUserMail('');
     setUserPassword('');

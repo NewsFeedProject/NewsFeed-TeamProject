@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import profileImg from "../../assets/images/profile-user.png";
-import { PostContext } from "../../context/PostContext";
+import profileImg from "assets/images/profile-user.png";
+import { PostContext } from "context/PostContext";
 
 const StMain = styled.main`
   display: flex;
