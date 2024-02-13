@@ -4,7 +4,7 @@ import PostCards from "./PostCards";
 
 function PostList() {
   const { posts } = useContext(PostContext);
-
+  // const filteredPost = posts.filter((post) => post.postCategory === activePost);
   return (
     <>
       <ul>

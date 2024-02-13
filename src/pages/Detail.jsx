@@ -23,22 +23,13 @@ const WriteBtn = styled.button`
   background-color: transparent;
   color: red;
   font-size: larger;
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 600;
+  }
 `;
 function Detail() {
   const { category, posts } = useContext(PostContext);
-
-  // const sortCategoryFunction = (category) => {
-  //   switch (category) {
-  //     case "interview":
-  //       return <StP>면접 후기</StP>;
-  //     case "workInfo":
-  //       return <StP>취업 정보</StP>;
-  //     case "company":
-  //       return <StP>회사 정보 공유</StP>;
-  //     default:
-  //       return;
-  //   }
-  // };
 
   const navigate = useNavigate();
   console.log(posts);

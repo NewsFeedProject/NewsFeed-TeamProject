@@ -5,8 +5,12 @@ export const PostContext = createContext(null);
 
 const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState(detailListDummyData);
-  const category = posts.map((item) => item.postCategory);
-  // console.log(posts);
+
+  /* 카테고리 추가하기 */
+  const [category, setCategory] = useState("");
+  const categoryBtnClickHandler = (category) => {
+    setCategory(category);
+  };
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = (newpost) => {
@@ -19,7 +23,18 @@ const PostProvider = ({ children }) => {
 
   return (
     <PostContext.Provider
-      value={{ posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg }}
+      value={{
+        posts,
+        setPosts,
+        addPostSubmit,
+        postImg,
+        setPostImg,
+        previewImg,
+        setPreviewImg,
+        category,
+        setCategory,
+        categoryBtnClickHandler
+      }}
     >
       {children}
     </PostContext.Provider>
