@@ -6,11 +6,21 @@ import { Link } from 'react-router-dom';
 import { auth } from 'data/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { GithubButton } from 'components/layout/GithubBtn';
-// import { SingUpContext } from 'context/SingUpContext';
 
 function Login() {
-  const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo, userInfo } = useContext(LoginContext);
-  // const { userName, imgURL } = useContext(SingUpContext);
+  const { userEmail, setUserEmail, userPassword, setUserPassword, userInfo } = useContext(LoginContext);
+  const singInLogInFunction = async (userInfo) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        userInfo.userEmail,
+        userInfo.userPassword
+      );
+      console.log("user with signIn", userCredential.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const onClickHandler = (e) => {
     e.preventDefault();
     // 파이어베이스 데이터 비교 로직으로 대체
@@ -21,18 +31,6 @@ function Login() {
     //   userProfileImage: imgURL,
     // }
     // setUserInfo((prev) => [...prev, newUserInfo]);
-    const singInLogInFunction = async (userInfo) => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          userInfo.userEmail,
-          userInfo.userPassword,
-        )
-        console.log("user with signIn", userCredential.user);
-      } catch (error) {
-        console.log(error);
-      }
-    }
     singInLogInFunction(userInfo);
   }
 
@@ -40,7 +38,9 @@ function Login() {
     <LoginBackground>
       <FormStyle>
         <TitleStyle>NextMove</TitleStyle>
-        <CloseStyle>X</CloseStyle>
+        <Link to="/">
+          <CloseStyle>X</CloseStyle>
+        </Link>
         <LabelStyle>아이디</LabelStyle>
         <InputStyle
           type="text"

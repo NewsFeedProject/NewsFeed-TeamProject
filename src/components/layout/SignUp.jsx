@@ -61,11 +61,11 @@ function SignUp() {
       const createdUser = await createUserWithEmailAndPassword(
         auth,
         userInfo.userEmail,
-        userInfo.userPassword,
+        userInfo.userPassword
       );
       const updateProfile = await updateProfile(auth.currentUser, {
-        userName: userInfo.name,
-        userProfileImage: userInfo.imgURL,
+        displayName: userInfo.userName,
+        photoURL: userInfo.userProfileImage,
       });
       console.log(createdUser, updateProfile);
     } catch (error) {
