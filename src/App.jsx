@@ -1,11 +1,8 @@
 import React from 'react'
-import RouterTest from "shared/RouterTest"
 
 function App() {
   return (
-    <>
-      <RouterTest />
-    </>
+    <div>App</div>
   )
 }
 
