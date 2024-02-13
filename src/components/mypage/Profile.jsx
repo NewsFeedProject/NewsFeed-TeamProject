@@ -6,16 +6,13 @@ import styled from "styled-components";
 function Profile() {
   const params = useParams();
   const usersContext = useContext(UsersContext);
-  const foundUser = usersContext.users.find((user) => {
-    return user.uid === params.uid;
-  });
 
   const [userData, setUserData] = useState({
-    uid: foundUser.uid,
-    userName: foundUser.userName,
-    userEmail: foundUser.userEmail,
-    userPassword: foundUser.userPassword,
-    userProfileImage: foundUser.userProfileImage
+    uid: params.uid,
+    userName: "",
+    userEmail: "",
+    userPassword: "",
+    userProfileImage: ""
   });
   const [emailPrefix, setEmailPrefix] = useState("");
   const [emailSuffix, setEmailSuffix] = useState("");
@@ -32,9 +29,6 @@ function Profile() {
     const [prefix, suffix] = currentUser.userEmail.split("@");
     setEmailPrefix(prefix);
     setEmailSuffix(suffix);
-    if (suffix !== "") {
-      setIsCustomSuffix(true);
-    }
   }, [params.uid, usersContext.users]);
 
   const handleInputChange = (event) => {
@@ -115,19 +109,19 @@ function Profile() {
       <form onSubmit={handleSubmit}>
         <div>
           프로필 사진<StSpan>*&nbsp;</StSpan>
-          {foundUser.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />}
+          {userData.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />}
           <input type="file" accept="image/*" onChange={handleImageChange} style={{ marginLeft: "10px" }} />
         </div>
         <StDiv>
           이름<StSpan>*&nbsp;</StSpan>
-          <StInput type="text" name="userName" value={foundUser.userName} onChange={handleInputChange} required />
+          <StInput type="text" name="userName" value={userData.userName} onChange={handleInputChange} required />
         </StDiv>
         <StDiv>
           아이디<StSpan>*&nbsp;</StSpan>
           <StInputEmail type="text" name="emailPrefix" value={emailPrefix} onChange={handleInputChange} required />
           &nbsp;@&nbsp;
           <StInputEmail type="text" name="emailSuffix" value={emailSuffix} onChange={handleInputChange} required />
-          <StSelect value={isCustomSuffix ? "직접 입력" : emailSuffix} onChange={handleSelectChange}>
+          <StSelect value={emailSuffix} onChange={handleSelectChange}>
             <option value="직접 입력">직접 입력</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
