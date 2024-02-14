@@ -3,23 +3,46 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PostContext } from "context/PostContext";
 import { LoginContext } from "context/LoginContext";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Logout } from "components/login/Logout";
 
 export default function Header() {
-  const { userEmail } = useContext(LoginContext);
+  // const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const [userUid, setUserUid] = useState("");
+  const [userMail, setUserMail] = useState("");
+  // const auth = getAuth();
+  // const user = auth.currentUser;
 
-  if (user !== null) {
-    const uid = user.uid;
-    console.log("유아이디", uid);
-  }
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserUid(user.uid);
+      } else {
+        setUserUid(null);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
+  }, []);
+
+  console.log("유저 유아이디", userUid);
+  console.log("유저 이메일", userMail);
 
   const onClickHome = () => {
     navigate("/");
@@ -59,7 +82,7 @@ export default function Header() {
         </SearchButton>
       </SearchBox>
       <div>
-        {!userEmail ? (
+        {!userMail ? (
           <>
             <Link to="/login">
               <Button text="로그인" />
@@ -70,10 +93,10 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Link to={`/mypage/:${uid}`}>
+            <Link to={`/mypage/${userUid}`}>
               <Button text="마이페이지" />
             </Link>
-            <button>로그아웃</button>
+            <button onClick={Logout}>로그아웃</button>
           </>
         )}
       </div>
