@@ -6,12 +6,20 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 import { PostContext } from "context/PostContext";
 import { LoginContext } from "context/LoginContext";
+import { getAuth } from "firebase/auth";
 
 export default function Header() {
   const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user !== null) {
+    const uid = user.uid;
+    console.log("유아이디", uid);
+  }
 
   const onClickHome = () => {
     navigate("/");
@@ -62,8 +70,8 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Link to="/detail">
-              <Button text="마이페이지" color="red" />
+            <Link to={`/mypage/:${uid}`}>
+              <Button text="마이페이지" />
             </Link>
             <button>로그아웃</button>
           </>
