@@ -37,8 +37,8 @@ export default function Header() {
       }
     });
   }, []);
-  console.log("유저 유아이디", userUid);
-  console.log("유저 이메일", userMail);
+  // console.log("유저 유아이디", userUid);
+  // console.log("유저 이메일", userMail);
   const onClickHome = () => {
     navigate("/");
   };

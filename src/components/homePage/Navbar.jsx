@@ -38,8 +38,8 @@ export default function Navbar() {
     });
   }, []);
 
-  console.log("유저 이메일", userMail);
-  console.log("사진뭐불러와?", userProfileImg);
+  // console.log("유저 이메일", userMail);
+  // console.log("사진뭐불러와?", userProfileImg);
 
   return (
     <NavBar>
