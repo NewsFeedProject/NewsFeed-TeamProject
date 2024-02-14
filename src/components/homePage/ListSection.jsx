@@ -54,5 +54,5 @@ const MainPostSample = styled.section`
   border: 1px solid gray;
   border-radius: 2rem;
   height: auto;
-  max-height: 80%;
+  max-height: 50%;
 `;

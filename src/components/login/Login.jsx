@@ -1,5 +1,5 @@
 import { LoginContext } from 'context/LoginContext';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,12 +11,7 @@ import { Logout } from './Logout';
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
 
-  useEffect(() => {
-    // login 어찌해야할까?
-    const user = auth.currentUser;
-  }, []);
-
-  const singInLogInFunction = async () => {
+  async function singInLogInFunction() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
