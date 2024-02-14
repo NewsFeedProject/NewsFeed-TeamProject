@@ -37,7 +37,6 @@ const PostProvider = ({ children }) => {
   }, []);
 
   /* email, profileImg 데이터 불러오기 */
-
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -71,16 +70,16 @@ const PostProvider = ({ children }) => {
     });
   }, []);
 
-  console.log("유저 이메일", userMail);
-  console.log("사진뭐불러와?", userProfileImg);
-  console.log("유저 아이디", userUid);
+  // console.log("유저 이메일", userMail);
+  // console.log("사진뭐불러와?", userProfileImg);
+  // console.log("유저 아이디", userUid);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
-    setPosts((posts) => [newpost, ...posts]);
-
+    // const collectionRef = await addDoc(collection(db, "postInfo"), newpost);
     const collectionRef = collection(db, "postInfo");
     await addDoc(collectionRef, newpost);
+    setPosts((posts) => [newpost, ...posts]);
   };
 
   /* 글 쓰기 - img 추가하기 */

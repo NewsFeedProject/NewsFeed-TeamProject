@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 function PostList({ category }) {
   const { posts } = useContext(PostContext);
+
   const filteredPost = posts.filter((post) => {
     return post.postCategory === category;
   });
@@ -14,7 +15,7 @@ function PostList({ category }) {
       <ul>
         {filteredPost.length > 0 ? (
           filteredPost.map((post) => {
-            return <PostCards key={post.postId} post={post} />;
+            return <PostCards key={post.id} post={post} />;
           })
         ) : (
           <NotDetail>내용이 없습니다.</NotDetail>

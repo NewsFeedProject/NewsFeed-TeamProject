@@ -5,11 +5,13 @@ import { useContext } from "react";
 import { PostContext } from "../../context/PostContext";
 import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore/lite";
 import { db } from "../../data/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PostDetail = () => {
   const { id } = useParams();
-  const { userUid } = useContext(PostContext);
+  const { userUid, posts, setPosts } = useContext(PostContext);
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const [postCard, setPostCard] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -19,11 +21,10 @@ const PostDetail = () => {
   const [editingTitleError, setEditingTitleError] = useState("");
   const [editingContentError, setEditingContentError] = useState("");
 
-  console.log(userUid);
-
   useEffect(() => {
     const fetchPost = async () => {
       const docSnap = await getDoc(doc(db, "postInfo", id));
+
       setPostCard(docSnap.data());
     };
     fetchPost();
@@ -35,16 +36,20 @@ const PostDetail = () => {
     }
   }, [isEditing]);
 
+  console.log(posts);
+  console.log(userUid);
+  console.log(postCard);
+
   //삭제기능
   const handleDelete = async () => {
     try {
       if (window.confirm("정말로 삭제하시겠습니까?")) {
         alert("삭제 되었습니다.");
         const postRef = doc(db, "postInfo", id);
-        console.log("postRef", postRef);
         await deleteDoc(postRef);
         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-        navigate("/");
+        navigate(-1);
+        console.log("postRef", postRef);
       }
     } catch (error) {
       console.error("Error: ", error);
@@ -58,7 +63,7 @@ const PostDetail = () => {
     setEditingContentError("");
   };
 
-  // 수정버튼
+  //수정버튼
   const onEditDone = async () => {
     if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
       setEditingTitleError("수정사항이 없습니다.");
@@ -119,13 +124,7 @@ const PostDetail = () => {
       setEditingPhotoCard(reader.result);
     };
   };
-  // const hadlerEditAndHadler = () => {
-  //   if (userUid === postCard.uid) {
-  //     setIsEditing(true);
-  //   } else {
-  //     alert("해당 권한이 없습니다.");
-  //   }
-  // };
+
   if (!postCard) {
     return <div>로딩중....</div>;
   }
