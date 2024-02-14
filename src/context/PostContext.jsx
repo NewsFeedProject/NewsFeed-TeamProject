@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { collection, getDocs, query, addDoc } from "firebase/firestore/lite";
 import { db } from "data/firebase";
 import detailListDummyData from "data/detailListDummyData";
+import { orderBy } from "firebase/firestore";
 
 export const PostContext = createContext(null);
 
@@ -19,7 +20,7 @@ const PostProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  /* firebase 데이터 불러오기 */
+  /* firebase 데이터 가져오기 */
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "postInfo"));
@@ -32,7 +33,7 @@ const PostProvider = ({ children }) => {
           id: doc.id,
           ...doc.data()
         };
-        console.log(data);
+
         initialPosts.push(data);
       });
 
