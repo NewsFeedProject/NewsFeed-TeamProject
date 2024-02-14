@@ -7,11 +7,11 @@ import styled from "styled-components";
 
 function PostCards({ post }) {
   const navigate = useNavigate();
+  const { id, postTitle, postText, postImage, postDate, userProfileImage, userEmail } = post;
 
-  const { id, postTitle, postText, postImage, postDate, userProfileImage, userProfileImg, userEmail } = post;
   const { setFormattedPostData } = useContext(PostContext);
   const { imgUrl } = useContext(SingUpContext);
-  console.log(imgUrl);
+  // console.log(imgUrl);
 
   const [userNickname, setUserNickName] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
