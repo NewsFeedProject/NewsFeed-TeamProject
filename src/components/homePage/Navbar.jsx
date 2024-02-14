@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { SingUpContext } from "context/SingUpContext";
 
 export default function Navbar() {
   const [userMail, setUserMail] = useState("");
   const [userProfileImg, setUserProfileImg] = useState("");
+  const { imgUrl } = useContext(SingUpContext);
 
   useEffect(() => {
     const auth = getAuth();
@@ -35,7 +37,7 @@ export default function Navbar() {
         <CatchLoginLogout>
           {userMail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={userProfileImg} alt="User Profile" />
+              <ProfileImg src={userProfileImg || imgUrl} alt="User Profile" />
               <UserEmailId>
                 {userMail}님<br />
                 <StText> 안녕하세요.</StText>
@@ -51,7 +53,6 @@ export default function Navbar() {
           <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
-
       <JobOpening>
         <p>채용공고</p>
       </JobOpening>
@@ -64,13 +65,12 @@ const NavBar = styled.nav`
   white-space: nowrap;
   left: 0;
   bottom: 0;
-  height: 100%;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 10%;
-  background-color: #fff;
-  grid-row: 2;
+  padding-top: 1%;
+  /* grid-row: 2; */
 `;
 
 const StText = styled.text`

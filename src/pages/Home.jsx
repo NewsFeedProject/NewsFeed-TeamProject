@@ -10,5 +10,6 @@ export default function Home() {
   );
 }
 const MainHome = styled.div`
-  width: 100%;
+  flex: 1;
+  height: 100%;
 `;

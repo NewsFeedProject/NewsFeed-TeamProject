@@ -1,20 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { StarStyle } from "styles/common";
-import profileUser from "assets/images/profile-user.png";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth, db } from 'data/firebase'
+import { auth, db } from "data/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore/lite";
+import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { userEmail, setUserEmail, userPassword, setUserPassword, userInfo, setUserInfo } = useContext(LoginContext);
+  const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
   const {
-    imgURL,
-    setImgURL,
     userName,
     setUserName,
     userId,
@@ -25,17 +22,19 @@ function SignUp() {
     setReUserPassword,
     checkBox,
     setCheckBox,
+    imgUrl,
+    setImgUrl
   } = useContext(SingUpContext);
 
 
-  const imgChangeHandler = (e) => {
-    const file = e.target.files[0] || e.target.files;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const imageDataURL = reader.result;
-      setImgURL(imageDataURL);
-    };
-    reader.readAsDataURL(file);
+  const handleImageChange = (e) => {
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    if (file) {
+      let image = window.URL.createObjectURL(file);
+      console.log(image);
+      setImgUrl(image);
+    }
   };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
@@ -66,17 +65,18 @@ function SignUp() {
     } catch (error) {
       // console.log(error);
     }
-  };
+  }
   const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgURL,
+      userProfileImage: imgUrl,
     }
     await addDoc(collection(db, "user"), doc);
+
     setUserInfo((prev) => [...prev, doc]);
-  }
+  };
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -109,7 +109,7 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgURL
+      userProfileImage: imgUrl,
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
     if (userPassword.length < 6) {
@@ -128,21 +128,20 @@ function SignUp() {
     addUserInfoFirebase();
   };
 
-  const DuplicateCheck = (e) => {
+  const DuplicateCheck = async (e) => {
     e.preventDefault();
-    if (userPassword !== reUserPassword) {
-      alert("비밀번호를 다시 확인해주세요!");
-      return;
-    }
+
+    const querySnapshot = await getDocs(collection(db, 'user'));
+    const userInfo = querySnapshot.docs.map((doc) => doc.data());
+    setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
     if (isDuplicate) {
-      alert("중복됩니다. 다시 입력해주세요!");
-      setUserId("");
-      setUserMail("");
+      alert('중복됩니다. 다시 입력해주세요!');
+      setUserId('');
+      setUserMail('');
     } else {
-      alert("중복되는게 없어요!");
+      alert('중복되는게 없어요!');
     }
-    return isDuplicate;
   };
 
   return (
@@ -153,15 +152,14 @@ function SignUp() {
           <AllLabelStyle>
             프로필 사진 <StarStyle>*</StarStyle>
           </AllLabelStyle>
-          <ImageStyle src={imgURL ? imgURL : profileUser} alt="userProfile" />
+          <ImageStyle src={imgUrl} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
 
           <InputFileStyle
             id="inputFile"
             type="file"
-            accept=".png, .jpeg, .jpg, .gif"
-            value={imgURL}
-            onChange={imgChangeHandler}
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </InputGroup>
         <InputGroup>
