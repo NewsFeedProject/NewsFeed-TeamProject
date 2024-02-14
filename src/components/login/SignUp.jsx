@@ -216,7 +216,7 @@ export default SignUp;
 
 const SingUpWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
 `;
 const SignUpForm = styled.form`
   padding-top: 100px;
