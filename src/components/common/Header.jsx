@@ -3,29 +3,48 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useContext, useState } from "react";
-import { PostContext } from "context/PostContext";
-import { LoginContext } from "context/LoginContext";
+import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Logout } from "components/login/Logout";
 
 export default function Header() {
-  const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
-
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [userUid, setUserUid] = useState("");
+  const [userMail, setUserMail] = useState("");
 
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserUid(user.uid);
+      } else {
+        setUserUid(null);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
+  }, []);
+  console.log("유저 유아이디", userUid);
+  console.log("유저 이메일", userMail);
   const onClickHome = () => {
     navigate("/");
   };
-
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-
   const handleSearchInfo = (e) => {
     e.preventDefault();
     if (!category || !searchTerm) {
@@ -35,7 +54,6 @@ export default function Header() {
     navigate(`/${category}?search=${encodeURIComponent(searchTerm)}`);
     setSearchTerm("");
   };
-
   return (
     <HeaderStyle>
       <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
@@ -52,7 +70,7 @@ export default function Header() {
         </SearchButton>
       </SearchBox>
       <div>
-        {!userEmail ? (
+        {!userMail ? (
           <>
             <Link to="/login">
               <Button text="로그인" />
@@ -62,13 +80,17 @@ export default function Header() {
             </Link>
           </>
         ) : (
-          <button>로그아웃</button>
+          <>
+            <Link to={`/mypage/${userUid}`}>
+              <Button text="마이페이지" />
+            </Link>
+            <Button onClick={Logout} text="로그아웃" />
+          </>
         )}
       </div>
     </HeaderStyle>
   );
 }
-
 const HeaderStyle = styled.header`
   display: flex;
   flex-direction: row;
@@ -78,24 +100,23 @@ const HeaderStyle = styled.header`
   height: 10rem;
   padding: 2rem;
   background-color: #fff;
-  position: fixed;
-  left: 0;
+  grid-row: 1;
+  grid-column: 1/3;
+  /* position: fixed; */
+  /* left: 0;
   top: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 9999; */
 `;
-
 const LogoImg = styled.img`
   width: 10rem;
   cursor: pointer;
 `;
-
 const SearchBox = styled.form`
   display: flex;
   align-items: center;
   position: relative;
 `;
-
 const SearchInput = styled.input`
   width: 25rem;
   height: 2.5rem;
@@ -103,16 +124,13 @@ const SearchInput = styled.input`
   border-radius: 2rem;
   padding: 1rem;
 `;
-
 const SearchButton = styled.button`
   border: none;
   background-color: transparent;
-
   position: absolute;
   right: 0.5rem;
   cursor: pointer;
 `;
-
 const SelectCategory = styled.select`
   border: transparent;
   margin-right: 1rem;
