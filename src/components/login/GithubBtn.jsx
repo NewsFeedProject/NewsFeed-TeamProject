@@ -29,6 +29,7 @@ export function GithubButton() {
 }
 
 const GithubBtnStyle = styled.button`
+  width: 90%;
   height: 70px;
   margin-bottom: 30px;
   &>img{

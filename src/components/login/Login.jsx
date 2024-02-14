@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from 'data/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword } from 'firebase/auth';
 import { GithubButton } from 'components/login/GithubBtn';
 import { Logout } from './Logout';
 
@@ -24,6 +24,20 @@ function Login() {
       // console.log(error);
     }
   };
+
+  const testFunction = async () => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      navigate('/');
+      console.log(user);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const navigate = useNavigate();
   const onClickHandler = (e) => {
