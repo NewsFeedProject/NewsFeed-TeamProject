@@ -21,10 +21,10 @@ const WriteBtn = styled.button`
   background-color: transparent;
   color: #ff006e;
   font-size: larger;
-  margin-top: 20px;
-  transform: translateY(-10px);
+  margin-top: 40px;
+  transform: translateY(-20px);
+  cursor: pointer;
   &:hover {
-    transform: scale(1.2);
     font-weight: 600;
   }
 `;
