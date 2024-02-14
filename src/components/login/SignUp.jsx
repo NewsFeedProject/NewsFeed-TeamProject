@@ -6,7 +6,7 @@ import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
 import { auth, db } from 'data/firebase'
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore/lite";
 
 function SignUp() {
@@ -26,6 +26,8 @@ function SignUp() {
     checkBox,
     setCheckBox,
   } = useContext(SingUpContext);
+
+  console.log(userEmail);
 
   const imgChangeHandler = (e) => {
     const file = e.target.files[0] || e.target.files;
@@ -64,7 +66,7 @@ function SignUp() {
       // });
       console.log(createdUser);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const addUserInfoFirebase = async () => {
