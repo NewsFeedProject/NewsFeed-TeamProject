@@ -5,14 +5,26 @@ import styled from "styled-components";
 
 function Profile() {
   const params = useParams();
-  const usersContext = useContext(UsersContext);
+  // const usersContext = useContext(UsersContext);
+  const currentUser = useContext(UsersContext);
+  if (!currentUser) {
+    return;
+  }
+  const { uid, email, photoURL, displayName } = currentUser;
 
+  // const [userData, setUserData] = useState({
+  //   uid: params.uid,
+  //   userName: "",
+  //   userEmail: "",
+  //   userPassword: "",
+  //   userProfileImage: ""
+  // });
   const [userData, setUserData] = useState({
     uid: params.uid,
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    userProfileImage: ""
+    displayName: "",
+    email: "",
+    userPassword: "111",
+    photoURL: ""
   });
   const [emailPrefix, setEmailPrefix] = useState("");
   const [emailSuffix, setEmailSuffix] = useState("");
@@ -25,12 +37,12 @@ function Profile() {
   const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
-    const currentUser = usersContext.users.find((user) => user.uid === params.uid);
+    // const currentUser = usersContext.users.find((user) => user.uid === params.uid);
     setUserData(currentUser);
-    const [prefix, suffix] = currentUser.userEmail.split("@");
+    const [prefix, suffix] = email.split("@");
     setEmailPrefix(prefix);
     setEmailSuffix(suffix);
-  }, [params.uid, usersContext.users]);
+  }, [params.uid, currentUser]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -124,13 +136,13 @@ function Profile() {
           {previewImage ? (
             <StImg src={previewImage} alt="프로필 미리보기" />
           ) : (
-            userData.userProfileImage && <StImg src={userData.userProfileImage} alt="프로필 이미지" />
+            photoURL && <StImg src={photoURL} alt="프로필 이미지" />
           )}
           <input type="file" accept="image/*" onChange={handleImageChange} style={{ marginLeft: "10px" }} />
         </div>
         <StDiv>
           이름<StSpan>*&nbsp;</StSpan>
-          <StInput type="text" name="userName" value={userData.userName} onChange={handleInputChange} required />
+          <StInput type="text" name="userName" value={displayName} onChange={handleInputChange} required />
         </StDiv>
         <StDiv>
           아이디<StSpan>*&nbsp;</StSpan>
