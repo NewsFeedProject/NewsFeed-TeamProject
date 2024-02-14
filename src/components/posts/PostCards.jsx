@@ -117,7 +117,7 @@ function PostCards({ post }) {
   const { posts, setPosts, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
-  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length);
 
   const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
     year: "numeric",
