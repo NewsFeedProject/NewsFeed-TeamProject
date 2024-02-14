@@ -40,14 +40,12 @@ const SectionBoxs = styled.aside`
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 87vh;
+  height: 100%;
   width: 100%;
 `;
 
 const ListSectionBoxs = styled.aside`
   justify-content: center;
   display: flex;
-  flex-direction: row;
   width: 100%;
-  gap: 20px;
 `;

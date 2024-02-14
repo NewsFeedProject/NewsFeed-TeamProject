@@ -13,39 +13,39 @@ export default function ListSection({ text, onClick, category }) {
   return (
     <ListSectionBox>
       <MenuTilte>{text}</MenuTilte>
-      <MenuLink onClick={onClick}>더보기</MenuLink>
+      <MenuLinkWrap>
+        <MenuLink onClick={onClick}>더보기</MenuLink>
+      </MenuLinkWrap>
       <MainPostSample>{ComponentToRender && <ComponentToRender />}</MainPostSample>
     </ListSectionBox>
   );
 }
 
 const ListSectionBox = styled.section`
-  border: 1px solid grey;
   height: 45vh;
-  width: 35%;
+  width: 50%;
   border-radius: 2rem;
-  padding: 1rem 5rem;
-  /* position: relative; */
+  box-sizing: border-box;
+  padding: 0 20px;
 `;
 
 const MenuTilte = styled.p`
-  margin-bottom: 2rem;
+  margin-bottom: 8px;
   font-size: 2rem;
-  cursor: pointer;
 `;
 
+const MenuLinkWrap = styled.div`
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: right;
+`;
 const MenuLink = styled.button`
-  display: flex;
-  flex-direction: row-reverse;
   background-color: transparent;
   border: none;
-
+  padding-right: 20px;
   &:hover {
-    transform: scale(1.2);
-    font-weight: 300;
+    color: #ff006e;
   }
-
-  margin-bottom: 2rem;
 `;
 
 const MainPostSample = styled.section`
@@ -53,5 +53,5 @@ const MainPostSample = styled.section`
   text-overflow: ellipsis;
   border: 1px solid gray;
   border-radius: 2rem;
-  height: 60%;
+  height: 100%;
 `;

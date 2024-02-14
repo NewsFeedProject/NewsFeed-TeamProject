@@ -9,14 +9,12 @@ import { getAuth, updatePassword, updateProfile } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA10mdN32r2pn_wRrysUkyLb6PYQdjNtqU",
-  authDomain: "project-test-2d43e.firebaseapp.com",
-  databaseURL: "https://project-test-2d43e-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "project-test-2d43e",
-  storageBucket: "project-test-2d43e.appspot.com",
-  messagingSenderId: "534335368031",
-  appId: "1:534335368031:web:f3a31d93e655a9a28e64ea",
-  measurementId: "G-81EPCJ137M"
+  apiKey: "AIzaSyBufb-5Avh-02Q5KOHg5jONpcHuB_Z4TTo",
+  authDomain: "newsfeed-project-ef014.firebaseapp.com",
+  projectId: "newsfeed-project-ef014",
+  storageBucket: "newsfeed-project-ef014.appspot.com",
+  messagingSenderId: "361537428167",
+  appId: "1:361537428167:web:ee9f21703e8e3148bdbce2"
 };
 
 // Initialize Firebase

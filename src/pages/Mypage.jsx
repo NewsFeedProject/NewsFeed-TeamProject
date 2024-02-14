@@ -59,7 +59,6 @@ function Mypage() {
 
 export default Mypage;
 const MypageArea = styled.div`
-  /* margin: 50px; */
   margin: 200px 25% 0 25%;
   flex: 1;
 `;
