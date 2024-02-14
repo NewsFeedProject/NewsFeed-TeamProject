@@ -79,8 +79,8 @@ function Profile() {
   };
 
   return (
-    <div>
-      <h2>회원정보 수정</h2>
+    <UserInfoWrap>
+      <UserInfoEdit>회원정보 수정</UserInfoEdit>
       {error && <p>{error}</p>}
       <div>
         프로필 사진<StSpan>*&nbsp;</StSpan>
@@ -91,37 +91,75 @@ function Profile() {
         )}
         <input type="file" accept="image/*" onChange={handleImageChange} style={{ marginLeft: "10px" }} />
       </div>
-      <label>
-        디스플레이 이름:
-        <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        이메일:
-        <input type="text" value={emailPrefix} onChange={(e) => setEmailPrefix(e.target.value)} />@
+      <div>
+        <label for="displayName">디스플레이 이름:</label>
+        <input type="text" id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
+      </div>
+      <div>
+        <label for="userEmail">이메일:</label>
+        <input type="text" id="userEmail" value={emailPrefix} onChange={(e) => setEmailPrefix(e.target.value)} />@
         <select value={emailSuffix} onChange={(e) => setEmailSuffix(e.target.value)}>
           <option value="">--이메일 선택--</option>
           <option value="gmail.com">gmail.com</option>
           <option value="naver.com">naver.com</option>
           <option value="daum.net">daum.net</option>
         </select>
-      </label>
-      <br />
-      <label>
-        새 비밀번호:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        확인 비밀번호:
-        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-      </label>
-      <br />
+      </div>
+      <div>
+        <label for="newPassword">새 비밀번호:</label>
+        <input type="password" id="newPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <div>
+        <label for="checkedPassword">확인 비밀번호: </label>
+        <input
+          type="password"
+          id="checkedPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </div>
       <button onClick={handleUpdateProfile}>프로필 업데이트</button>
-    </div>
+    </UserInfoWrap>
   );
 }
 export default Profile;
+
+const UserInfoWrap = styled.form`
+  line-height: 24px;
+  & > div {
+    margin: 20px 0;
+  }
+  & > div > label {
+    margin-right: 10px;
+  }
+  & > div > input {
+    width: 30%;
+    padding: 3px 10px;
+  }
+  & > button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-top: 30px;
+    width: 50%;
+  }
+  & > button:hover {
+    color: #fff;
+    background-color: #ff006e;
+    border: 1px solid #ff006e;
+  }
+
+  & > div > select {
+    padding: 6px 10px;
+  }
+`;
+
+const UserInfoEdit = styled.h2`
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 30px;
+`;
 
 // const ProfileArea = styled.div`
 //   padding: 10px 0 10px 20px;

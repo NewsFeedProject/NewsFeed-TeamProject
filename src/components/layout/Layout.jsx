@@ -16,7 +16,6 @@ const StyledOutlet = styled(Outlet)`
 
 const BodyBoxs = styled.div`
   display: flex;
-  flex-direction: row;
 `;
 
 function Layout() {
