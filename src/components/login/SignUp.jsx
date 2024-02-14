@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StarStyle } from "styles/common";
 import profileUser from "assets/images/profile-user.png";
 import styled from "styled-components";
@@ -27,17 +27,15 @@ function SignUp() {
     setCheckBox,
   } = useContext(SingUpContext);
 
-  console.log(userEmail);
 
   const imgChangeHandler = (e) => {
     const file = e.target.files[0] || e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
       const imageDataURL = reader.result;
-      const test = reader.readAsDataURL(file);
-      setImgURL(test);
-      console.log(imageDataURL);
+      setImgURL(imageDataURL);
     };
+    reader.readAsDataURL(file);
   };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
@@ -136,7 +134,6 @@ function SignUp() {
       alert("비밀번호를 다시 확인해주세요!");
       return;
     }
-
     const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
     if (isDuplicate) {
       alert("중복됩니다. 다시 입력해주세요!");
