@@ -3,8 +3,6 @@ import { createContext, useState } from "react";
 export const SingUpContext = createContext(null);
 
 function SingUpContextProvider({ children }) {
-  // 이미지
-  const [imgURL, setImgURL] = useState('');
   // user이름
   const [userName, setUserName] = useState("");
   // user ID만
@@ -18,8 +16,6 @@ function SingUpContextProvider({ children }) {
   return (
     <SingUpContext.Provider
       value={{
-        imgURL,
-        setImgURL,
         userName,
         setUserName,
         userId,
