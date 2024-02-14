@@ -68,6 +68,8 @@ function SignUp() {
     } catch (error) {
       console.log(error);
     }
+  };
+  const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
       userPassword: userPassword,
@@ -75,8 +77,7 @@ function SignUp() {
       userProfileImage: imgURL,
     }
     await addDoc(collection(db, "user"), doc);
-  };
-
+  }
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -121,7 +122,7 @@ function SignUp() {
     setUserName("");
     setCheckBox(false);
     navigate("/login");
-
+    addUserInfoFirebase();
   };
 
   const DuplicateCheck = (e) => {
