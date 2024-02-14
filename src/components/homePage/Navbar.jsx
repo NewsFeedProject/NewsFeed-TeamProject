@@ -71,10 +71,6 @@ const NavBar = styled.nav`
   padding-top: 10%;
   background-color: #fff;
   grid-row: 2;
-
-  @media (max-width: 1700px) {
-    width: 20%;
-  }
 `;
 
 const StText = styled.text`
