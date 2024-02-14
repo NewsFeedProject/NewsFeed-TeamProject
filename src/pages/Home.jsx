@@ -11,4 +11,5 @@ export default function Home() {
 }
 const MainHome = styled.div`
   height: 100%;
+  width: 100%;
 `;

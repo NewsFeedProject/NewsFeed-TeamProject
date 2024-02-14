@@ -13,6 +13,10 @@ const NormalButton = styled.button`
   }
 `;
 
-export default function Button({ text, color }) {
-  return <NormalButton color={color}>{text}</NormalButton>;
+export default function Button({ text, color, onClick }) {
+  return (
+    <NormalButton color={color} onClick={onClick}>
+      {text}
+    </NormalButton>
+  );
 }
