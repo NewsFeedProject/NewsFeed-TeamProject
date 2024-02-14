@@ -12,7 +12,6 @@ const PostDetail = () => {
   const { userUid, posts, setPosts } = useContext(PostContext);
   const { formattedPostData } = useContext(PostContext);
 
-
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -226,7 +225,7 @@ export default PostDetail;
 
 const DetailWrapper = styled.section`
   padding: 80px 60px;
-  margin: 150px 0 0 20%;
+  width: 100%;
 `;
 
 const DetailTiTle = styled.div`
