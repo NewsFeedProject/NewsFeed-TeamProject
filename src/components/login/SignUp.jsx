@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StarStyle } from "styles/common";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
 import { auth } from "data/firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 
 
@@ -26,6 +26,8 @@ function SignUp() {
     imgUrl,
     setImgUrl
   } = useContext(SingUpContext);
+
+  const [duplicateEmail, setDuplicateEmail] = useState('');
 
   const handleImageChange = (e) => {
     if (!e.target.files) return;
@@ -120,15 +122,23 @@ function SignUp() {
   const DuplicateCheck = (e) => {
     e.preventDefault();
 
-    const duplicateEmail = auth.currentUser.email;
-    console.log(duplicateEmail);
+    const temp = getAuth();
+    onAuthStateChanged(temp, (user) => {
+      if (user) {
+        setDuplicateEmail(user.email);
+      } else {
+        setDuplicateEmail(null);
+      }
+    });
     setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = duplicateEmail === userEmail;
     if (isDuplicate) {
       alert('중복됩니다. 다시 입력해주세요!');
       setUserId('');
       setUserMail('');
+      setDuplicateEmail('');
       setUserEmail('');
+      setUserMail('');
     } else {
       alert('중복되는게 없어요!');
     }
