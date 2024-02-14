@@ -60,11 +60,11 @@ function SignUp() {
   const singUpFunction = async () => {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-      const updateProfiled = await updateProfile(auth.currentUser, {
-        userName: userName,
-        photoURL: imgURL
-      });
-      console.log(createdUser, updateProfiled);
+      // const updateProfiled = await updateProfile(auth.currentUser, {
+      // userName: userName,
+      // photoURL: imgURL
+      // });
+      console.log(createdUser);
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +77,7 @@ function SignUp() {
       userProfileImage: imgURL,
     }
     await addDoc(collection(db, "user"), doc);
+    setUserInfo((prev) => [...prev, doc]);
   }
 
   const singUpClickHandler = (e) => {
@@ -113,6 +114,10 @@ function SignUp() {
       userProfileImage: imgURL
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
+    if (userPassword.length < 6) {
+      alert("비밀번호는 여섯 자 이상으로 입력해주세요");
+      return;
+    }
 
     singUpFunction();
     setUserId("");
@@ -132,7 +137,7 @@ function SignUp() {
       return;
     }
 
-    const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
+    const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
     if (isDuplicate) {
       alert("중복됩니다. 다시 입력해주세요!");
       setUserId("");
