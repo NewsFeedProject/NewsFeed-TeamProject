@@ -49,8 +49,6 @@ export default function Navbar() {
     });
   }, []);
 
-
-
   return (
     <NavBar>
       <div>
@@ -64,7 +62,7 @@ export default function Navbar() {
               </UserEmailId>
             </ShowUserInfoBox>
           ) : (
-            "로그인이 필요합니다."
+            <UserLogin>로그인이 필요합니다.</UserLogin>
           )}
         </CatchLoginLogout>
         <ShowMenu>
@@ -73,9 +71,9 @@ export default function Navbar() {
           <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
-      <JobOpening>
+      {/* <JobOpening>
         <p>채용공고</p>
-      </JobOpening>
+      </JobOpening> */}
     </NavBar>
   );
 }
@@ -85,12 +83,11 @@ const NavBar = styled.nav`
   white-space: nowrap;
   left: 0;
   bottom: 0;
-  height: 87vh;
+  height: 100vh;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 1%;
-  /* grid-row: 2; */
 `;
 
 const StText = styled.text`
@@ -104,7 +101,6 @@ const CatchLoginLogout = styled.div`
   gap: 1rem;
   font-size: 17px;
   padding-left: 1rem;
-
   margin: 0;
 `;
 
@@ -118,34 +114,37 @@ const ShowUserInfoBox = styled.span`
   margin: 0;
 `;
 
+const UserLogin = styled.p`
+  padding: 20px 0px 10px 10px;
+`;
+
 const ProfileImg = styled.img`
   width: 3rem;
   border-radius: 50%;
 `;
 
 const UserEmailId = styled.p`
-  font-size: 17px;
+  font-size: 16px;
+  padding: 20px 0 0;
 `;
 
 const ShowMenu = styled.section`
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 1rem;
-  font-size: 24px;
-  padding-left: 2rem;
-  padding-top: 2rem;
-  margin: 0;
+  gap: 30px;
+  font-size: 20px;
+  padding: 40px 40px 0 40px;
 `;
 
-const JobOpening = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  font-size: 20px;
-  border-top: 1px solid grey;
-  padding-bottom: 2rem;
-  padding-top: 2rem;
-  margin: 0;
-`;
+// const JobOpening = styled.section`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 1rem;
+//   font-size: 20px;
+//   border-top: 1px solid grey;
+//   padding-bottom: 2rem;
+//   padding-top: 2rem;
+//   margin: 0;
+// `;

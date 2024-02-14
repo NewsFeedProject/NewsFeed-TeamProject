@@ -19,8 +19,10 @@ const StP = styled.p`
 const WriteBtn = styled.button`
   border-color: transparent;
   background-color: transparent;
-  color: red;
+  color: #ff006e;
   font-size: larger;
+  margin-top: 20px;
+  transform: translateY(-10px);
   &:hover {
     transform: scale(1.2);
     font-weight: 600;
