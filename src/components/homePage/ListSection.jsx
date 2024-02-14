@@ -37,6 +37,13 @@ const MenuTilte = styled.p`
 const MenuLink = styled.button`
   display: flex;
   flex-direction: row-reverse;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 300;
+  }
 
   margin-bottom: 2rem;
 `;
