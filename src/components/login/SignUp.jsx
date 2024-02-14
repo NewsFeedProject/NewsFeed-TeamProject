@@ -57,7 +57,7 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   };
-  const singUpFunction = async () => {
+  async function singUpFunction() {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
       // const updateProfiled = await updateProfile(auth.currentUser, {

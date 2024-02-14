@@ -11,7 +11,7 @@ import { Logout } from './Logout';
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
 
-  const singInLogInFunction = async () => {
+  async function singInLogInFunction() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
