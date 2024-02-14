@@ -7,10 +7,11 @@ import Profile from "components/mypage/Profile";
 
 function Mypage() {
   const params = useParams();
-  const usersContext = useContext(UsersContext);
-  const foundUser = usersContext.users.find((user) => {
-    return user.uid === params.uid;
-  });
+  // const { uid, photoURL, email } = useContext(UsersContext);
+  const currentUser = useContext(UsersContext);
+  // const foundUser = usersContext.users.find((user) => {
+  //   return user.uid === params.uid;
+  // });
 
   const [showPosts, setShowPosts] = useState(true);
   const [showUserInfo, setShowUserInfo] = useState(false);
@@ -25,11 +26,18 @@ function Mypage() {
     setShowUserInfo(true);
   };
 
+  if (!currentUser) {
+    return <div>로딩중..!</div>;
+  }
+
+  // 로딩이 완료됐을 때
+  const { uid, photoURL, email } = currentUser;
+
   return (
     <MypageArea>
       <StUser>
-        {foundUser.userProfileImage && <StImg src={foundUser.userProfileImage} alt="프로필 이미지" />}
-        <StUserNickName>{foundUser.userEmail}님</StUserNickName>
+        {photoURL && <StImg src={photoURL} alt="프로필 이미지" />}
+        <StUserNickName>{email}님</StUserNickName>
       </StUser>
       <div>
         <StMypageBtn selected={showPosts} onClick={handlePostsClick}>
@@ -49,7 +57,8 @@ function Mypage() {
 
 export default Mypage;
 const MypageArea = styled.div`
-  margin: 50px;
+  /* margin: 50px; */
+  margin: 200px 25% 0 25%;
 `;
 
 const StUser = styled.div`
