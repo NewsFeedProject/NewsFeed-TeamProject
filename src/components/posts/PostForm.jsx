@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
-import { addDoc, collection } from "firebase/firestore/lite";
+import { SingUpContext } from "context/SingUpContext";
 
 const StMain = styled.main`
   display: flex;
@@ -50,11 +50,7 @@ function PostForm() {
   const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
 
-  /* 데이터 추가하기 */
-  // const addPost = async (event) =>{
-  //   event.preventDefault()
-  //   const newPost = {}
-  // }
+  const { userEmail, previewProfileImg } = useContext(SingUpContext);
 
   /* 이미지 파일 업로드하기 */
 
@@ -114,13 +110,13 @@ function PostForm() {
 
     // 카드 추가하기
     addPostSubmit({
-      userEmail: "userEmail",
+      userEmail: userEmail,
       postTitle: title,
       postText: text,
       postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: profileImg,
+      userProfileImage: previewProfileImg,
       postCategory: selectCategory
     });
 
@@ -128,7 +124,7 @@ function PostForm() {
     setText("");
     setPostImg([]);
     setPreviewImg(null);
-    alert("글이 등록되었습니다. ");
+    alert("글이 등록되었습니다.");
     navigate(-1);
   };
 

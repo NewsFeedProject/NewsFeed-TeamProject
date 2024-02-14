@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "data/firebase";
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { SingUpContext } from "context/SingUpContext";
 
 const ListWrapper = styled.article`
   display: flex;
