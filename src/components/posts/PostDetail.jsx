@@ -7,11 +7,11 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore/lite";
 import { db } from "../../data/firebase";
 
 const PostDetail = () => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const { posts, setPosts } = useContext(PostContext);
   const navigate = useNavigate();
 
-  const postCard = posts.find((item) => item.id === id);
+  const postCard = posts.find((item) => item.postId === postId);
 
   //삭제기능
   const handleDelete = async () => {
