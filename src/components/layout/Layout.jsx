@@ -11,6 +11,7 @@ const LayoutContainer = styled.div`
 
 const StyledOutlet = styled(Outlet)`
   flex: 1;
+  width: 100%;
 `;
 
 const BodyBoxs = styled.div`
