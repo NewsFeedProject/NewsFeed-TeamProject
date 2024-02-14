@@ -1,8 +1,3 @@
-import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
-import { db } from "data/firebase";
-import { SingUpContext } from "context/SingUpContext";
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
