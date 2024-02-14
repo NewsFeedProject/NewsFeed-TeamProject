@@ -38,7 +38,10 @@ function Mypage() {
       <StUser>
         {photoURL && <StImg src={photoURL} alt="프로필 이미지" />}
         <StUserNickName>
-          {email}/{displayName}님
+          <UserNickName>
+            {email}/{displayName}
+          </UserNickName>
+          님
         </StUserNickName>
       </StUser>
       <div>
@@ -59,8 +62,8 @@ function Mypage() {
 
 export default Mypage;
 const MypageArea = styled.div`
-  margin: 200px 25% 0 25%;
-  flex: 1;
+  margin: 50px auto;
+  width: 70%;
 `;
 
 const StUser = styled.div`
@@ -80,18 +83,23 @@ const StUserNickName = styled.p`
 const StMypageBtn = styled.button`
   margin: 0 15px 25px 0;
   width: 150px;
-  height: 30px;
   border: none;
-  border-radius: 10px;
-  color: ${(props) => (props.selected ? "red" : "#333")};
+  border-radius: 8px;
+  padding: 5px 15px;
+  color: ${(props) => (props.selected ? "#ff006e" : "#333")};
   text-align: center;
 
   &:hover {
-    color: red;
+    color: #ff006e;
   }
 `;
 
 const ContentArea = styled.div`
-  border: 1px solid black;
-  border-radius: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 40px;
+`;
+
+const UserNickName = styled.span`
+  font-weight: 700;
 `;
