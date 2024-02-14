@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import profileImg from "assets/images/profile-user.png";
+import { SingUpContext } from "context/SingUpContext";
+import { LoginContext } from "context/LoginContext";
 import { PostContext } from "context/PostContext";
 
-const StMain = styled.main`
+const FormContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin-top: 12rem;
 `;
 
 const StForm = styled.form`
@@ -46,14 +48,8 @@ const UploadImg = styled.img`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
+  const { addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
     useContext(PostContext);
-
-  /* 데이터 추가하기 */
-  // const addPost = async (event) =>{
-  //   event.preventDefault()
-  //   const newPost = {}
-  // }
 
   /* 이미지 파일 업로드하기 */
 
@@ -113,13 +109,13 @@ function PostForm() {
 
     // 카드 추가하기
     addPostSubmit({
-      userEmail: "userEmail",
+      userEmail: userMail,
       postTitle: title,
       postText: text,
       postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: profileImg,
+      userProfileImage: userProfileImg,
       postCategory: selectCategory
     });
 
@@ -127,7 +123,7 @@ function PostForm() {
     setText("");
     setPostImg([]);
     setPreviewImg(null);
-    alert("글이 등록되었습니다. ");
+    alert("글이 등록되었습니다.");
     navigate(-1);
   };
 
@@ -139,7 +135,7 @@ function PostForm() {
 
   return (
     <>
-      <StMain>
+      <FormContainer>
         <Link to="/">홈으로</Link>
         <StForm>
           <StDiv>
@@ -175,7 +171,7 @@ function PostForm() {
             </StBtn>
           </StDiv>
         </StForm>
-      </StMain>
+      </FormContainer>
     </>
   );
 }

@@ -8,7 +8,6 @@ import { PostContext } from "context/PostContext";
 import { LoginContext } from "context/LoginContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Logout } from "components/login/Logout";
-
 export default function Header() {
   // const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
@@ -18,7 +17,6 @@ export default function Header() {
   const [userMail, setUserMail] = useState("");
   // const auth = getAuth();
   // const user = auth.currentUser;
-
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -29,7 +27,6 @@ export default function Header() {
       }
     });
   }, []);
-
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -40,32 +37,26 @@ export default function Header() {
       }
     });
   }, []);
-
-  console.log("유저 유아이디", userUid);
-  console.log("유저 이메일", userMail);
-
+  // console.log("유저 유아이디", userUid);
+  // console.log("유저 이메일", userMail);
   const onClickHome = () => {
     navigate("/");
   };
-
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
-
   const handleSearchInfo = (e) => {
     e.preventDefault();
     if (!category || !searchTerm) {
-      alert("카테고리 선택과 검색어를 모두 입력해주세요😬");
+      alert("카테고리 선택과 검색어를 모두 입력해주세요:찌푸림:");
       return;
     }
     navigate(`/${category}?search=${encodeURIComponent(searchTerm)}`);
     setSearchTerm("");
   };
-
   return (
     <HeaderStyle>
       <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
@@ -103,7 +94,6 @@ export default function Header() {
     </HeaderStyle>
   );
 }
-
 const HeaderStyle = styled.header`
   display: flex;
   flex-direction: row;
@@ -119,18 +109,15 @@ const HeaderStyle = styled.header`
   right: 0;
   z-index: 9999;
 `;
-
 const LogoImg = styled.img`
   width: 10rem;
   cursor: pointer;
 `;
-
 const SearchBox = styled.form`
   display: flex;
   align-items: center;
   position: relative;
 `;
-
 const SearchInput = styled.input`
   width: 25rem;
   height: 2.5rem;
@@ -138,16 +125,13 @@ const SearchInput = styled.input`
   border-radius: 2rem;
   padding: 1rem;
 `;
-
 const SearchButton = styled.button`
   border: none;
   background-color: transparent;
-
   position: absolute;
   right: 0.5rem;
   cursor: pointer;
 `;
-
 const SelectCategory = styled.select`
   border: transparent;
   margin-right: 1rem;

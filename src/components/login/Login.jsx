@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from 'data/firebase';
+import { auth, storage } from 'data/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { GithubButton } from 'components/login/GithubBtn';
 import { Logout } from './Logout';
@@ -14,7 +14,6 @@ function Login() {
   useEffect(() => {
     // login 어찌해야할까?
     const user = auth.currentUser;
-    console.log(user);
   }, []);
 
   const singInLogInFunction = async () => {

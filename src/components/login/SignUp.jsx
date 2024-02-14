@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth } from 'data/firebase'
+import { auth, db } from 'data/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore/lite";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -67,7 +68,15 @@ function SignUp() {
     } catch (error) {
       console.log(error);
     }
+    let doc = {
+      userEmail: userEmail,
+      userPassword: userPassword,
+      userName: userName,
+      userProfileImage: imgURL,
+    }
+    await addDoc(collection(db, "user"), doc);
   };
+
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -112,9 +121,11 @@ function SignUp() {
     setUserName("");
     setCheckBox(false);
     navigate("/login");
+
   };
 
   const DuplicateCheck = (e) => {
+    e.preventDefault();
     if (userPassword !== reUserPassword) {
       alert("비밀번호를 다시 확인해주세요!");
       return;

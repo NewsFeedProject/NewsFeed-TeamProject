@@ -7,25 +7,28 @@ import { deleteDoc, doc, updateDoc } from "firebase/firestore/lite";
 import { db } from "../../data/firebase";
 
 const PostDetail = () => {
-  const { postId } = useParams();
-  const { posts, setPosts } = useContext(PostContext);
+  const { id } = useParams();
+  const { userUid, posts, setPosts } = useContext(PostContext);
   const navigate = useNavigate();
 
-  const postCard = posts.find((item) => item.postId === postId);
+  const postCard = posts.find((item) => item.postId === id);
 
   //삭제기능
   const handleDelete = async () => {
-    try {
-      if (window.confirm("정말로 삭제하시겠습니까?") === true) {
-        alert("삭제되었습니다");
-        const postRef = doc(db, "postInfo", id);
-        await deleteDoc(postRef);
-        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-        navigate("/");
+    if (userUid) {
+      try {
+        if (window.confirm("정말로 삭제하시겠습니까?") === true) {
+          alert("삭제되었습니다");
+          const postRef = doc(db, "postInfo", id);
+          await deleteDoc(postRef);
+          setPosts((prevPosts) => prevPosts.filter((post) => post.postId !== id));
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Error: ", error);
       }
-    } catch (error) {
-      console.error("Error: ", error);
     }
+    alert("해당 권한이 없습니다. ");
   };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -98,6 +101,11 @@ const PostDetail = () => {
     };
   };
 
+  const hadlerEditAndHadler = () => {
+    userUid ? navigate("/") : alert("해당 권한이 없습니다. ");
+    setIsEditing(false);
+  };
+
   return (
     <DetailWrapper>
       <DetailTiTle>
@@ -119,7 +127,7 @@ const PostDetail = () => {
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
                   <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>{postCard.postDate}</Date>
+                  <Date>시간영역</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
@@ -156,16 +164,10 @@ const PostDetail = () => {
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
                   <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>{postCard.postDate}</Date>
+                  <Date>시간영역</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
-                  <button
-                    onClick={() => {
-                      setIsEditing(true);
-                    }}
-                  >
-                    수정
-                  </button>
+                  <button onClick={hadlerEditAndHadler}>수정</button>
                   <button onClick={handleDelete}>삭제</button>
                 </EditAndDeleteWrapper>
               </UserInfoAndButton>
@@ -192,9 +194,10 @@ export default PostDetail;
 
 const DetailWrapper = styled.section`
   padding: 80px 60px;
+  margin: 150px 0 0 20%;
 `;
 
-const DetailTiTle = styled.p`
+const DetailTiTle = styled.div`
   text-align: right;
   margin-right: 15px;
 `;
