@@ -4,35 +4,44 @@ export const SingUpContext = createContext(null);
 
 function SingUpContextProvider({ children }) {
   // 이미지
-  const [imgURL, setImgURL] = useState('');
+  // const [imgURL, setImgURL] = useState('');
+  const [profileImg, setProfileImg] = useState([]);
+  const [previewProfileImg, setPreviewProfileImg] = useState(null);
+
   // user이름
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   // user ID만
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   // 유저 email 만
-  const [userMail, setUserMail] = useState('');
+  const [userMail, setUserMail] = useState("");
   // 비밀번호 확인
-  const [reUserPassword, setReUserPassword] = useState('');
+  const [reUserPassword, setReUserPassword] = useState("");
   // checkbox
   const [checkBox, setCheckBox] = useState(false);
   return (
-    <SingUpContext.Provider value={{
-      imgURL,
-      setImgURL,
-      userName,
-      setUserName,
-      userId,
-      setUserId,
-      userMail,
-      setUserMail,
-      reUserPassword,
-      setReUserPassword,
-      checkBox,
-      setCheckBox
-    }}>
+    <SingUpContext.Provider
+      value={{
+        // imgURL,
+        // setImgURL,
+        profileImg,
+        setProfileImg,
+        previewProfileImg,
+        setPreviewProfileImg,
+        userName,
+        setUserName,
+        userId,
+        setUserId,
+        userMail,
+        setUserMail,
+        reUserPassword,
+        setReUserPassword,
+        checkBox,
+        setCheckBox
+      }}
+    >
       {children}
     </SingUpContext.Provider>
-  )
+  );
 }
 
 export default SingUpContextProvider;
