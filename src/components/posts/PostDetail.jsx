@@ -10,6 +10,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const PostDetail = () => {
   const { id } = useParams();
   const { userUid, posts, setPosts } = useContext(PostContext);
+  const { formattedPostData } = useContext(PostContext);
+
+
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -149,8 +152,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
+                  <Date>{formattedPostData.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
@@ -186,8 +189,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
+                  <Date>{formattedPostData.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button

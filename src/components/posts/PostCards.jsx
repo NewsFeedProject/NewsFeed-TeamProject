@@ -1,21 +1,40 @@
 import { LoginContext } from "context/LoginContext";
-import { useContext } from "react";
+import { PostContext } from "context/PostContext";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 function PostCards({ post }) {
   const navigate = useNavigate();
-  const { id, postTitle, postText, postImage, postDate, userProfileImage, userEmail } = post;
-  const splitUserEmail = userEmail.split("@")[0];
-  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
-  const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
-  });
+
+  const { id, postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
+  const { setFormattedPostData } = useContext(PostContext);
+
+  const [userNickname, setUserNickName] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    const splitUserEmail = userEmail.split("@")[0];
+    const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+
+    const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric"
+    });
+
+    setUserNickName(userNickname);
+    setFormattedDate(formattedDate);
+
+    const newPostData = { ...post, userNickname, formattedDate };
+
+    if (userNickname && formattedDate) {
+      setFormattedPostData(newPostData);
+    }
+  }, []);
 
   /* 추천 누르기 기능 */
   // const [liked, setLiked] = useState(false);

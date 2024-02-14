@@ -51,7 +51,6 @@ export default function Navbar() {
           <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
-
       <JobOpening>
         <p>채용공고</p>
       </JobOpening>
@@ -64,17 +63,12 @@ const NavBar = styled.nav`
   white-space: nowrap;
   left: 0;
   bottom: 0;
-  height: 100%;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 10%;
-  background-color: #fff;
-  grid-row: 2;
-
-  @media (max-width: 1700px) {
-    width: 20%;
-  }
+  padding-top: 1%;
+  /* grid-row: 2; */
 `;
 
 const StText = styled.text`
@@ -90,11 +84,6 @@ const CatchLoginLogout = styled.div`
   padding-left: 1rem;
 
   margin: 0;
-
-  @media (max-width: 1200px) {
-    padding-left: 0.1rem;
-    padding-top: 0.1rem;
-  }
 `;
 
 const ShowUserInfoBox = styled.span`
@@ -110,20 +99,10 @@ const ShowUserInfoBox = styled.span`
 const ProfileImg = styled.img`
   width: 3rem;
   border-radius: 50%;
-
-  @media (max-width: 1200px) {
-    display: none;
-    width: 2.5rem;
-  }
 `;
 
 const UserEmailId = styled.p`
   font-size: 17px;
-  @media (max-width: 1200px) {
-    /* margin-left: -10px; */
-    padding-top: 1rem;
-    font-size: 10px;
-  }
 `;
 
 const ShowMenu = styled.section`
@@ -135,12 +114,6 @@ const ShowMenu = styled.section`
   padding-left: 2rem;
   padding-top: 2rem;
   margin: 0;
-
-  @media (max-width: 1200px) {
-    padding-left: 1rem;
-    padding-top: 1rem;
-    font-size: 10px;
-  }
 `;
 
 const JobOpening = styled.section`
