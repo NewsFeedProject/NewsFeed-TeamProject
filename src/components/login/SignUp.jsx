@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StarStyle } from "styles/common";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
@@ -25,6 +25,10 @@ function SignUp() {
     imgUrl,
     setImgUrl
   } = useContext(SingUpContext);
+
+  useEffect(() => {
+    setImgUrl('');
+  }, []);
 
 
   const handleImageChange = (e) => {
@@ -65,7 +69,7 @@ function SignUp() {
     } catch (error) {
       // console.log(error);
     }
-  }
+  };
   const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
@@ -142,6 +146,7 @@ function SignUp() {
     } else {
       alert('중복되는게 없어요!');
     }
+    return isDuplicate;
   };
 
   return (

@@ -18,6 +18,7 @@ function Login() {
     } catch (error) {
       console.log(error);
     }
+    setUserEmail('');
   };
 
   const navigate = useNavigate();

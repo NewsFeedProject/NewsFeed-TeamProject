@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Interview from "../../rootPages/Interview";
+import Interview from "rootPages/Interview";
 import WorkInfo from "rootPages/WorkInfo";
 
 export default function ListSection({ text, onClick, category }) {
@@ -53,5 +53,5 @@ const MainPostSample = styled.section`
   text-overflow: ellipsis;
   border: 1px solid gray;
   border-radius: 2rem;
-  height: 70%;
+  height: 60%;
 `;
