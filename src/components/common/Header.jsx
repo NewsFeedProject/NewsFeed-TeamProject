@@ -61,7 +61,12 @@ export default function Header() {
             </Link>
           </>
         ) : (
-          <button>로그아웃</button>
+          <>
+            <Link to="/detail">
+              <Button text="마이페이지" color="red" />
+            </Link>
+            <button>로그아웃</button>
+          </>
         )}
       </div>
     </HeaderStyle>
