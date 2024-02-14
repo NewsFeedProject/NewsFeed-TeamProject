@@ -16,7 +16,7 @@ function Login() {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
