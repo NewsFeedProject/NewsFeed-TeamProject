@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
     });
   }, []);
 
-  console.log("현재유저정보", currentUser);
+  // console.log("현재유저정보", currentUser);
 
   return <UsersContext.Provider value={currentUser}>{children}</UsersContext.Provider>;
 };
