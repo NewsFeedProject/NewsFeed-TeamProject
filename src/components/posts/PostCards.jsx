@@ -14,9 +14,9 @@ function PostCards({ post }) {
 
   useEffect(() => {
     const splitUserEmail = userEmail.split("@")[0];
-    const nickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+    const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
 
-    const date = new Date(postDate).toLocaleDateString("ko-KR", {
+    const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "numeric",
       day: "numeric",
@@ -25,8 +25,8 @@ function PostCards({ post }) {
       second: "numeric"
     });
 
-    setUserNickName(nickname);
-    setFormattedDate(date);
+    setUserNickName(userNickname);
+    setFormattedDate(formattedDate);
 
     if (userNickname && formattedDate) {
       setFormattedPostData((prevState) => {
@@ -35,8 +35,23 @@ function PostCards({ post }) {
       });
     }
   }, []);
-  // console.log(userNickname);
-  // console.log(formattedDate);
+
+  // if (post.postId === postId) {
+  //   console.log(post.postId);
+  //   console.log(postId);
+  // }
+
+  // if (userNickname && formattedDate) {
+  //   setFormattedPostData((prevState) => {
+  //     const selectPost = posts.map((post) => {
+  //       if (post.postId === postId) {
+  //         return { ...post, userNickname, formattedDate };
+  //       } else {
+  //         return post;
+  //       }
+  //     });
+  //   });
+  // }
 
   /* 추천 누르기 기능 */
   // const [liked, setLiked] = useState(false);

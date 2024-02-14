@@ -9,9 +9,14 @@ import { db } from "../../data/firebase";
 const PostDetail = () => {
   const { id } = useParams();
   const { userUid, posts, setPosts } = useContext(PostContext);
+  const { formattedPostData } = useContext(PostContext);
+  console.log(formattedPostData);
+
   const navigate = useNavigate();
 
-  const postCard = posts.find((item) => item.postId === id);
+  // const postCard = posts.find((item) => item.postId === id);
+
+  const postCard = formattedPostData.find((item) => item.postId === id);
 
   //삭제기능
   const handleDelete = async () => {
@@ -126,8 +131,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{postCard.userNickname}</UserNickName>
+                  <Date>{postCard.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
@@ -163,8 +168,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{postCard.userNickname}</UserNickName>
+                  <Date>{postCard.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={hadlerEditAndHadler}>수정</button>

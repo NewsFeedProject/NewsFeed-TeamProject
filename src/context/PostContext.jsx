@@ -10,6 +10,8 @@ const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [formattedPostData, setFormattedPostData] = useState([]);
 
+  // console.log(formattedPostData);
+
   // 검색 기능
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
