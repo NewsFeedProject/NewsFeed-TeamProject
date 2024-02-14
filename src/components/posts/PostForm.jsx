@@ -1,10 +1,8 @@
+import { PostContext } from "context/PostContext";
+import { SingUpContext } from "context/SingUpContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { SingUpContext } from "context/SingUpContext";
-import { LoginContext } from "context/LoginContext";
-import { PostContext } from "context/PostContext";
-import { collection, doc, getDoc } from "firebase/firestore/lite";
 
 const FormContainer = styled.main`
   display: flex;
