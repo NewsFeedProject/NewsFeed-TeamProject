@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { SingUpContext } from "context/SingUpContext";
 
 export default function Navbar() {
   const [userMail, setUserMail] = useState("");
   const [userProfileImg, setUserProfileImg] = useState("");
+  const { imgUrl } = useContext(SingUpContext);
 
   useEffect(() => {
     const auth = getAuth();
@@ -35,7 +37,7 @@ export default function Navbar() {
         <CatchLoginLogout>
           {userMail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={userProfileImg} alt="User Profile" />
+              <ProfileImg src={userProfileImg || imgUrl} alt="User Profile" />
               <UserEmailId>
                 {userMail}님<br />
                 <StText> 안녕하세요.</StText>

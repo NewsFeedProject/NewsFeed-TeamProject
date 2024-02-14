@@ -13,6 +13,8 @@ function SingUpContextProvider({ children }) {
   const [reUserPassword, setReUserPassword] = useState("");
   // checkbox
   const [checkBox, setCheckBox] = useState(false);
+
+  const [imgUrl, setImgUrl] = useState('');
   return (
     <SingUpContext.Provider
       value={{
@@ -26,6 +28,8 @@ function SingUpContextProvider({ children }) {
         setReUserPassword,
         checkBox,
         setCheckBox,
+        imgUrl,
+        setImgUrl,
       }}
     >
       {children}

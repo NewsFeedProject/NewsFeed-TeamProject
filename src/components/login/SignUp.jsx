@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useState } from "react";
 import { StarStyle } from "styles/common";
 import profileUser from "assets/images/profile-user.png";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { userEmail, setUserEmail, userPassword, setUserPassword, userInfo, setUserInfo } = useContext(LoginContext);
+  const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
   const {
     userName,
     setUserName,
@@ -23,19 +23,19 @@ function SignUp() {
     setReUserPassword,
     checkBox,
     setCheckBox,
+    imgUrl,
+    setImgUrl
   } = useContext(SingUpContext);
 
 
-  const imgRef = useRef(null);
-
-  const imgChangeHandler = (e) => {
+  const handleImageChange = (e) => {
+    if (!e.target.files) return;
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const imageDataURL = reader.result;
-      imgRef.current.src = imageDataURL;
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      let image = window.URL.createObjectURL(file);
+      console.log(image);
+      setImgUrl(image);
+    }
   };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
@@ -72,7 +72,7 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgRef,
+      userProfileImage: imgUrl,
     }
     await addDoc(collection(db, "user"), doc);
     setUserInfo((prev) => [...prev, doc]);
@@ -109,7 +109,7 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: "",
+      userProfileImage: imgUrl,
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
     if (userPassword.length < 6) {
@@ -130,20 +130,15 @@ function SignUp() {
 
   const DuplicateCheck = async (e) => {
     e.preventDefault();
-    if (userPassword !== reUserPassword) {
-      alert("비밀번호를 다시 확인해주세요!");
-      return;
-    }
+
     const querySnapshot = await getDocs(collection(db, 'user'));
     const userInfo = querySnapshot.docs.map((doc) => doc.data());
     setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
     if (isDuplicate) {
       alert('중복됩니다. 다시 입력해주세요!');
-      setUserEmail('');
-      setUserPassword('');
-      setUserName('');
-      setUserProfileImage('');
+      setUserId('');
+      setUserMail('');
     } else {
       alert('중복되는게 없어요!');
     }
@@ -157,13 +152,14 @@ function SignUp() {
           <AllLabelStyle>
             프로필 사진 <StarStyle>*</StarStyle>
           </AllLabelStyle>
-          <ImageStyle ref={imgRef} alt="userProfile" />
+          <ImageStyle src={imgUrl} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
 
           <InputFileStyle
             id="inputFile"
             type="file"
-            onChange={imgChangeHandler}
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </InputGroup>
         <InputGroup>
