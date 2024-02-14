@@ -31,13 +31,15 @@ function Mypage() {
   }
 
   // 로딩이 완료됐을 때
-  const { uid, photoURL, email } = currentUser;
+  const { uid, photoURL, email, displayName } = currentUser;
 
   return (
     <MypageArea>
       <StUser>
         {photoURL && <StImg src={photoURL} alt="프로필 이미지" />}
-        <StUserNickName>{email}님</StUserNickName>
+        <StUserNickName>
+          {email}/{displayName}님
+        </StUserNickName>
       </StUser>
       <div>
         <StMypageBtn selected={showPosts} onClick={handlePostsClick}>
