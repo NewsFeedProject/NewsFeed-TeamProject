@@ -8,15 +8,14 @@ import { PostContext } from "context/PostContext";
 import { LoginContext } from "context/LoginContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Logout } from "components/login/Logout";
+
 export default function Header() {
-  // const { userEmail } = useContext(LoginContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [userUid, setUserUid] = useState("");
   const [userMail, setUserMail] = useState("");
-  // const auth = getAuth();
-  // const user = auth.currentUser;
+
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -37,8 +36,7 @@ export default function Header() {
       }
     });
   }, []);
-  // console.log("유저 유아이디", userUid);
-  // console.log("유저 이메일", userMail);
+
   const onClickHome = () => {
     navigate("/");
   };
@@ -87,13 +85,14 @@ export default function Header() {
             <Link to={`/mypage/${userUid}`}>
               <Button text="마이페이지" />
             </Link>
-            <button onClick={Logout}>로그아웃</button>
+            <Button onClick={Logout} text="로그아웃" />
           </>
         )}
       </div>
     </HeaderStyle>
   );
 }
+
 const HeaderStyle = styled.header`
   display: flex;
   flex-direction: row;
@@ -103,11 +102,8 @@ const HeaderStyle = styled.header`
   height: 10rem;
   padding: 2rem;
   background-color: #fff;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 9999;
+  grid-row: 1;
+  grid-column: 1/3;
 `;
 const LogoImg = styled.img`
   width: 10rem;
