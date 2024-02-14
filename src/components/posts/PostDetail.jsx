@@ -38,10 +38,6 @@ const PostDetail = () => {
     }
   }, [isEditing]);
 
-  console.log(posts);
-  console.log(userUid);
-  console.log(postCard);
-
   //유저 정보 가져오기
   const [userMail, setUserMail] = useState("");
 
