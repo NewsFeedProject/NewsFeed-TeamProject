@@ -9,7 +9,7 @@ function LoginContextProvider({ children }) {
   const [userPassword, setUserPassword] = useState("");
   // user 아이디,password 받아온 값
   const [userInfo, setUserInfo] = useState([]);
-
+  console.log(userInfo);
   return (
     <LoginContext.Provider
       value={{
@@ -18,7 +18,7 @@ function LoginContextProvider({ children }) {
         userPassword,
         setUserPassword,
         userInfo,
-        setUserInfo,
+        setUserInfo
       }}
     >
       {children}

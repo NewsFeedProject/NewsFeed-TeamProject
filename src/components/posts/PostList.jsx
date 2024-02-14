@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 function PostList({ category }) {
   const { posts } = useContext(PostContext);
+
   const filteredPost = posts.filter((post) => {
     return post.postCategory === category;
   });

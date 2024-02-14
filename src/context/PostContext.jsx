@@ -10,7 +10,7 @@ const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [formattedPostData, setFormattedPostData] = useState([]);
 
-  // console.log(formattedPostData);
+  console.log(posts);
 
   // 검색 기능
   const [category, setCategory] = useState("");
@@ -46,7 +46,6 @@ const PostProvider = ({ children }) => {
   }, []);
 
   /* email, profileImg 데이터 불러오기 */
-
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -85,10 +84,10 @@ const PostProvider = ({ children }) => {
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
-    setPosts((posts) => [newpost, ...posts]);
-
+    // const collectionRef = await addDoc(collection(db, "postInfo"), newpost);
     const collectionRef = collection(db, "postInfo");
     await addDoc(collectionRef, newpost);
+    setPosts((posts) => [newpost, ...posts]);
   };
 
   // const addPostSubmit = async (newpost) => {
