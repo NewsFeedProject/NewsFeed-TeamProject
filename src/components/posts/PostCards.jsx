@@ -1,9 +1,11 @@
+import { LoginContext } from "context/LoginContext";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 function PostCards({ post }) {
   const navigate = useNavigate();
-  const { id, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg, postId } = post;
+  const { postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));

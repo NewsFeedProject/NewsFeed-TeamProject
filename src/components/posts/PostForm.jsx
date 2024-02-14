@@ -48,10 +48,8 @@ const UploadImg = styled.img`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } = useContext(PostContext);
-
-  const { userEmail } = useContext(LoginContext);
-  const { imgURL } = useContext(SingUpContext);
+  const { addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
+    useContext(PostContext);
 
   /* 이미지 파일 업로드하기 */
 
@@ -111,13 +109,13 @@ function PostForm() {
 
     // 카드 추가하기
     addPostSubmit({
-      userEmail: userEmail,
+      userEmail: userMail,
       postTitle: title,
       postText: text,
       postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: imgURL,
+      userProfileImage: userProfileImg,
       postCategory: selectCategory
     });
 
