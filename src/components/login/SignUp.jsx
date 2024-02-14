@@ -5,8 +5,10 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth, db } from 'data/firebase'
+
+import { auth, db } from "data/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import { addDoc, collection } from "firebase/firestore/lite";
 
 function SignUp() {
@@ -24,9 +26,8 @@ function SignUp() {
     reUserPassword,
     setReUserPassword,
     checkBox,
-    setCheckBox,
+    setCheckBox
   } = useContext(SingUpContext);
-
 
   const imgChangeHandler = (e) => {
     const file = e.target.files[0] || e.target.files;
@@ -66,17 +67,18 @@ function SignUp() {
     } catch (error) {
       // console.log(error);
     }
-  };
+  }
   const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgURL,
-    }
+      userProfileImage: imgURL
+    };
     await addDoc(collection(db, "user"), doc);
+
     setUserInfo((prev) => [...prev, doc]);
-  }
+  };
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
