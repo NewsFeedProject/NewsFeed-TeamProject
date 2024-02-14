@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import githubLogo from 'assets/images/githubLogo.svg';
-import { getAuth, signInWithPopup, GithubAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 import styled from 'styled-components';
+import { auth } from 'data/firebase';
 
 export function GithubButton() {
   const navigate = useNavigate();
@@ -9,7 +10,6 @@ export function GithubButton() {
   const handleGithubSignIn = async (e) => {
     e.preventDefault();
     const provider = new GithubAuthProvider();
-    const auth = getAuth();
 
     try {
       const result = await signInWithPopup(auth, provider);
