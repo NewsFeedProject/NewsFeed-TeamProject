@@ -53,6 +53,5 @@ const MainPostSample = styled.section`
   text-overflow: ellipsis;
   border: 1px solid gray;
   border-radius: 2rem;
-  height: auto;
-  max-height: 80%;
+  height: 70%;
 `;

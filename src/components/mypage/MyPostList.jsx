@@ -39,8 +39,8 @@ function MyPostList() {
                   {post.postCategory === "interview"
                     ? "면접후기"
                     : post.postCategory === "workInfo"
-                    ? "취업정보"
-                    : "회사 정보 공유"}
+                      ? "취업정보"
+                      : "회사 정보 공유"}
                 </StPostCategory>
                 <StP>{post.postTitle}</StP>
                 <StP>{post.postText}</StP>
