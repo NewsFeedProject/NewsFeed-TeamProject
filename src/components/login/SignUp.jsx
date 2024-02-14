@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StarStyle } from "styles/common";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
 import { auth, db } from "data/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs } from "firebase/firestore/lite";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore/lite";
+
+
 
 function SignUp() {
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ function SignUp() {
     imgUrl,
     setImgUrl
   } = useContext(SingUpContext);
+
+  const [duplicateEmail, setDuplicateEmail] = useState('');
 
   useEffect(() => {
     setImgUrl('');
@@ -61,10 +65,10 @@ function SignUp() {
   async function singUpFunction() {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-      // const updateProfiled = await updateProfile(auth.currentUser, {
-      // userName: userName,
-      // photoURL: imgURL
-      // });
+      const updateProfiled = await updateProfile(auth.currentUser, {
+        userName: userName,
+        photoURL: imgUrl,
+      });
       console.log(createdUser);
     } catch (error) {
       // console.log(error);
@@ -135,18 +139,26 @@ function SignUp() {
   const DuplicateCheck = async (e) => {
     e.preventDefault();
 
-    const querySnapshot = await getDocs(collection(db, 'user'));
-    const userInfo = querySnapshot.docs.map((doc) => doc.data());
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setDuplicateEmail(user.email);
+      } else {
+        setDuplicateEmail(null);
+      }
+    });
     setUserEmail(`${userId}@${userMail}`);
-    const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
+    const isDuplicate = duplicateEmail === userEmail ? true : false
     if (isDuplicate) {
       alert('중복됩니다. 다시 입력해주세요!');
       setUserId('');
       setUserMail('');
+      setDuplicateEmail('');
+      setUserEmail('');
+      return true;
     } else {
       alert('중복되는게 없어요!');
     }
-    return isDuplicate;
   };
 
   return (
