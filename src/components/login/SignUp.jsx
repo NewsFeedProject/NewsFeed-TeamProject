@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth } from "data/firebase";
+// import { auth } from 'data/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 function SignUp() {
@@ -23,11 +23,20 @@ function SignUp() {
     reUserPassword,
     setReUserPassword,
     checkBox,
-    setCheckBox
+    setCheckBox,
+    prevImg,
+    setPrevImg
   } = useContext(SingUpContext);
 
   const imgChangeHandler = (e) => {
-    setImgURL(e.target.value);
+    const file = e.target.files[0];
+    setPrevImg([...prevImg, file]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imageDataURL = reader.result;
+      setImgURL(imageDataURL);
+    };
+    reader.readAsDataURL(file);
   };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
@@ -47,14 +56,14 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   };
-  const singUpFunction = async (userInfo) => {
+  const singUpFunction = async () => {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-      const updateProfile = await updateProfile(auth.currentUser, {
-        displayName: userInfo.userName,
-        photoURL: userInfo.userProfileImage
+      const updateProfiled = await updateProfile(auth.currentUser, {
+        displayName: userName,
+        photoURL: imgURL
       });
-      console.log(createdUser, updateProfile);
+      console.log(createdUser, updateProfiled);
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +84,7 @@ function SignUp() {
       return;
     }
     if (!reUserPassword) {
-      alert("비밀번호를 재확인해야 합니다!");
+      alert("비밀번호확인를 입력해주세요!");
       return;
     }
     if (checkBox === false) {
@@ -94,19 +103,22 @@ function SignUp() {
       userProfileImage: imgURL
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
-    navigate("/");
-    singUpFunction(userInfo);
+
+    singUpFunction();
     setUserId("");
     setUserMail("");
     setUserPassword("");
     setReUserPassword("");
     setUserName("");
     setCheckBox(false);
+    navigate("/login");
   };
+
   const DuplicateCheck = (e) => {
-    e.preventDefault();
-    const newEmail = `${userId}@${userMail}`;
-    setUserEmail(newEmail);
+    if (userPassword !== reUserPassword) {
+      alert("비밀번호를 다시 확인해주세요!");
+      return;
+    }
 
     const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
     if (isDuplicate) {
@@ -129,7 +141,14 @@ function SignUp() {
           </AllLabelStyle>
           <ImageStyle src={imgURL ? imgURL : profileUser} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
-          <InputFileStyle id="inputFile" type="file" value={imgURL} onChange={imgChangeHandler} />
+
+          <InputFileStyle
+            id="inputFile"
+            type="file"
+            accept=".png, .jpeg, .jpg, .gif"
+            value={imgURL}
+            onChange={imgChangeHandler}
+          />
         </InputGroup>
         <InputGroup>
           <AllLabelStyle>

@@ -1,24 +1,13 @@
-import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
 
 function PostCards({ post }) {
-  const {
-    id,
-    posts,
-    setPosts,
-    userEmail,
-    postTitle,
-    postText,
-    postImage,
-    postDate,
-    userProfileImage,
-    previewImg,
-    postId
-  } = post;
   const navigate = useNavigate();
+  const { id, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
 
   const splitUserEmail = userEmail.split("@")[0];
-  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length - 3);
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
 
   const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -86,7 +75,6 @@ function PostCards({ post }) {
 }
 
 export default PostCards;
-
 const ListWrapper = styled.article`
   display: flex;
   justify-content: center;

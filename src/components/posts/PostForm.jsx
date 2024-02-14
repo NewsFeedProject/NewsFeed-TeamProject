@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import profileImg from "../../assets/images/profile-user.png";
-import { PostContext } from "../../context/PostContext";
-import { addDoc, collection } from "firebase/firestore/lite";
+import profileImg from "assets/images/profile-user.png";
+import { PostContext } from "context/PostContext";
 
 const StMain = styled.main`
   display: flex;
@@ -47,7 +46,7 @@ const UploadImg = styled.img`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
+  const { addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
 
   /* 데이터 추가하기 */

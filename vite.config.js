@@ -17,6 +17,7 @@ export default defineConfig({
       { find: "assets", replacement: "/src/assets" },
       { find: "context", replacement: "/src/context" },
       { find: "rootPages", replacement: "/src/rootPages" },
+      { find: "mypage", replacement: "/src/mypage" },
     ]
   }
 });
