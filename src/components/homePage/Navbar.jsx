@@ -1,20 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { dummyData } from "data/dummyData";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { LoginContext } from "context/LoginContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function Navbar() {
-  // const { userEmail, imgURL } = useContext(LoginContext);
   const [userMail, setUserMail] = useState("");
   const [userProfileImg, setUserProfileImg] = useState("");
-  // const [login, setLogin] = useState(dummyData);
-  // const logInedUserEmail = login.userEmail;
-  // const logInedUserProfil = login.userProfileImage;
-
-  // const navigate = useNavigate();
-  // console.log("사진뭐불러와?", userProfileImg);
 
   useEffect(() => {
     const auth = getAuth();
@@ -38,9 +29,6 @@ export default function Navbar() {
     });
   }, []);
 
-  // console.log("유저 이메일", userMail);
-  // console.log("사진뭐불러와?", userProfileImg);
-
   return (
     <NavBar>
       <div>
@@ -50,7 +38,7 @@ export default function Navbar() {
               <ProfileImg src={userProfileImg} alt="User Profile" />
               <UserEmailId>
                 {userMail}님<br />
-                안녕하세요.
+                <StText> 안녕하세요.</StText>
               </UserEmailId>
             </ShowUserInfoBox>
           ) : (
@@ -71,25 +59,26 @@ export default function Navbar() {
   );
 }
 
-//면접후기, 취업정보, 회사정보공유 Link태그로 바꾸기 기억하세용
-
 const NavBar = styled.nav`
-  width: 300px;
   border-right: 1px solid grey;
   white-space: nowrap;
-  position: fixed;
   left: 0;
   bottom: 0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 170px;
+  padding-top: 10%;
   background-color: #fff;
+  grid-row: 2;
 
   @media (max-width: 1700px) {
     width: 20%;
   }
+`;
+
+const StText = styled.text`
+  margin-top: 0.5rem;
 `;
 
 const CatchLoginLogout = styled.div`
@@ -99,7 +88,7 @@ const CatchLoginLogout = styled.div`
   gap: 1rem;
   font-size: 17px;
   padding-left: 1rem;
-  padding-top: 1rem;
+
   margin: 0;
 
   @media (max-width: 1200px) {
@@ -119,7 +108,8 @@ const ShowUserInfoBox = styled.span`
 `;
 
 const ProfileImg = styled.img`
-  width: 5rem;
+  width: 3rem;
+  border-radius: 50%;
 
   @media (max-width: 1200px) {
     display: none;
@@ -128,7 +118,7 @@ const ProfileImg = styled.img`
 `;
 
 const UserEmailId = styled.p`
-  font-size: 25px;
+  font-size: 17px;
   @media (max-width: 1200px) {
     /* margin-left: -10px; */
     padding-top: 1rem;
@@ -141,7 +131,7 @@ const ShowMenu = styled.section`
   flex-direction: column;
   align-items: start;
   gap: 1rem;
-  font-size: 30px;
+  font-size: 24px;
   padding-left: 2rem;
   padding-top: 2rem;
   margin: 0;
