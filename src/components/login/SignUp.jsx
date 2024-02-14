@@ -61,7 +61,7 @@ function SignUp() {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
       const updateProfiled = await updateProfile(auth.currentUser, {
-        displayName: userName,
+        userName: userName,
         photoURL: imgURL
       });
       console.log(createdUser, updateProfiled);
@@ -76,7 +76,7 @@ function SignUp() {
       userName: userName,
       userProfileImage: imgURL,
     }
-    await addDoc(collection(db, "user"), doc);
+    // await addDoc(collection(db, "user"), doc);
   }
 
   const singUpClickHandler = (e) => {
