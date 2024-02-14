@@ -27,15 +27,14 @@ const PostProvider = ({ children }) => {
       const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
       const querySnapshot = await getDocs(q);
       const initialPosts = [];
-      let postId;
 
       querySnapshot.forEach((doc) => {
         const data = {
-          ...doc.data()
+          ...doc.data(),
+          id: doc.id
         };
 
-        postId = doc.id;
-        data.id = postId;
+        const postId = data.id;
         console.log(postId);
 
         initialPosts.push(data);
@@ -45,7 +44,6 @@ const PostProvider = ({ children }) => {
 
     fetchData();
   }, []);
-  console.log(postId);
 
   /* email, profileImg 데이터 불러오기 */
 

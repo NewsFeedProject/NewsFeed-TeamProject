@@ -11,7 +11,8 @@ const FormContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  /* padding: 20px; */
+  flex: 1;
 `;
 
 const StForm = styled.form`
@@ -23,7 +24,8 @@ const StForm = styled.form`
   gap: 10px;
 
   padding: 50px;
-  width: 400px;
+  width: 600px;
+  height: 750px;
 
   & input,
   textarea {
@@ -155,7 +157,7 @@ function PostForm() {
             onChange={addTextHandler}
             placeholder="최대 300자까지 입력 가능합니다."
             maxLength={300}
-            style={{ height: "200px" }}
+            style={{ height: "350px" }}
           />
           <StDiv style={{ flexDirection: "column" }}>
             <input type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
