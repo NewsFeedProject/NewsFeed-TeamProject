@@ -5,7 +5,6 @@ import SingUpContextProvider from "context/SingUpContext";
 import Router from "shared/Router";
 
 function App() {
-
   return (
     <>
       <UserProvider>

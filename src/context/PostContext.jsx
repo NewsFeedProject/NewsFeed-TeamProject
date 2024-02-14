@@ -1,14 +1,32 @@
 import { createContext, useEffect, useState } from "react";
 import { collection, getDocs, query, addDoc } from "firebase/firestore/lite";
 import { db } from "data/firebase";
-import detailListDummyData from "data/detailListDummyData";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const PostContext = createContext(null);
 
 const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
+  // 검색 기능
+  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // 로그인 값 가져오기
+  const [userMail, setUserMail] = useState("");
+  const [userProfileImg, setUserProfileImg] = useState("");
 
   /* firebase 데이터 불러오기 */
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "postInfo"));
+      querySnapshot.forEach((doc) => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+      });
+    };
+    fetchData();
+  }, []);
+
+  /* firebase 데이터 가져오기 */
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "postInfo"));
@@ -21,7 +39,7 @@ const PostProvider = ({ children }) => {
           id: doc.id,
           ...doc.data()
         };
-        console.log(data);
+
         initialPosts.push(data);
       });
 
@@ -29,6 +47,33 @@ const PostProvider = ({ children }) => {
     };
     fetchData();
   }, []);
+
+  /* email, profileImg 데이터 불러오기 */
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserProfileImg(user.photoURL);
+      } else {
+        setUserProfileImg(null);
+      }
+    });
+  }, []);
+
+  console.log("유저 이메일", userMail);
+  console.log("사진뭐불러와?", userProfileImg);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
@@ -51,7 +96,13 @@ const PostProvider = ({ children }) => {
         postImg,
         setPostImg,
         previewImg,
-        setPreviewImg
+        setPreviewImg,
+        category,
+        setCategory,
+        searchTerm,
+        setSearchTerm,
+        userMail,
+        userProfileImg
       }}
     >
       {children}
