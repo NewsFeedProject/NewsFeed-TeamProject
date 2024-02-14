@@ -21,36 +21,23 @@ const PostProvider = ({ children }) => {
   const [userProfileImg, setUserProfileImg] = useState("");
   const [userUid, setUserUid] = useState("");
 
-  /* firebase 데이터 불러오기 */
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "postInfo"));
-      querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-      });
-    };
-    fetchData();
-  }, []);
-
-  /* firebase 데이터 가져오기 */
+  // 파이어베이스 데이터 불러오기
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
       const querySnapshot = await getDocs(q);
-
       const initialPosts = [];
 
       querySnapshot.forEach((doc) => {
         const data = {
-          id: doc.id,
-          ...doc.data()
+          ...doc.data(),
+          id: doc.id
         };
-
         initialPosts.push(data);
       });
-
       setPosts(initialPosts);
     };
+
     fetchData();
   }, []);
 

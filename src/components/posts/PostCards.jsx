@@ -6,7 +6,8 @@ import styled from "styled-components";
 
 function PostCards({ post }) {
   const navigate = useNavigate();
-  const { postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
+
+  const { id, postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
   const { setFormattedPostData } = useContext(PostContext);
 
   const [userNickname, setUserNickName] = useState("");
@@ -28,30 +29,12 @@ function PostCards({ post }) {
     setUserNickName(userNickname);
     setFormattedDate(formattedDate);
 
+    const newPostData = { ...post, userNickname, formattedDate };
+
     if (userNickname && formattedDate) {
-      setFormattedPostData((prevState) => {
-        const newPostData = { ...post, userNickname, formattedDate };
-        return [...prevState, newPostData];
-      });
+      setFormattedPostData(newPostData);
     }
   }, []);
-
-  // if (post.postId === postId) {
-  //   console.log(post.postId);
-  //   console.log(postId);
-  // }
-
-  // if (userNickname && formattedDate) {
-  //   setFormattedPostData((prevState) => {
-  //     const selectPost = posts.map((post) => {
-  //       if (post.postId === postId) {
-  //         return { ...post, userNickname, formattedDate };
-  //       } else {
-  //         return post;
-  //       }
-  //     });
-  //   });
-  // }
 
   /* 추천 누르기 기능 */
   // const [liked, setLiked] = useState(false);
@@ -98,7 +81,7 @@ function PostCards({ post }) {
           </div> */}
           <ClickBtn
             onClick={() => {
-              navigate(`/postdetail/${postId}`);
+              navigate(`/postdetail/${id}`);
             }}
           >
             상세보기
