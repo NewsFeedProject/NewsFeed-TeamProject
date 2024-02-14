@@ -7,7 +7,7 @@ import styled from "styled-components";
 function PostCards({ post }) {
   const navigate = useNavigate();
 
-  const { id, postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
+  const { id, postTitle, postText, postImage, postDate, userProfileImage, userEmail } = post;
   const { setFormattedPostData } = useContext(PostContext);
 
   const [userNickname, setUserNickName] = useState("");
