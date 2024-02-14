@@ -192,6 +192,7 @@ export default PostDetail;
 
 const DetailWrapper = styled.section`
   padding: 80px 60px;
+  margin: 150px 0 0 20%;
 `;
 
 const DetailTiTle = styled.p`

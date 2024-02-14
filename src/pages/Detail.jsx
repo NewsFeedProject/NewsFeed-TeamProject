@@ -42,7 +42,6 @@ function Detail({ category }) {
     <Main>
       <StCategory>
         <StP>{category}</StP>
-
         <WriteBtn onClick={writeClickBtnHadler}>글쓰기</WriteBtn>
       </StCategory>
       <br />
