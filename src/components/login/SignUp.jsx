@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { StarStyle } from "styles/common";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth, db } from "data/firebase";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore/lite";
+import { auth } from "data/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 
 
@@ -27,13 +26,6 @@ function SignUp() {
     imgUrl,
     setImgUrl
   } = useContext(SingUpContext);
-
-  const [duplicateEmail, setDuplicateEmail] = useState('');
-
-  useEffect(() => {
-    setImgUrl('');
-  }, []);
-
 
   const handleImageChange = (e) => {
     if (!e.target.files) return;
@@ -73,17 +65,6 @@ function SignUp() {
     } catch (error) {
       // console.log(error);
     }
-  };
-  const addUserInfoFirebase = async () => {
-    let doc = {
-      userEmail: userEmail,
-      userPassword: userPassword,
-      userName: userName,
-      userProfileImage: imgUrl,
-    }
-    await addDoc(collection(db, "user"), doc);
-
-    setUserInfo((prev) => [...prev, doc]);
   };
 
   const singUpClickHandler = (e) => {
@@ -131,31 +112,23 @@ function SignUp() {
     setUserPassword("");
     setReUserPassword("");
     setUserName("");
+    setImgUrl("");
     setCheckBox(false);
     navigate("/login");
-    addUserInfoFirebase();
   };
 
-  const DuplicateCheck = async (e) => {
+  const DuplicateCheck = (e) => {
     e.preventDefault();
 
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setDuplicateEmail(user.email);
-      } else {
-        setDuplicateEmail(null);
-      }
-    });
+    const duplicateEmail = auth.currentUser.email;
+    console.log(duplicateEmail);
     setUserEmail(`${userId}@${userMail}`);
-    const isDuplicate = duplicateEmail === userEmail ? true : false
+    const isDuplicate = duplicateEmail === userEmail;
     if (isDuplicate) {
       alert('중복됩니다. 다시 입력해주세요!');
       setUserId('');
       setUserMail('');
-      setDuplicateEmail('');
       setUserEmail('');
-      return true;
     } else {
       alert('중복되는게 없어요!');
     }
