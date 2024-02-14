@@ -7,7 +7,25 @@ import { SingUpContext } from "context/SingUpContext";
 export default function Navbar() {
   const [userMail, setUserMail] = useState("");
   const [userProfileImg, setUserProfileImg] = useState("");
-  const { imgUrl } = useContext(SingUpContext);
+  const [imgUrl, setImgUrl] = useState("");
+
+  const { imgUrl: signUpImgUrl } = useContext(SingUpContext);
+
+  useEffect(() => {
+    // 로그인 정보 가져오기
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+        setUserProfileImg(user.photoURL);
+        setImgUrl(user.photoURL || signUpImgUrl);
+      } else {
+        setUserMail(null);
+        setUserProfileImg(null);
+        setImgUrl(signUpImgUrl);
+      }
+    });
+  }, [signUpImgUrl]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -30,6 +48,8 @@ export default function Navbar() {
       }
     });
   }, []);
+
+
 
   return (
     <NavBar>
