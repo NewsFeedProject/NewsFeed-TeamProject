@@ -10,10 +10,13 @@ export default function MainSection() {
 }
 
 const BannerSection = styled.section`
-  width: 90%;
+  width: 72%;
   height: 40%;
   border: 1px solid grey;
   border-radius: 1rem;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  margin: 350px 0 30px 300px;
+  & > img {
+    object-fit: cover;
+    height: 100%;
+  }
 `;

@@ -1,16 +1,26 @@
 import styled from "styled-components";
 import MainSection from "components/homePage/MainSection";
 import ListSection from "components/homePage/ListSection";
+import { useNavigate } from "react-router";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+
+  const onClickInterview = () => {
+    navigate("/interview");
+  };
+
+  const onClickWorkInfo = () => {
+    navigate("/workInfo");
+  };
   return (
     <MainPage>
       <HomeContents>
         <SectionBoxs>
           <MainSection />
           <ListSectionBoxs>
-            <ListSection text="면접후기" />
-            <ListSection text="취업정보" />
+            <ListSection text="면접후기" onClick={onClickInterview} category="면접후기" />
+            <ListSection text="취업정보" onClick={onClickWorkInfo} category="취업정보" />
           </ListSectionBoxs>
         </SectionBoxs>
       </HomeContents>
@@ -39,7 +49,7 @@ const SectionBoxs = styled.aside`
 const ListSectionBoxs = styled.aside`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  /* height: 87.1vh; */
   width: 100%;
+  margin-left: 50%;
+  gap: 20px;
 `;

@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
+import { LoginContext } from "context/LoginContext";
 
 export default function Navbar() {
-  const [login, setLogin] = useState(dummyData);
-  const logInedUserEmail = login.userEmail;
-  const logInedUserProfil = login.userProfileImage;
+  const { userEmail, imgURL } = useContext(LoginContext);
+  // const [login, setLogin] = useState(dummyData);
+  // const logInedUserEmail = login.userEmail;
+  // const logInedUserProfil = login.userProfileImage;
 
   const navigate = useNavigate();
+  console.log("뭐불러와?", userEmail);
+  console.log("사진뭐불러와?", imgURL);
 
   return (
     <NavBar>
       <div>
         <CatchLoginLogout>
-          {logInedUserEmail ? (
+          {userEmail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={logInedUserProfil} alt="User Profile" />
+              <ProfileImg src={imgURL} alt="User Profile" />
               <UserEmailId>
-                {logInedUserEmail}님<br />
+                {userEmail}님<br />
                 안녕하세요.
               </UserEmailId>
             </ShowUserInfoBox>
@@ -32,6 +36,7 @@ export default function Navbar() {
           <Link to="/companyInfo">회사 정보 공유</Link>
         </ShowMenu>
       </div>
+
       <JobOpening>
         <p>채용공고</p>
       </JobOpening>
@@ -42,13 +47,18 @@ export default function Navbar() {
 //면접후기, 취업정보, 회사정보공유 Link태그로 바꾸기 기억하세용
 
 const NavBar = styled.nav`
+  width: 300px;
+  border-right: 1px solid grey;
+  white-space: nowrap;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 15%;
-  height: auto;
-  border-right: 1px solid grey;
-  white-space: nowrap;
+  padding-top: 170px;
+  background-color: #fff;
 
   @media (max-width: 1700px) {
     width: 20%;

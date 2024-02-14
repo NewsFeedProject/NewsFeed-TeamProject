@@ -4,6 +4,7 @@ export const SingUpContext = createContext(null);
 
 function SingUpContextProvider({ children }) {
   // 이미지
+
   // const [imgURL, setImgURL] = useState('');
   const [profileImg, setProfileImg] = useState([]);
   const [previewProfileImg, setPreviewProfileImg] = useState(null);

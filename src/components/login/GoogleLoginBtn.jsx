@@ -1,13 +1,18 @@
 import { LoginContext } from "context/LoginContext";
+import { UsersContext } from "context/UsersContext";
 import React, { useContext } from "react";
-import GoogleLogin from "react-google-login";
+
+import { GoogleLogin } from "react-google-login";
+
 import styled from "styled-components";
 
 function GoogleLoginBtn() {
   const { gData } = useContext(LoginContext);
   const clientId = gData.client_id;
+  // const { setUser } = useContext(UsersContext);
   const onSuccess = (res) => {
     console.log("Login SUCCESS! Current use: ", res.profileObj);
+    // setUser(res.profileObj);
   };
   const onFailure = (res) => {
     console.log("Login FAILED!  use: ", res);
@@ -21,6 +26,7 @@ function GoogleLoginBtn() {
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
+        redirect_uri="http://localhost:5173/login/callback"
       />
     </GoogleBtnStyle>
   );

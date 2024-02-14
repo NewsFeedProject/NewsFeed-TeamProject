@@ -6,11 +6,12 @@ import Mypage from "pages/Mypage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Login from "components/layout/Login";
-import SignUp from "components/layout/SignUp";
+import Login from "components/login/Login";
+import SignUp from "components/login/SignUp";
 import Interview from "rootPages/Interview";
 import WorkInfo from "rootPages/WorkInfo";
 import CompanyInfo from "rootPages/CompanyInfo";
+import PostDetail from "../components/posts/PostDetail";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
       { path: "companyInfo", element: <CompanyInfo /> },
       { path: "signup", element: <SignUp /> },
       { path: "mypage/:uid", element: <Mypage /> },
-      { path: "detail", element: <Detail /> }
+      { path: "detail", element: <Detail /> },
+      { path: "postdetail/:id", element: <PostDetail /> }
     ]
   },
   {
@@ -35,29 +37,7 @@ const router = createBrowserRouter([
 ]);
 
 function Router() {
-  return <RouterProvider router={router}></RouterProvider>;
+  return <RouterProvider router={router} />;
 }
 
 export default Router;
-
-{
-  /* <Link to="/interView">면접 후기</Link>
-<Link to="/workInfo">취업 정보</Link>
-<Link to="/companyInfo */
-}
-
-// const Router = () => {
-//   return (
-//     <BrowserRouter>
-//       <Layout>
-//         <Routes>
-//           <Route path="/" element={<Home />} />
-//           <Route path="detail" element={<Detail />} />
-//           <Route path="detail/write" element={<PostForm />} />
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/signup" element={<SignUp />} />
-//         </Routes>
-//       </Layout>
-//     </BrowserRouter>
-//   );
-// };

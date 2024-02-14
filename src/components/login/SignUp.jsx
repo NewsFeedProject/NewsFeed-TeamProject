@@ -5,7 +5,9 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
+
 import { auth } from "data/firebase";
+
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 function SignUp() {
@@ -64,6 +66,7 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   };
+
   const singUpFunction = async (userInfo) => {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
@@ -71,7 +74,7 @@ function SignUp() {
         displayName: userInfo.userName,
         photoURL: userInfo.userProfileImage
       });
-      console.log(createdUser, updateProfile);
+      console.log(createdUser, updateProfiled);
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +95,7 @@ function SignUp() {
       return;
     }
     if (!reUserPassword) {
-      alert("비밀번호를 재확인해야 합니다!");
+      alert("비밀번호확인를 입력해주세요!");
       return;
     }
     if (checkBox === false) {
@@ -101,6 +104,7 @@ function SignUp() {
     }
     if (userPassword !== reUserPassword) {
       alert("비밀번호를 다시 확인해주세요!");
+      return;
     }
     setUserEmail(`${userId}@${userMail}`);
     const newUserInfo = {
@@ -112,18 +116,22 @@ function SignUp() {
     setUserInfo((prev) => [...prev, newUserInfo]);
     navigate("/");
     singUpFunction(userInfo);
+
     setUserId("");
     setUserMail("");
     setUserPassword("");
     setReUserPassword("");
     setUserName("");
     setCheckBox(false);
+
+    navigate("/login");
   };
 
   const DuplicateCheck = (e) => {
-    e.preventDefault();
-    const newEmail = `${userId}@${userMail}`;
-    setUserEmail(newEmail);
+    if (userPassword !== reUserPassword) {
+      alert("비밀번호를 다시 확인해주세요!");
+      return;
+    }
 
     const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
     if (isDuplicate) {
@@ -150,7 +158,8 @@ function SignUp() {
           )}
 
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
-          <InputFileStyle id="inputFile" type="file" onChange={imgChangeHandler} />
+
+          <InputFileStyle id="inputFile" type="file" accept=".png, .jpeg, .jpg, .gif" onChange={imgChangeHandler} />
         </InputGroup>
         <InputGroup>
           <AllLabelStyle>

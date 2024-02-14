@@ -2,6 +2,83 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "data/firebase";
 import { SingUpContext } from "context/SingUpContext";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
+
+function PostCards({ post }) {
+  const navigate = useNavigate();
+  const { id, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
+
+  const splitUserEmail = userEmail.split("@")[0];
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+
+  const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  });
+
+  /* 추천 누르기 기능 */
+  // const [liked, setLiked] = useState(false);
+  // const [likedNumber, setLikedNumber] = useState(0);
+
+  // const likeClickHandler = () => {
+  //   if (liked) {
+  //     setLikedNumber(likedNumber - 1);
+  //   } else {
+  //     setLikedNumber(likedNumber + 1);
+  //   }
+  //   setLiked(!liked);
+  // };
+
+  return (
+    <ListWrapper>
+      <List>
+        <TopContainer>
+          <div>
+            <ProfileImg src={userProfileImage} />
+          </div>
+          <StDivRow>
+            <ContentContaniner>
+              <NickName>
+                <span>{userNickname}</span>
+                <span>{formattedDate}</span>
+              </NickName>
+              <Title>{postTitle}</Title>
+              <Content>{postText}</Content>
+            </ContentContaniner>
+            <StImgContainer>
+              <StImg src={postImage} />
+            </StImgContainer>
+          </StDivRow>
+        </TopContainer>
+        <BottomContainer>
+          {/* <div>
+            추천
+            <span onClick={likeClickHandler} style={{ cursor: "pointer" }}>
+              👍
+            </span>
+            {likedNumber}
+            댓글 : 2
+          </div> */}
+          <ClickBtn
+            onClick={() => {
+              navigate(`/postdetail/${id}`);
+            }}
+          >
+            상세보기
+          </ClickBtn>
+        </BottomContainer>
+      </List>
+    </ListWrapper>
+  );
+}
+
+export default PostCards;
 
 const ListWrapper = styled.article`
   display: flex;
@@ -112,71 +189,3 @@ const ClickBtn = styled.button`
     transition: 0.5s;
   }
 `;
-
-function PostCards({ post }) {
-  const { posts, setPosts, userEmail, postTitle, postText, postImage, postDate, userProfileImage, previewImg } = post;
-
-  const splitUserEmail = userEmail.split("@")[0];
-  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(splitUserEmail.length);
-
-  const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
-  });
-
-  /* 추천 누르기 기능 */
-
-  const [liked, setLiked] = useState(false);
-  const [likedNumber, setLikedNumber] = useState(0);
-
-  const likeClickHandler = () => {
-    if (liked) {
-      setLikedNumber(likedNumber - 1);
-    } else {
-      setLikedNumber(likedNumber + 1);
-    }
-    setLiked(!liked);
-  };
-
-  return (
-    <ListWrapper>
-      <List>
-        <TopContainer>
-          <div>
-            <ProfileImg src={userProfileImage} />
-          </div>
-          <StDivRow>
-            <ContentContaniner>
-              <NickName>
-                <span>{userNickname}</span>
-                <span>{formattedDate}</span>
-              </NickName>
-              <Title>{postTitle}</Title>
-              <Content>{postText}</Content>
-            </ContentContaniner>
-            <StImgContainer>
-              <StImg src={postImage} />
-            </StImgContainer>
-          </StDivRow>
-        </TopContainer>
-        <BottomContainer>
-          <div>
-            추천
-            <span onClick={likeClickHandler} style={{ cursor: "pointer" }}>
-              👍
-            </span>
-            {likedNumber}
-            댓글 : 2
-          </div>
-          <ClickBtn>상세보기</ClickBtn>
-        </BottomContainer>
-      </List>
-    </ListWrapper>
-  );
-}
-
-export default PostCards;
