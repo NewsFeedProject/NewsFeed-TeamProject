@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { StarStyle } from "styles/common";
-import profileUser from "assets/images/profile-user.png";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth, db } from 'data/firebase'
+import { auth, db } from "data/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 
@@ -66,7 +65,7 @@ function SignUp() {
     } catch (error) {
       // console.log(error);
     }
-  };
+  }
   const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
@@ -75,8 +74,9 @@ function SignUp() {
       userProfileImage: imgUrl,
     }
     await addDoc(collection(db, "user"), doc);
+
     setUserInfo((prev) => [...prev, doc]);
-  }
+  };
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
