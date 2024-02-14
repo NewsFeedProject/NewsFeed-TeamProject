@@ -104,11 +104,6 @@ const HeaderStyle = styled.header`
   background-color: #fff;
   grid-row: 1;
   grid-column: 1/3;
-  /* position: fixed; */
-  /* left: 0;
-  top: 0;
-  right: 0;
-  z-index: 9999; */
 `;
 const LogoImg = styled.img`
   width: 10rem;

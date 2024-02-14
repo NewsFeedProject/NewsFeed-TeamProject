@@ -11,10 +11,11 @@ export default function MainSection() {
 
 const BannerSection = styled.section`
   width: 72%;
-  height: 40%;
+  height: 30%;
   border: 1px solid grey;
   border-radius: 1rem;
-  /* margin: 350px 0 30px 300px; */
+  margin-bottom: 5rem;
+
   & > img {
     object-fit: cover;
     height: 100%;

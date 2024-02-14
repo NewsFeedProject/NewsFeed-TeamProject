@@ -68,7 +68,7 @@ const NavBar = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 170px;
+  padding-top: 10%;
   background-color: #fff;
   grid-row: 2;
 
@@ -77,7 +77,7 @@ const NavBar = styled.nav`
   }
 `;
 
-const StText = styled.p`
+const StText = styled.text`
   margin-top: 0.5rem;
 `;
 
@@ -88,7 +88,7 @@ const CatchLoginLogout = styled.div`
   gap: 1rem;
   font-size: 17px;
   padding-left: 1rem;
-  padding-top: 1rem;
+
   margin: 0;
 
   @media (max-width: 1200px) {
