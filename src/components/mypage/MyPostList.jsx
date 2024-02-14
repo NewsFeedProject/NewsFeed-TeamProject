@@ -8,16 +8,24 @@ function MyPostList() {
   const navigate = useNavigate();
   const params = useParams();
   const { posts } = useContext(PostContext);
-  const { users } = useContext(UsersContext);
-  const foundUser = users.find((user) => {
-    return user.uid === params.uid;
-  });
-  const filteredPost = posts.filter((post) => post.userEmail === foundUser.userEmail);
+  // const { uid, userName, userProfileImage, userEmail } = useContext(UsersContext);
+  const currentUser = useContext(UsersContext);
+  // const foundUser = users.find((user) => {
+  //   return user.uid === params.uid;
+  // });
+
+  if (!currentUser) {
+    return;
+  }
+
+  const { uid, email } = currentUser;
+
+  const filteredPost = posts.filter((post) => post.userEmail === email);
   return (
     <>
       <div>
         {filteredPost.length === 0 ? (
-          <StNotice>{foundUser.userName} 님의 면접후기 / 취업정보를 남겨주세요!</StNotice>
+          <StNotice>{email} 님의 면접후기 / 취업정보를 남겨주세요!</StNotice>
         ) : (
           filteredPost.map((post) => {
             return (
