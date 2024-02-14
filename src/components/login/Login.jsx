@@ -11,17 +11,12 @@ import { Logout } from './Logout';
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
 
-  useEffect(() => {
-    // login 어찌해야할까?
-    const user = auth.currentUser;
-  }, []);
-
-  const singInLogInFunction = async () => {
+  async function singInLogInFunction() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
