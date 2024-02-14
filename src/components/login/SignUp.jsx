@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StarStyle } from "styles/common";
 import profileUser from "assets/images/profile-user.png";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
+
 import { auth, db } from "data/firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import { addDoc, collection } from "firebase/firestore/lite";
 
 function SignUp() {
@@ -24,14 +26,11 @@ function SignUp() {
     reUserPassword,
     setReUserPassword,
     checkBox,
-    setCheckBox,
-    prevImg,
-    setPrevImg
+    setCheckBox
   } = useContext(SingUpContext);
 
   const imgChangeHandler = (e) => {
-    const file = e.target.files[0];
-    setPrevImg([...prevImg, file]);
+    const file = e.target.files[0] || e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
       const imageDataURL = reader.result;
@@ -57,18 +56,18 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   };
-  const singUpFunction = async () => {
+  async function singUpFunction() {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-      const updateProfiled = await updateProfile(auth.currentUser, {
-        userName: userName,
-        photoURL: imgURL
-      });
-      console.log(createdUser, updateProfiled);
+      // const updateProfiled = await updateProfile(auth.currentUser, {
+      // userName: userName,
+      // photoURL: imgURL
+      // });
+      console.log(createdUser);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
-  };
+  }
   const addUserInfoFirebase = async () => {
     let doc = {
       userEmail: userEmail,
@@ -77,6 +76,8 @@ function SignUp() {
       userProfileImage: imgURL
     };
     await addDoc(collection(db, "user"), doc);
+
+    setUserInfo((prev) => [...prev, doc]);
   };
 
   const singUpClickHandler = (e) => {
@@ -113,6 +114,10 @@ function SignUp() {
       userProfileImage: imgURL
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
+    if (userPassword.length < 6) {
+      alert("비밀번호는 여섯 자 이상으로 입력해주세요");
+      return;
+    }
 
     singUpFunction();
     setUserId("");
@@ -131,8 +136,7 @@ function SignUp() {
       alert("비밀번호를 다시 확인해주세요!");
       return;
     }
-
-    const isDuplicate = userInfo.some((item) => item.userEmail === newEmail);
+    const isDuplicate = userInfo.some((item) => item.userEmail === userEmail);
     if (isDuplicate) {
       alert("중복됩니다. 다시 입력해주세요!");
       setUserId("");
@@ -211,7 +215,7 @@ export default SignUp;
 
 const SingUpWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
 `;
 const SignUpForm = styled.form`
   padding-top: 100px;
