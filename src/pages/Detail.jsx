@@ -31,6 +31,7 @@ const Main = styled.main`
   padding: 200px 0 0 200px;
   width: 100%;
 `;
+
 function Detail({ category }) {
   const navigate = useNavigate();
   const { userUid } = useContext(PostContext);
