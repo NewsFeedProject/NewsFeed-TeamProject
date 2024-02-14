@@ -1,16 +1,11 @@
-import { LoginContext } from "context/LoginContext";
 import { auth } from "data/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import React, { useContext } from "react";
-
-import { GoogleLogin } from "react-google-login";
+import { useNavigate } from "react-router";
 
 import styled from "styled-components";
 
 function GoogleLoginBtn() {
-  // const { gData } = useContext(LoginContext);
-  // const clientId = gData.client_id;
-  // const { setUser } = useContext(UsersContext);
+  const navigate = useNavigate();
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
@@ -18,11 +13,12 @@ function GoogleLoginBtn() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      navigate('/');
+
       console.log(user);
     } catch (error) {
       console.error(error);
     }
+    navigate('/');
   }
 
   return (
