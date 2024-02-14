@@ -4,6 +4,7 @@ import styled from "styled-components";
 import profileImg from "../../assets/images/profile-user.png";
 import { PostContext } from "../../context/PostContext";
 import { SingUpContext } from "context/SingUpContext";
+import { LoginContext } from "context/LoginContext";
 
 const StMain = styled.main`
   display: flex;
@@ -50,7 +51,8 @@ function PostForm() {
   const { posts, setPosts, addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } =
     useContext(PostContext);
 
-  const { userEmail, previewProfileImg } = useContext(SingUpContext);
+  const { previewProfileImg } = useContext(SingUpContext);
+  const { userEmail } = useContext(LoginContext);
 
   /* 이미지 파일 업로드하기 */
 
