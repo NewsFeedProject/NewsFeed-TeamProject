@@ -20,14 +20,14 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/write", element: <PostForm /> },
-      { path: "/interView", element: <Interview /> },
-      { path: "/workInfo", element: <WorkInfo /> },
-      { path: "/companyInfo", element: <CompanyInfo /> },
-      { path: "/signup", element: <SignUp /> },
-      { path: "/mypage/:uid", element: <Mypage /> },
-      { path: "/detail", element: <Detail /> },
-      { path: "/postdetail/:id", element: <PostDetail /> }
+      { path: "write", element: <PostForm /> },
+      { path: "interView", element: <Interview /> },
+      { path: "workInfo", element: <WorkInfo /> },
+      { path: "companyInfo", element: <CompanyInfo /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "mypage/:uid", element: <Mypage /> },
+      { path: "detail", element: <Detail /> },
+      { path: "postdetail/:postId", element: <PostDetail /> }
     ]
   },
   {
