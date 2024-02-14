@@ -87,65 +87,71 @@ const PostDetail = () => {
     };
   };
 
+  console.log("postCard", postCard);
+
   //수정 바꿈
   const handleEditHandle = async () => {
-    if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
-      setEditingTitleError("수정사항이 없습니다.");
-      setEditingContentError("수정사항이 없습니다.");
+    if (postCard === null) {
       return;
     } else {
-      setEditingTitleError("");
-      setEditingContentError("");
-    }
+      if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
+        setEditingTitleError("수정사항이 없습니다.");
+        setEditingContentError("수정사항이 없습니다.");
+        return;
+      } else {
+        setEditingTitleError("");
+        setEditingContentError("");
+      }
 
-    // 수정사항이 있을 때
-    const answer = window.confirm("수정하시겠습니까?");
-    if (!answer) return;
-    alert("수정되었습니다.");
+      // 수정사항이 있을 때
+      const answer = window.confirm("수정하시겠습니까?");
+      if (!answer) return;
+      alert("수정되었습니다.");
 
-    try {
-      const postRef = doc(db, "postInfo", id);
-      await updateDoc(postRef, {
-        postTitle: editingTitle,
-        postText: editingContent,
-        postImage: editingPhotoCard
-      });
-
-      setPosts((prev) => {
-        return prev.map((element) => {
-          if (element.id === id) {
-            return {
-              ...element,
-              postTitle: editingTitle,
-              postText: editingContent,
-              postImage: editingPhotoCard
-            };
-          } else {
-            return element;
-          }
+      try {
+        const postRef = doc(db, "postInfo", id);
+        await updateDoc(postRef, {
+          postTitle: editingTitle,
+          postText: editingContent,
+          postImage: editingPhotoCard
         });
-      });
-      setPostCard((prev) => ({
-        ...prev,
-        postTitle: editingTitle,
-        postText: editingContent,
-        postImage: editingPhotoCard
-      }));
 
-      setIsEditing(false);
-      setEditingTitleError("");
-      setEditingContentError("");
-    } catch (error) {
-      console.error("Error post: ", error);
+        setPosts((prev) => {
+          return prev.map((element) => {
+            if (element.id === id) {
+              return {
+                ...element,
+                postTitle: editingTitle,
+                postText: editingContent,
+                postImage: editingPhotoCard
+              };
+            } else {
+              return element;
+            }
+          });
+        });
+        setPostCard((prev) => ({
+          ...prev,
+          postTitle: editingTitle,
+          postText: editingContent,
+          postImage: editingPhotoCard
+        }));
+
+        setIsEditing(false);
+        setEditingTitleError("");
+        setEditingContentError("");
+      } catch (error) {
+        console.error("Error post: ", error);
+      }
     }
   };
 
   const handleEditChange = () => {
-    if (userMail === postCard.userEmail) {
-      setIsEditing(true);
-    } else {
-      alert("해당 권한이 없습니다.");
-    }
+    // if (userMail === postCard.userEmail) {
+    setIsEditing(true);
+    // } else {
+    //   alert("해당 권한이 없습니다.");
+    // }
   };
 
   if (!postCard) {
