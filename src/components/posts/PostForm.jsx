@@ -50,8 +50,8 @@ function PostForm() {
   const navigate = useNavigate();
   const { addPostSubmit, category, postImg, setPostImg, previewImg, setPreviewImg } = useContext(PostContext);
 
-  const { previewProfileImg } = useContext(SingUpContext);
   const { userEmail } = useContext(LoginContext);
+  const { imgURL } = useContext(SingUpContext);
 
   /* 이미지 파일 업로드하기 */
 
@@ -117,7 +117,7 @@ function PostForm() {
       postImage: previewImg,
       postId: crypto.randomUUID(),
       postDate: date,
-      userProfileImage: previewProfileImg,
+      userProfileImage: imgURL,
       postCategory: selectCategory
     });
 

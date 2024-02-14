@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
 import { collection, getDocs, query, addDoc } from "firebase/firestore/lite";
 import { db } from "data/firebase";
-import detailListDummyData from "data/detailListDummyData";
-import { orderBy } from "firebase/firestore";
 
 export const PostContext = createContext(null);
 
 const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
+  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   /* firebase 데이터 불러오기 */
   useEffect(() => {
@@ -63,7 +63,11 @@ const PostProvider = ({ children }) => {
         postImg,
         setPostImg,
         previewImg,
-        setPreviewImg
+        setPreviewImg,
+        category,
+        setCategory,
+        searchTerm,
+        setSearchTerm
       }}
     >
       {children}

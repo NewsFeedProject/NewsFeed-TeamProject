@@ -3,19 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
-import { SingUpContext } from "context/SingUpContext";
 
 export default function Navbar() {
-  const { userEmail } = useContext(LoginContext);
-  const { previewProfileImg } = useContext(SingUpContext);
-
+  const { userEmail, imgURL } = useContext(LoginContext);
   // const [login, setLogin] = useState(dummyData);
   // const logInedUserEmail = login.userEmail;
   // const logInedUserProfil = login.userProfileImage;
 
   const navigate = useNavigate();
   console.log("뭐불러와?", userEmail);
-  console.log("사진뭐불러와?", previewProfileImg);
+  console.log("사진뭐불러와?", imgURL);
 
   return (
     <NavBar>
@@ -23,7 +20,7 @@ export default function Navbar() {
         <CatchLoginLogout>
           {userEmail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={previewProfileImg} alt="User Profile" />
+              <ProfileImg src={imgURL} alt="User Profile" />
               <UserEmailId>
                 {userEmail}님<br />
                 안녕하세요.
