@@ -1,5 +1,5 @@
 import { LoginContext } from 'context/LoginContext';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
 import { Link, useNavigate } from 'react-router-dom';

@@ -47,9 +47,9 @@ const SectionBoxs = styled.aside`
 `;
 
 const ListSectionBoxs = styled.aside`
+  justify-content: center;
   display: flex;
   flex-direction: row;
   width: 100%;
-  margin-left: 50%;
   gap: 20px;
 `;

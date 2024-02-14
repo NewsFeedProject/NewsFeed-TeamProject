@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import googleData from "data/googleLogin.json";
 
 export const LoginContext = createContext(null);
 
@@ -10,8 +9,6 @@ function LoginContextProvider({ children }) {
   const [userPassword, setUserPassword] = useState("");
   // user 아이디,password 받아온 값
   const [userInfo, setUserInfo] = useState([]);
-  // google API 값
-  const [gData, setGData] = useState(googleData.web);
 
   return (
     <LoginContext.Provider
@@ -22,8 +19,6 @@ function LoginContextProvider({ children }) {
         setUserPassword,
         userInfo,
         setUserInfo,
-        gData,
-        setGData
       }}
     >
       {children}
