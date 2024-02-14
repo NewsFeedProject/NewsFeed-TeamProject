@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { PostContext } from "context/PostContext";
 
-const StCategory = styled.div`
+const DetailTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 150px;
-  width: 100%;
+  padding: 0 50px;
+  width: 800px;
 `;
 
 const StP = styled.p`
@@ -28,8 +28,12 @@ const WriteBtn = styled.button`
 `;
 
 const Main = styled.main`
-  padding: 200px 0 0 200px;
+  padding: 50px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 function Detail({ category }) {
@@ -41,11 +45,10 @@ function Detail({ category }) {
 
   return (
     <Main>
-      <StCategory>
+      <DetailTop>
         <StP>{category}</StP>
         <WriteBtn onClick={writeClickBtnHadler}>글쓰기</WriteBtn>
-      </StCategory>
-      <br />
+      </DetailTop>
       <PostList category={category} />
     </Main>
   );

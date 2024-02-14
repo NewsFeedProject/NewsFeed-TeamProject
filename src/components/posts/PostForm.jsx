@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { SingUpContext } from "context/SingUpContext";
 import { LoginContext } from "context/LoginContext";
 import { PostContext } from "context/PostContext";
+import { collection } from "firebase/firestore/lite";
 
 const FormContainer = styled.main`
   display: flex;
@@ -47,7 +48,7 @@ const UploadImg = styled.img`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
+  const { posts, addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
     useContext(PostContext);
 
   /* 이미지 파일 업로드하기 */
@@ -112,10 +113,10 @@ function PostForm() {
       postTitle: title,
       postText: text,
       postImage: previewImg,
-      postId: crypto.randomUUID(),
       postDate: date,
       userProfileImage: userProfileImg,
-      postCategory: selectCategory
+      postCategory: selectCategory,
+      id: "postId"
     });
 
     setTitle("");
@@ -131,6 +132,8 @@ function PostForm() {
     alert("글쓰기를 취소합니다.");
     navigate(-1);
   };
+
+  console.log(posts);
 
   return (
     <>

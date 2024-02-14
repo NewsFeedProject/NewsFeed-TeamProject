@@ -21,7 +21,7 @@ const PostDetail = () => {
   const [editingTitleError, setEditingTitleError] = useState("");
   const [editingContentError, setEditingContentError] = useState("");
 
-  console.log(userUid);
+  // console.log(userUid);
 
   useEffect(() => {
     const fetchPost = async () => {

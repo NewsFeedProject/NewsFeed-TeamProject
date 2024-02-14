@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, orderBy } from "firebase/firestore/lite";
+import { collection, getDocs, query, addDoc, orderBy, doc } from "firebase/firestore/lite";
 import { db } from "data/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -27,12 +27,17 @@ const PostProvider = ({ children }) => {
       const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
       const querySnapshot = await getDocs(q);
       const initialPosts = [];
+      let postId;
 
       querySnapshot.forEach((doc) => {
         const data = {
-          ...doc.data(),
-          id: doc.id
+          ...doc.data()
         };
+
+        postId = doc.id;
+        data.id = postId;
+        console.log(postId);
+
         initialPosts.push(data);
       });
       setPosts(initialPosts);
@@ -40,6 +45,7 @@ const PostProvider = ({ children }) => {
 
     fetchData();
   }, []);
+  console.log(postId);
 
   /* email, profileImg 데이터 불러오기 */
 
@@ -75,7 +81,6 @@ const PostProvider = ({ children }) => {
       }
     });
   }, []);
-
   // console.log("유저 이메일", userMail);
   // console.log("사진뭐불러와?", userProfileImg);
   // console.log("유저 아이디", userUid);
@@ -87,6 +92,16 @@ const PostProvider = ({ children }) => {
     const collectionRef = collection(db, "postInfo");
     await addDoc(collectionRef, newpost);
   };
+
+  // const addPostSubmit = async (newpost) => {
+  //   const collectionRef = collection(db, "postInfo");
+  //   const docRef = await addDoc(collectionRef, newpost);
+  //   const postId = docRef.id;
+
+  //   const postWithId = { ...newpost, id: postId };
+
+  //   setPosts((posts) => [postWithId, ...posts]);
+  // };
 
   /* 글 쓰기 - img 추가하기 */
   const [postImg, setPostImg] = useState([]);
