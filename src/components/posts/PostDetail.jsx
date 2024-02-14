@@ -1,42 +1,62 @@
 import styled from "styled-components";
 import { useParams, useNavigate } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { PostContext } from "../../context/PostContext";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore/lite";
+import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore/lite";
 import { db } from "../../data/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PostDetail = () => {
   const { id } = useParams();
   const { userUid, posts, setPosts } = useContext(PostContext);
-  const navigate = useNavigate();
+  const { formattedPostData } = useContext(PostContext);
 
-  const postCard = posts.find((item) => item.postId === id);
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const [postCard, setPostCard] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingTitle, setEditingTitle] = useState("");
+  const [editingContent, setEditingContent] = useState("");
+  const [editingPhotoCard, setEditingPhotoCard] = useState("");
+  const [editingTitleError, setEditingTitleError] = useState("");
+  const [editingContentError, setEditingContentError] = useState("");
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const docSnap = await getDoc(doc(db, "postInfo", id));
+
+      setPostCard(docSnap.data());
+    };
+    fetchPost();
+  }, []);
+
+  useEffect(() => {
+    if (isEditing) {
+      setEditingPhotoCard(postCard.postImage);
+    }
+  }, [isEditing]);
+
+  console.log(posts);
+  console.log(userUid);
+  console.log(postCard);
 
   //삭제기능
   const handleDelete = async () => {
-    if (userUid) {
-      try {
-        if (window.confirm("정말로 삭제하시겠습니까?") === true) {
-          alert("삭제되었습니다");
-          const postRef = doc(db, "postInfo", id);
-          await deleteDoc(postRef);
-          setPosts((prevPosts) => prevPosts.filter((post) => post.postId !== id));
-          navigate("/");
-        }
-      } catch (error) {
-        console.error("Error: ", error);
+    try {
+      if (window.confirm("정말로 삭제하시겠습니까?")) {
+        alert("삭제 되었습니다.");
+        const postRef = doc(db, "postInfo", id);
+        await deleteDoc(postRef);
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+        navigate(-1);
+        console.log("postRef", postRef);
       }
+    } catch (error) {
+      console.error("Error: ", error);
     }
-    alert("해당 권한이 없습니다. ");
   };
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingTitle, setEditingTitle] = useState(postCard.postTitle);
-  const [editingContent, setEditingContent] = useState(postCard.postText);
-  const [editingPhotoCard, setEditingPhotoCard] = useState(postCard.postImage);
-  const [editingTitleError, setEditingTitleError] = useState("");
-  const [editingContentError, setEditingContentError] = useState("");
 
   //취소버튼
   const onCencelButton = () => {
@@ -45,7 +65,7 @@ const PostDetail = () => {
     setEditingContentError("");
   };
 
-  // 수정버튼
+  //수정버튼
   const onEditDone = async () => {
     if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
       setEditingTitleError("수정사항이 없습니다.");
@@ -62,7 +82,7 @@ const PostDetail = () => {
     alert("수정되었습니다.");
 
     try {
-      const postRef = doc(db, "postInfo", postCard.id);
+      const postRef = doc(db, "postInfo", id);
       await updateDoc(postRef, {
         postTitle: editingTitle,
         postText: editingContent,
@@ -71,7 +91,7 @@ const PostDetail = () => {
 
       setPosts((prev) => {
         return prev.map((element) => {
-          if (element.id === postCard.id) {
+          if (element.id === id) {
             return {
               ...element,
               postTitle: editingTitle,
@@ -83,6 +103,12 @@ const PostDetail = () => {
           }
         });
       });
+      setPostCard((prev) => ({
+        ...prev,
+        postTitle: editingTitle,
+        postText: editingContent,
+        postImage: editingPhotoCard
+      }));
 
       setIsEditing(false);
       setEditingTitleError("");
@@ -101,10 +127,9 @@ const PostDetail = () => {
     };
   };
 
-  const hadlerEditAndHadler = () => {
-    userUid ? navigate("/") : alert("해당 권한이 없습니다. ");
-    setIsEditing(false);
-  };
+  if (!postCard) {
+    return <div>로딩중....</div>;
+  }
 
   return (
     <DetailWrapper>
@@ -126,8 +151,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
+                  <Date>{formattedPostData.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
@@ -163,11 +188,17 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{postCard.userEmail}</UserNickName>
-                  <Date>시간영역</Date>
+                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
+                  <Date>{formattedPostData.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
-                  <button onClick={hadlerEditAndHadler}>수정</button>
+                  <button
+                    onClick={() => {
+                      setIsEditing(true);
+                    }}
+                  >
+                    수정
+                  </button>
                   <button onClick={handleDelete}>삭제</button>
                 </EditAndDeleteWrapper>
               </UserInfoAndButton>
@@ -194,7 +225,7 @@ export default PostDetail;
 
 const DetailWrapper = styled.section`
   padding: 80px 60px;
-  margin: 150px 0 0 20%;
+  width: 100%;
 `;
 
 const DetailTiTle = styled.div`

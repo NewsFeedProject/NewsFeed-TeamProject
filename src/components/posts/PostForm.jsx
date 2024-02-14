@@ -11,7 +11,6 @@ const FormContainer = styled.main`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-top: 12rem;
 `;
 
 const StForm = styled.form`
@@ -52,7 +51,6 @@ function PostForm() {
     useContext(PostContext);
 
   /* 이미지 파일 업로드하기 */
-
   const fileUploadHandler = (e) => {
     const file = e.target.files[0];
     setPostImg([...postImg, file]);
@@ -113,7 +111,6 @@ function PostForm() {
       postTitle: title,
       postText: text,
       postImage: previewImg,
-      postId: crypto.randomUUID(),
       postDate: date,
       userProfileImage: userProfileImg,
       postCategory: selectCategory

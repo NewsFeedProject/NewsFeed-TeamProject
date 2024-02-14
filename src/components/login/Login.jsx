@@ -1,22 +1,17 @@
-import { LoginContext } from 'context/LoginContext';
-import React, { useContext, useEffect } from 'react'
-import styled from 'styled-components'
-import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth } from 'data/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { GithubButton } from 'components/login/GithubBtn';
-import { Logout } from './Logout';
+import { LoginContext } from "context/LoginContext";
+import React, { useContext } from "react";
+import styled from "styled-components";
+import GoogleLoginBtn from "components/login/GoogleLoginBtn";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "data/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { GithubButton } from "components/login/GithubBtn";
+import { Logout } from "./Logout";
 
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
 
-  useEffect(() => {
-    // login 어찌해야할까?
-    const user = auth.currentUser;
-  }, []);
-
-  const singInLogInFunction = async () => {
+  async function singInLogInFunction() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, userEmail, userPassword);
       console.log("user with signIn", userCredential.user);
@@ -31,8 +26,8 @@ function Login() {
     e.preventDefault();
 
     singInLogInFunction();
-    navigate('/');
-    setUserPassword('');
+    navigate("/");
+    setUserPassword("");
   };
 
   return (

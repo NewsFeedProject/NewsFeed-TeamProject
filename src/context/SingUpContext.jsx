@@ -3,10 +3,6 @@ import { createContext, useState } from "react";
 export const SingUpContext = createContext(null);
 
 function SingUpContextProvider({ children }) {
-  // 이미지
-  const [imgURL, setImgURL] = useState("");
-  // 이미지 업로드를 위한 state
-  const [prevImg, setPrevImg] = useState([]);
   // user이름
   const [userName, setUserName] = useState("");
   // user ID만
@@ -17,11 +13,11 @@ function SingUpContextProvider({ children }) {
   const [reUserPassword, setReUserPassword] = useState("");
   // checkbox
   const [checkBox, setCheckBox] = useState(false);
+
+  const [imgUrl, setImgUrl] = useState('');
   return (
     <SingUpContext.Provider
       value={{
-        imgURL,
-        setImgURL,
         userName,
         setUserName,
         userId,
@@ -32,8 +28,8 @@ function SingUpContextProvider({ children }) {
         setReUserPassword,
         checkBox,
         setCheckBox,
-        prevImg,
-        setPrevImg
+        imgUrl,
+        setImgUrl,
       }}
     >
       {children}
