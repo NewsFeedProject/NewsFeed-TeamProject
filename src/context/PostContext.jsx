@@ -1,12 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc } from "firebase/firestore/lite";
+import { collection, getDocs, query, addDoc, orderBy } from "firebase/firestore/lite";
 import { db } from "data/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const PostContext = createContext(null);
 
 const PostProvider = ({ children }) => {
+  // post 데이터 관리
   const [posts, setPosts] = useState([]);
+  const [formattedPostData, setFormattedPostData] = useState([]);
+
   // 검색 기능
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,7 +33,7 @@ const PostProvider = ({ children }) => {
   /* firebase 데이터 가져오기 */
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, "postInfo"));
+      const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
       const querySnapshot = await getDocs(q);
 
       const initialPosts = [];
@@ -84,9 +87,9 @@ const PostProvider = ({ children }) => {
     });
   }, []);
 
-  console.log("유저 이메일", userMail);
-  console.log("사진뭐불러와?", userProfileImg);
-  console.log("유저 아이디", userUid);
+  // console.log("유저 이메일", userMail);
+  // console.log("사진뭐불러와?", userProfileImg);
+  // console.log("유저 아이디", userUid);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
@@ -117,7 +120,9 @@ const PostProvider = ({ children }) => {
         userMail,
         userProfileImg,
         userUid,
-        setUserUid
+        setUserUid,
+        formattedPostData,
+        setFormattedPostData
       }}
     >
       {children}

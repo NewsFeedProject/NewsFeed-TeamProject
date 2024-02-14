@@ -9,6 +9,13 @@ import { db } from "../../data/firebase";
 const PostDetail = () => {
   const { postId } = useParams();
   const { posts, setPosts } = useContext(PostContext);
+  // const { userNickname, formattedDate } = formattedPostData;
+
+  // console.log(formattedPostData);
+  // const nickname = formattedPostData.map((data) => data.userNickname);
+  // console.log(nickname);
+  // console.log(formattedDate);
+
   const navigate = useNavigate();
 
   const postCard = posts.find((item) => item.postId === postId);
