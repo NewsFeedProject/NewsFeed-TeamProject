@@ -28,9 +28,7 @@ export default function HomePage() {
   );
 }
 
-const MainPage = styled.div`
-  white-space: nowrap;
-`;
+const MainPage = styled.div``;
 
 const HomeContents = styled.aside`
   display: flex;
