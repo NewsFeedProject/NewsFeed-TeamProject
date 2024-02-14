@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-// import { auth } from 'data/firebase'
+import { auth } from 'data/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 function SignUp() {
@@ -164,7 +164,7 @@ function SignUp() {
           <span>@</span>
           <IdInputStyle type="text" value={userMail} onChange={userMailChangeHandler} />
           <select onChange={userMailChangeHandler}>
-            <option value={""}>직겁입력▼</option>
+            <option value={""}>직접입력▼</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="github.com">github.com</option>

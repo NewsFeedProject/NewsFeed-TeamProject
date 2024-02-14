@@ -1,11 +1,12 @@
-import { LoginContext } from "context/LoginContext";
-import React, { useContext, useEffect } from "react";
-import styled from "styled-components";
-import GoogleLoginBtn from "components/login/GoogleLoginBtn";
-import { Link } from "react-router-dom";
-import { auth } from "data/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { GithubButton } from "components/login/GithubBtn";
+import { LoginContext } from 'context/LoginContext';
+import React, { useContext, useEffect } from 'react'
+import styled from 'styled-components'
+import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from 'data/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GithubButton } from 'components/login/GithubBtn';
+import { Logout } from './Logout';
 
 function Login() {
   const { userEmail, setUserEmail, userPassword, setUserPassword } = useContext(LoginContext);
@@ -23,10 +24,13 @@ function Login() {
       // console.log(error);
     }
   };
+
+  const navigate = useNavigate();
   const onClickHandler = (e) => {
     e.preventDefault();
 
     singInLogInFunction();
+    navigate('/');
   };
 
   return (
@@ -47,6 +51,7 @@ function Login() {
           </Link>
           <GoogleLoginBtn />
           <GithubButton />
+          <ButtonStyle onClick={Logout}>로그아웃</ButtonStyle>
         </ButtonGroup>
         <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
       </FormStyle>
