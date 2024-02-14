@@ -5,8 +5,6 @@ export const SingUpContext = createContext(null);
 function SingUpContextProvider({ children }) {
   // 이미지
   const [imgURL, setImgURL] = useState("");
-  // 이미지 업로드를 위한 state
-  const [prevImg, setPrevImg] = useState([]);
   // user이름
   const [userName, setUserName] = useState("");
   // user ID만
@@ -32,8 +30,6 @@ function SingUpContextProvider({ children }) {
         setReUserPassword,
         checkBox,
         setCheckBox,
-        prevImg,
-        setPrevImg
       }}
     >
       {children}

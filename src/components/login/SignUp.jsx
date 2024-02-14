@@ -25,19 +25,17 @@ function SignUp() {
     setReUserPassword,
     checkBox,
     setCheckBox,
-    prevImg,
-    setPrevImg
   } = useContext(SingUpContext);
 
   const imgChangeHandler = (e) => {
-    const file = e.target.files[0];
-    setPrevImg([...prevImg, file]);
+    const file = e.target.files[0] || e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
       const imageDataURL = reader.result;
-      setImgURL(imageDataURL);
+      const test = reader.readAsDataURL(file);
+      setImgURL(test);
+      console.log(imageDataURL);
     };
-    reader.readAsDataURL(file);
   };
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
