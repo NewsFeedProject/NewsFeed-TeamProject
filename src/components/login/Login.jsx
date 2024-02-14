@@ -13,7 +13,6 @@ function Login() {
   useEffect(() => {
     // login 어찌해야할까?
     const user = auth.currentUser;
-    console.log(user);
   }, []);
 
   const singInLogInFunction = async () => {

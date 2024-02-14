@@ -5,12 +5,13 @@ import { SingUpContext } from "context/SingUpContext";
 import { LoginContext } from "context/LoginContext";
 import { PostContext } from "context/PostContext";
 
-const StMain = styled.main`
+const FormContainer = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin-top: 12rem;
 `;
 
 const StForm = styled.form`
@@ -136,7 +137,7 @@ function PostForm() {
 
   return (
     <>
-      <StMain>
+      <FormContainer>
         <Link to="/">홈으로</Link>
         <StForm>
           <StDiv>
@@ -172,7 +173,7 @@ function PostForm() {
             </StBtn>
           </StDiv>
         </StForm>
-      </StMain>
+      </FormContainer>
     </>
   );
 }

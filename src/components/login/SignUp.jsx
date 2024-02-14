@@ -5,21 +5,15 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-
-import { auth } from "data/firebase";
-
+// import { auth } from 'data/firebase'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 function SignUp() {
   const navigate = useNavigate();
   const { userEmail, setUserEmail, userPassword, setUserPassword, userInfo, setUserInfo } = useContext(LoginContext);
   const {
-    // imgURL,
-    // setImgURL,
-    profileImg,
-    setProfileImg,
-    previewProfileImg,
-    setPreviewProfileImg,
+    imgURL,
+    setImgURL,
     userName,
     setUserName,
     userId,
@@ -29,25 +23,21 @@ function SignUp() {
     reUserPassword,
     setReUserPassword,
     checkBox,
-    setCheckBox
+    setCheckBox,
+    prevImg,
+    setPrevImg
   } = useContext(SingUpContext);
-
-  // const imgChangeHandler = (e) => {
-  //   setImgURL(e.target.value);
-  // };
 
   const imgChangeHandler = (e) => {
     const file = e.target.files[0];
-    setProfileImg([...profileImg, file]);
-
-    const fileRead = new FileReader();
-    fileRead.onload = () => {
-      setPreviewProfileImg(fileRead.result);
+    setPrevImg([...prevImg, file]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imageDataURL = reader.result;
+      setImgURL(imageDataURL);
     };
-    fileRead.readAsDataURL(file);
+    reader.readAsDataURL(file);
   };
-  console.log(previewProfileImg);
-
   const nameChangeHandler = (e) => {
     setUserName(e.target.value);
   };
@@ -66,13 +56,12 @@ function SignUp() {
   const checkBoxChangeHandler = () => {
     checkBox === false ? setCheckBox(true) : setCheckBox(false);
   };
-
-  const singUpFunction = async (userInfo) => {
+  const singUpFunction = async () => {
     try {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-      const updateProfile = await updateProfile(auth.currentUser, {
-        displayName: userInfo.userName,
-        photoURL: userInfo.userProfileImage
+      const updateProfiled = await updateProfile(auth.currentUser, {
+        displayName: userName,
+        photoURL: imgURL
       });
       console.log(createdUser, updateProfiled);
     } catch (error) {
@@ -111,19 +100,17 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: previewProfileImg
+      userProfileImage: imgURL
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
-    navigate("/");
-    singUpFunction(userInfo);
 
+    singUpFunction();
     setUserId("");
     setUserMail("");
     setUserPassword("");
     setReUserPassword("");
     setUserName("");
     setCheckBox(false);
-
     navigate("/login");
   };
 
@@ -152,14 +139,16 @@ function SignUp() {
           <AllLabelStyle>
             프로필 사진 <StarStyle>*</StarStyle>
           </AllLabelStyle>
-
-          {previewProfileImg && (
-            <ImageStyle src={previewProfileImg ? previewProfileImg : profileUser} alt="userProfile" />
-          )}
-
+          <ImageStyle src={imgURL ? imgURL : profileUser} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
 
-          <InputFileStyle id="inputFile" type="file" accept=".png, .jpeg, .jpg, .gif" onChange={imgChangeHandler} />
+          <InputFileStyle
+            id="inputFile"
+            type="file"
+            accept=".png, .jpeg, .jpg, .gif"
+            value={imgURL}
+            onChange={imgChangeHandler}
+          />
         </InputGroup>
         <InputGroup>
           <AllLabelStyle>
@@ -175,7 +164,7 @@ function SignUp() {
           <span>@</span>
           <IdInputStyle type="text" value={userMail} onChange={userMailChangeHandler} />
           <select onChange={userMailChangeHandler}>
-            <option value={""}>직접입력▼</option>
+            <option value={""}>직겁입력▼</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="github.com">github.com</option>
