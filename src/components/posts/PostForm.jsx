@@ -6,28 +6,41 @@ import { LoginContext } from "context/LoginContext";
 import { PostContext } from "context/PostContext";
 
 const FormContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  width: 100%;
+  margin-top: 50px;
+  & > a {
+    font-size: 18px;
+    width: 500px;
+    text-align: right;
+    display: block;
+    margin: 0 auto 30px;
+    cursor: pointer;
+  }
+  & > a:hover {
+    color: #ff006e;
+  }
 `;
 
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
-
-  border: 1px solid black;
+  text-align: left;
+  border: 1px solid #9d9d9d;
   border-radius: 10px;
   gap: 10px;
-
   padding: 50px;
-  width: 400px;
+  width: 500px;
+  margin: 0 auto;
 
   & input,
   textarea {
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  & label {
+    margin-top: 20px;
   }
 `;
 
@@ -39,10 +52,39 @@ const StDiv = styled.div`
 
 const StBtn = styled.button`
   width: 100px;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  border-radius: 5px;
+  background-color: transparent;
+  margin-top: 30px;
+  &:hover {
+    background-color: #ff006e;
+    border: 1px solid #ff006e;
+    color: #fff;
+  }
 `;
 const UploadImg = styled.img`
   width: 300px;
   padding: 10px;
+`;
+
+const SelectBox = styled.select`
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+`;
+
+const DeleteBtn = styled.button`
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  background-color: #ddd;
+  padding: 5px 0;
+`;
+
+const FileSelect = styled.input`
+  background-color: transparent;
+  border: transparent !important;
 `;
 
 function PostForm() {
@@ -136,16 +178,17 @@ function PostForm() {
         <Link to="/">홈으로</Link>
         <StForm>
           <StDiv>
-            제목
-            <select onChange={onSelectHandler} value={selectCategory}>
+            <lavel for="title">제목</lavel>
+            <SelectBox onChange={onSelectHandler} value={selectCategory}>
               <option>면접 후기</option>
               <option>취업 정보</option>
               <option>회사 정보 공유</option>
-            </select>
+            </SelectBox>
           </StDiv>
-          <input value={title} onChange={addTitleHandler} placeholder="제목을 입력해주세요." />
-          내용
+          <input id="title" value={title} onChange={addTitleHandler} placeholder="제목을 입력해주세요." />
+          <label for="content">내용</label>
           <textarea
+            id="content"
             value={text}
             onChange={addTextHandler}
             placeholder="최대 300자까지 입력 가능합니다."
@@ -153,13 +196,13 @@ function PostForm() {
             style={{ height: "200px" }}
           />
           <StDiv style={{ flexDirection: "column" }}>
-            <input type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
+            <FileSelect type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />
             {previewImg && <UploadImg alt="Uploaded" src={previewImg} />}
-            <button type="button" onClick={deleteImgFileHandler}>
+            <DeleteBtn type="button" onClick={deleteImgFileHandler}>
               삭제
-            </button>
+            </DeleteBtn>
           </StDiv>
-          <StDiv style={{ justifyContent: "center", gap: "50px" }}>
+          <StDiv style={{ justifyContent: "center", gap: "30px" }}>
             <StBtn type="submit" onClick={addPostBtnClickHandler}>
               등록하기
             </StBtn>
