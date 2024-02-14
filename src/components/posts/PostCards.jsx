@@ -5,8 +5,7 @@ import styled from "styled-components";
 
 function PostCards({ post }) {
   const navigate = useNavigate();
-  const { postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
-
+  const { id, postTitle, postText, postImage, postDate, postId, userProfileImage, userEmail } = post;
   const splitUserEmail = userEmail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
 
@@ -64,7 +63,7 @@ function PostCards({ post }) {
           </div> */}
           <ClickBtn
             onClick={() => {
-              navigate(`/postdetail/${postId}`);
+              navigate(`/postdetail/${id}`);
             }}
           >
             상세보기

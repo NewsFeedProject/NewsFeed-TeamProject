@@ -100,7 +100,7 @@ const HeaderStyle = styled.header`
   height: 10rem;
   padding: 2rem;
   background-color: #fff;
-  grid-row: 1;
+  grid-row: 0.5;
   grid-column: 1/3;
 `;
 const LogoImg = styled.img`
