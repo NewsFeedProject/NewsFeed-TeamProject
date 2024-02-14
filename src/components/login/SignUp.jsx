@@ -76,7 +76,7 @@ function SignUp() {
       userName: userName,
       userProfileImage: imgURL,
     }
-    // await addDoc(collection(db, "user"), doc);
+    await addDoc(collection(db, "user"), doc);
   }
 
   const singUpClickHandler = (e) => {
