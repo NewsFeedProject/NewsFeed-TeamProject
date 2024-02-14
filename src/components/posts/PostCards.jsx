@@ -18,18 +18,7 @@ function PostCards({ post }) {
     second: "numeric"
   });
 
-  /* 추천 누르기 기능 */
-  // const [liked, setLiked] = useState(false);
-  // const [likedNumber, setLikedNumber] = useState(0);
 
-  // const likeClickHandler = () => {
-  //   if (liked) {
-  //     setLikedNumber(likedNumber - 1);
-  //   } else {
-  //     setLikedNumber(likedNumber + 1);
-  //   }
-  //   setLiked(!liked);
-  // };
 
   return (
     <ListWrapper>
@@ -53,14 +42,6 @@ function PostCards({ post }) {
           </StDivRow>
         </TopContainer>
         <BottomContainer>
-          {/* <div>
-            추천
-            <span onClick={likeClickHandler} style={{ cursor: "pointer" }}>
-              👍
-            </span>
-            {likedNumber}
-            댓글 : 2
-          </div> */}
           <ClickBtn
             onClick={() => {
               navigate(`/postdetail/${id}`);
