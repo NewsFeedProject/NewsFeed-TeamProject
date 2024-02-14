@@ -9,7 +9,6 @@ const UserProvider = ({ children }) => {
 
   const auth = getAuth();
   const user = auth.currentUser;
-  console.log(user);
 
   return <UsersContext.Provider value={{ users, setUsers }}>{children}</UsersContext.Provider>;
 };
