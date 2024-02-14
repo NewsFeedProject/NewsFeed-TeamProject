@@ -14,15 +14,17 @@ const StCategory = styled.div`
 
 const StP = styled.p`
   font-size: larger;
+  white-space: nowrap;
 `;
 
 const WriteBtn = styled.button`
   border-color: transparent;
   background-color: transparent;
+  white-space: nowrap;
   color: #ff006e;
   font-size: larger;
   margin-top: 40px;
-  transform: translateY(-20px);
+  transform: translateY(-19px);
   cursor: pointer;
   &:hover {
     font-weight: 600;
