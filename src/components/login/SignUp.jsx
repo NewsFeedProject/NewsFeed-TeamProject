@@ -7,8 +7,6 @@ import { useNavigate } from "react-router";
 import { auth } from "data/firebase";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
-
-
 function SignUp() {
   const navigate = useNavigate();
   const { userEmail, setUserEmail, userPassword, setUserPassword, setUserInfo } = useContext(LoginContext);
@@ -27,7 +25,7 @@ function SignUp() {
     setImgUrl
   } = useContext(SingUpContext);
 
-  const [duplicateEmail, setDuplicateEmail] = useState('');
+  const [duplicateEmail, setDuplicateEmail] = useState("");
 
   const handleImageChange = (e) => {
     if (!e.target.files) return;
@@ -61,13 +59,13 @@ function SignUp() {
       const createdUser = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
       const updateProfiled = await updateProfile(auth.currentUser, {
         userName: userName,
-        photoURL: imgUrl,
+        photoURL: imgUrl
       });
       console.log(createdUser);
     } catch (error) {
       // console.log(error);
     }
-  };
+  }
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
@@ -100,7 +98,7 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgUrl,
+      userProfileImage: imgUrl
     };
     setUserInfo((prev) => [...prev, newUserInfo]);
     if (userPassword.length < 6) {
@@ -133,14 +131,14 @@ function SignUp() {
     setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = duplicateEmail === userEmail;
     if (isDuplicate) {
-      alert('중복됩니다. 다시 입력해주세요!');
-      setUserId('');
-      setUserMail('');
-      setDuplicateEmail('');
-      setUserEmail('');
-      setUserMail('');
+      alert("중복됩니다. 다시 입력해주세요!");
+      setUserId("");
+      setUserMail("");
+      setDuplicateEmail("");
+      setUserEmail("");
+      setUserMail("");
     } else {
-      alert('중복되는게 없어요!');
+      alert("중복되는게 없어요!");
     }
   };
 
@@ -155,12 +153,7 @@ function SignUp() {
           <ImageStyle src={imgUrl} alt="userProfile" />
           <LabelFileStyle htmlFor="inputFile">첨부 파일</LabelFileStyle>
 
-          <InputFileStyle
-            id="inputFile"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
+          <InputFileStyle id="inputFile" type="file" accept="image/*" onChange={handleImageChange} />
         </InputGroup>
         <InputGroup>
           <AllLabelStyle>
@@ -176,12 +169,12 @@ function SignUp() {
           <span>@</span>
           <IdInputStyle type="text" value={userMail} onChange={userMailChangeHandler} />
           <select onChange={userMailChangeHandler}>
-            <option value={""}>직접입력▼</option>
+            <option value={""}>직접입력</option>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="github.com">github.com</option>
           </select>
-          <button onClick={DuplicateCheck}>중복확인</button>
+          <DuplicationBtn onClick={DuplicateCheck}>중복확인</DuplicationBtn>
         </InputGroup>
         <InputGroup>
           <AllLabelStyle>
@@ -196,8 +189,8 @@ function SignUp() {
           <AllInputStyle type="password" value={reUserPassword} onChange={reUserPasswordChangeHandler} />
         </InputGroup>
         <CenterInputGroup>
-          <input type="checkbox" value={checkBox} onChange={checkBoxChangeHandler} />
-          <span>위의 개인정보 수집 및 이용에 동의합니다.</span>
+          <input type="checkbox" id="useragree" value={checkBox} onChange={checkBoxChangeHandler} />
+          <label for="useragree">위의 개인정보 수집 및 이용에 동의합니다.</label>
         </CenterInputGroup>
         <BtnAlign>
           <SingUpBTN onClick={singUpClickHandler}>회원가입</SingUpBTN>
@@ -211,28 +204,32 @@ export default SignUp;
 
 const SingUpWrap = styled.div`
   width: 100%;
-  height: 100%;
+  margin: 80px auto;
 `;
 const SignUpForm = styled.form`
-  padding-top: 100px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
+  width: 700px;
+  margin: 0 auto;
 `;
 
 const InputGroup = styled.div`
-  margin-bottom: 30px;
-  margin-left: 400px;
+  margin-bottom: 20px;
 `;
 const CenterInputGroup = styled.div`
-  margin-bottom: 30px;
+  margin: 30px 0;
   text-align: center;
+  & > input {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    transform: translateY(4px);
+  }
 `;
+
 const SignUpTitle = styled.h2`
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 `;
 const ImageStyle = styled.img`
   width: 100px;
@@ -242,36 +239,43 @@ const ImageStyle = styled.img`
 
 const LabelFileStyle = styled.label`
   background-color: #f5f5f5;
-  padding: 8px 12px;
+  padding: 5px 15px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
 `;
 const InputFileStyle = styled.input`
-  text-indent: -85px;
+  text-indent: -78px;
 `;
 
 const AllLabelStyle = styled.label`
   display: inline-block;
-  width: 13%;
+  width: 120px;
   text-align: right;
-  margin-right: 2.5%;
+  margin-right: 20px;
 `;
 const AllInputStyle = styled.input`
   display: inline-block;
-  width: 40%;
-  border-radius: 5px;
+  width: 72%;
+  border-radius: 3px;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
 `;
 const IdInputStyle = styled.input`
   display: inline-block;
-  border-radius: 5px;
-  width: 10%;
+  border-radius: 3px;
+  width: 20%;
+  border: 1px solid #ccc;
+  padding: 3px 5px;
   margin-right: 1%;
   & + span {
     margin-right: 1%;
   }
   & + select {
     margin-right: 1%;
+    padding: 5px 3px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
   }
 `;
 
@@ -280,5 +284,22 @@ const BtnAlign = styled.div`
 `;
 
 const SingUpBTN = styled.button`
-  width: 40%;
+  width: 80%;
+  padding: 7px 0;
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  &:hover {
+    background-color: #ff006e;
+    color: #fff;
+    border: 1px solid #ff006e;
+  }
+`;
+
+const DuplicationBtn = styled.button`
+  background-color: #eee;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 3px 11px;
+  font-size: 14px;
 `;
