@@ -39,7 +39,7 @@ const PostProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [posts]);
 
   /* email, profileImg 데이터 불러오기 */
   useEffect(() => {
