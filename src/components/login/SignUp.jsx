@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useNavigate } from "react-router";
-import { auth, db } from 'data/firebase'
+import { auth, db } from "data/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore/lite";
 
@@ -74,10 +74,10 @@ function SignUp() {
       userEmail: userEmail,
       userPassword: userPassword,
       userName: userName,
-      userProfileImage: imgURL,
-    }
+      userProfileImage: imgURL
+    };
     await addDoc(collection(db, "user"), doc);
-  }
+  };
 
   const singUpClickHandler = (e) => {
     e.preventDefault();
