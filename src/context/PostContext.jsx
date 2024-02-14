@@ -14,6 +14,7 @@ const PostProvider = ({ children }) => {
   // 로그인 값 가져오기
   const [userMail, setUserMail] = useState("");
   const [userProfileImg, setUserProfileImg] = useState("");
+  const [userUid, setUserUid] = useState("");
 
   /* firebase 데이터 불러오기 */
   useEffect(() => {
@@ -72,8 +73,20 @@ const PostProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserUid(user.uid);
+      } else {
+        setUserUid(null);
+      }
+    });
+  }, []);
+
   console.log("유저 이메일", userMail);
   console.log("사진뭐불러와?", userProfileImg);
+  console.log("유저 아이디", userUid);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
@@ -102,7 +115,9 @@ const PostProvider = ({ children }) => {
         searchTerm,
         setSearchTerm,
         userMail,
-        userProfileImg
+        userProfileImg,
+        userUid,
+        setUserUid
       }}
     >
       {children}
