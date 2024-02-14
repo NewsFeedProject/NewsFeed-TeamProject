@@ -29,9 +29,6 @@ export default function Navbar() {
     });
   }, []);
 
-  console.log("유저 이메일", userMail);
-  console.log("사진뭐불러와?", userProfileImg);
-
   return (
     <NavBar>
       <div>
@@ -41,7 +38,7 @@ export default function Navbar() {
               <ProfileImg src={userProfileImg} alt="User Profile" />
               <UserEmailId>
                 {userMail}님<br />
-                <StP> 안녕하세요.</StP>
+                <StText> 안녕하세요.</StText>
               </UserEmailId>
             </ShowUserInfoBox>
           ) : (
@@ -63,10 +60,8 @@ export default function Navbar() {
 }
 
 const NavBar = styled.nav`
-  /* width: 300px; */
   border-right: 1px solid grey;
   white-space: nowrap;
-  /* position: fixed; */
   left: 0;
   bottom: 0;
   height: 100%;
@@ -82,7 +77,7 @@ const NavBar = styled.nav`
   }
 `;
 
-const StP = styled.p`
+const StText = styled.p`
   margin-top: 0.5rem;
 `;
 

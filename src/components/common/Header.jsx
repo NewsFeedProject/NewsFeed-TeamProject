@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PostContext } from "context/PostContext";
+import { LoginContext } from "context/LoginContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Logout } from "components/login/Logout";
 
@@ -34,8 +36,7 @@ export default function Header() {
       }
     });
   }, []);
-  console.log("유저 유아이디", userUid);
-  console.log("유저 이메일", userMail);
+
   const onClickHome = () => {
     navigate("/");
   };
@@ -48,7 +49,7 @@ export default function Header() {
   const handleSearchInfo = (e) => {
     e.preventDefault();
     if (!category || !searchTerm) {
-      alert("카테고리 선택과 검색어를 모두 입력해주세요😬");
+      alert("카테고리 선택과 검색어를 모두 입력해주세요:찌푸림:");
       return;
     }
     navigate(`/${category}?search=${encodeURIComponent(searchTerm)}`);
@@ -91,6 +92,7 @@ export default function Header() {
     </HeaderStyle>
   );
 }
+
 const HeaderStyle = styled.header`
   display: flex;
   flex-direction: row;

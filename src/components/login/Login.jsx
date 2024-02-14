@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import GoogleLoginBtn from 'components/login/GoogleLoginBtn';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, storage } from 'data/firebase';
+import { auth } from 'data/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { GithubButton } from 'components/login/GithubBtn';
 import { Logout } from './Logout';
@@ -26,11 +26,13 @@ function Login() {
   };
 
   const navigate = useNavigate();
+
   const onClickHandler = (e) => {
     e.preventDefault();
 
     singInLogInFunction();
     navigate('/');
+    setUserPassword('');
   };
 
   return (

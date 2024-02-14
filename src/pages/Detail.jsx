@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import PostList from "components/posts/PostList";
 import styled from "styled-components";
+import { useContext } from "react";
+import { PostContext } from "context/PostContext";
 
 const StCategory = styled.div`
   display: flex;
@@ -31,18 +33,16 @@ const Main = styled.main`
 `;
 function Detail({ category }) {
   const navigate = useNavigate();
+  const { userUid } = useContext(PostContext);
+  const writeClickBtnHadler = () => {
+    userUid ? navigate("/write") : alert("로그인 후 글쓰기 이용이 가능합니다. ");
+  };
 
   return (
     <Main>
       <StCategory>
         <StP>{category}</StP>
-        <WriteBtn
-          onClick={() => {
-            navigate("/write");
-          }}
-        >
-          글쓰기
-        </WriteBtn>
+        <WriteBtn onClick={writeClickBtnHadler}>글쓰기</WriteBtn>
       </StCategory>
       <br />
       <PostList category={category} />
