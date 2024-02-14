@@ -1,28 +1,55 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { dummyData } from "data/dummyData";
 import styled from "styled-components";
 import { LoginContext } from "context/LoginContext";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function Navbar() {
-  const { userEmail, imgURL } = useContext(LoginContext);
+  // const { userEmail, imgURL } = useContext(LoginContext);
+  const [userMail, setUserMail] = useState("");
+  const [userProfileImg, setUserProfileImg] = useState("");
   // const [login, setLogin] = useState(dummyData);
   // const logInedUserEmail = login.userEmail;
   // const logInedUserProfil = login.userProfileImage;
 
-  const navigate = useNavigate();
-  console.log("뭐불러와?", userEmail);
-  console.log("사진뭐불러와?", imgURL);
+  // const navigate = useNavigate();
+  // console.log("사진뭐불러와?", userProfileImg);
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserProfileImg(user.photoURL);
+      } else {
+        setUserProfileImg(null);
+      }
+    });
+  }, []);
+
+  console.log("유저 이메일", userMail);
+  console.log("사진뭐불러와?", userProfileImg);
 
   return (
     <NavBar>
       <div>
         <CatchLoginLogout>
-          {userEmail ? (
+          {userMail ? (
             <ShowUserInfoBox>
-              <ProfileImg src={imgURL} alt="User Profile" />
+              <ProfileImg src={userProfileImg} alt="User Profile" />
               <UserEmailId>
-                {userEmail}님<br />
+                {userMail}님<br />
                 안녕하세요.
               </UserEmailId>
             </ShowUserInfoBox>

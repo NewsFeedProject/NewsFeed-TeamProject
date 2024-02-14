@@ -9,8 +9,10 @@ import { LoginContext } from "context/LoginContext";
 
 export default function Header() {
   const { userEmail } = useContext(LoginContext);
-  const { category, setCategory, searchTerm, setSearchTerm } = useContext(PostContext);
   const navigate = useNavigate();
+
+  const [category, setCategory] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const onClickHome = () => {
     navigate("/");
