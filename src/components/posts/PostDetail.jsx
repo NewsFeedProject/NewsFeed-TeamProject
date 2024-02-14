@@ -42,19 +42,37 @@ const PostDetail = () => {
   console.log(userUid);
   console.log(postCard);
 
+  //유저 정보 가져오기
+  const [userMail, setUserMail] = useState("");
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserMail(user.email);
+      } else {
+        setUserMail(null);
+      }
+    });
+  }, []);
+
   //삭제기능
   const handleDelete = async () => {
-    try {
-      if (window.confirm("정말로 삭제하시겠습니까?")) {
-        alert("삭제 되었습니다.");
-        const postRef = doc(db, "postInfo", id);
-        await deleteDoc(postRef);
-        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-        navigate(-1);
-        console.log("postRef", postRef);
+    if (userMail === postCard.userEmail) {
+      try {
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+          alert("삭제 되었습니다.");
+          const postRef = doc(db, "postInfo", id);
+          await deleteDoc(postRef);
+          setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+          navigate(-1);
+          console.log("postRef", postRef);
+        }
+      } catch (error) {
+        console.error("Error: ", error);
       }
-    } catch (error) {
-      console.error("Error: ", error);
+    } else {
+      alert("해당 권한이 없습니다.");
     }
   };
 
@@ -65,8 +83,17 @@ const PostDetail = () => {
     setEditingContentError("");
   };
 
-  //수정버튼
-  const onEditDone = async () => {
+  const handleChange = (e) => {
+    const newFiles = e.target.files[0];
+    const reader = new FileReader(newFiles);
+    reader.readAsDataURL(newFiles);
+    reader.onloadend = () => {
+      setEditingPhotoCard(reader.result);
+    };
+  };
+
+  //수정 바꿈
+  const handleEditHandle = async () => {
     if (editingTitle === postCard.postTitle && editingContent === postCard.postText) {
       setEditingTitleError("수정사항이 없습니다.");
       setEditingContentError("수정사항이 없습니다.");
@@ -118,13 +145,12 @@ const PostDetail = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const newFiles = e.target.files[0];
-    const reader = new FileReader(newFiles);
-    reader.readAsDataURL(newFiles);
-    reader.onloadend = () => {
-      setEditingPhotoCard(reader.result);
-    };
+  const handleEditChange = () => {
+    if (userMail === postCard.userEmail) {
+      setIsEditing(true);
+    } else {
+      alert("해당 권한이 없습니다.");
+    }
   };
 
   if (!postCard) {
@@ -156,7 +182,7 @@ const PostDetail = () => {
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
-                  <button onClick={onEditDone}>수정완료</button>
+                  <button onClick={handleEditHandle}>수정완료</button>
                 </EditAndDeleteWrapper>
               </UserInfoAndButton>
               <EditUserTitle>
@@ -192,13 +218,7 @@ const PostDetail = () => {
                   <Date>{formattedPostData.formattedDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
-                  <button
-                    onClick={() => {
-                      setIsEditing(true);
-                    }}
-                  >
-                    수정
-                  </button>
+                  <button onClick={handleEditChange}>수정</button>
                   <button onClick={handleDelete}>삭제</button>
                 </EditAndDeleteWrapper>
               </UserInfoAndButton>
