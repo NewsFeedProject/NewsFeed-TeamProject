@@ -11,7 +11,6 @@ const FormContainer = styled.main`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-top: 12rem;
 `;
 
 const StForm = styled.form`
