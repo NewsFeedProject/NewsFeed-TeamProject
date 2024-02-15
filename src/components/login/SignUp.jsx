@@ -127,6 +127,7 @@ function SignUp() {
       } else {
         setDuplicateEmail(null);
       }
+      return duplicateEmail;
     });
     setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = duplicateEmail === userEmail;
