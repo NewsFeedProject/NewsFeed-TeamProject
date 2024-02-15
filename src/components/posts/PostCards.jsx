@@ -1,4 +1,3 @@
-import { LoginContext } from "context/LoginContext";
 import { PostContext } from "context/PostContext";
 import { SingUpContext } from "context/SingUpContext";
 import { useContext, useEffect, useState } from "react";
@@ -18,19 +17,6 @@ function PostCards({ post }) {
     minute: "numeric",
     second: "numeric"
   });
-
-  /* 추천 누르기 기능 */
-  // const [liked, setLiked] = useState(false);
-  // const [likedNumber, setLikedNumber] = useState(0);
-
-  // const likeClickHandler = () => {
-  //   if (liked) {
-  //     setLikedNumber(likedNumber - 1);
-  //   } else {
-  //     setLikedNumber(likedNumber + 1);
-  //   }
-  //   setLiked(!liked);
-  // };
 
   return (
     <ListWrapper>

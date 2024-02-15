@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { PostContext } from "../../context/PostContext";
+import { PostContext } from "context/PostContext";
 import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore/lite";
-import { db } from "../../data/firebase";
+import { db } from "data/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PostDetail = () => {

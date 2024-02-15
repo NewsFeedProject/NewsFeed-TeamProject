@@ -40,7 +40,7 @@ const PostProvider = ({ children }) => {
 
     fetchData();
   }, []);
-  // console.log("posts", posts);
+
 
   /* email, profileImg 데이터 불러오기 */
   useEffect(() => {

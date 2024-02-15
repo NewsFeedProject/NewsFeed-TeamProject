@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import usersData from "../data/usersData.json";
+import usersData from "data/usersData.json";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "data/firebase";
 

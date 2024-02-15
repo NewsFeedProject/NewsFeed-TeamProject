@@ -28,11 +28,11 @@ function SignUp() {
   const [duplicateEmail, setDuplicateEmail] = useState("");
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file) {
       let image = window.URL.createObjectURL(file);
-      console.log(image);
       setImgUrl(image);
     }
   };
@@ -63,7 +63,8 @@ function SignUp() {
       });
       console.log(createdUser);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      return;
     }
   }
 
@@ -127,6 +128,7 @@ function SignUp() {
       } else {
         setDuplicateEmail(null);
       }
+      return duplicateEmail;
     });
 
     setUserEmail(`${userId}@${userMail}`);
