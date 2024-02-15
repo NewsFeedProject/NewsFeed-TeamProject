@@ -1,10 +1,11 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore/lite";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
+import { useParams, useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { PostContext } from "../../context/PostContext";
+import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore/lite";
 import { db } from "../../data/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PostDetail = () => {
   const { id } = useParams();
