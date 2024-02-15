@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const PostDetail = () => {
   const { id } = useParams();
-  const { userUid, posts, setPosts } = useContext(PostContext);
+  const { setPosts } = useContext(PostContext);
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -146,8 +146,8 @@ const PostDetail = () => {
     }
   };
 
-  // /* 날짜 형식 변경 */
-  // const data = postCard.postDate;
+  /* 날짜 형식 변경 */
+  // console.log("Date", postCard.postDate);
   // const formattedDate = new Date(postCard.postDate).toLocaleDateString("ko-KR", {
   //   year: "numeric",
   //   month: "numeric",
