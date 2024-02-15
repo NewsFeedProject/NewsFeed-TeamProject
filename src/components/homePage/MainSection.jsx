@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LogoImage from "../../assets/images/visual.png";
+import LogoImage from "assets/images/visual.png";
 
 export default function MainSection() {
   return (

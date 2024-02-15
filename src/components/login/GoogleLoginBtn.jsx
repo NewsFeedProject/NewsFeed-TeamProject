@@ -1,7 +1,7 @@
 import { auth } from "data/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
-import GoogleImage from "../../assets/images/google.png";
+import GoogleImage from "assets/images/google.png";
 
 import styled from "styled-components";
 

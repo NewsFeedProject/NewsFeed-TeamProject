@@ -17,6 +17,7 @@ function Login() {
       console.log("user with signIn", userCredential.user);
     } catch (error) {
       console.log(error);
+      return;
     }
     setUserEmail("");
   }
