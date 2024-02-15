@@ -71,7 +71,7 @@ const StPostCategory = styled.div`
   padding: 10px;
   border: none;
   border-radius: 25px;
-  background-color: #d9d9d9;
+  background-color: #ddd;
 `;
 
 const StP = styled.p`

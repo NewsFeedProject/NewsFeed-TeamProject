@@ -147,11 +147,11 @@ const PostDetail = () => {
   };
 
   const handleEditChange = () => {
-    // if (userMail === postCard.userEmail) {
-    setIsEditing(true);
-    // } else {
-    //   alert("해당 권한이 없습니다.");
-    // }
+    if (userMail === postCard.userEmail) {
+      setIsEditing(true);
+    } else {
+      alert("해당 권한이 없습니다.");
+    }
   };
 
   if (!postCard) {
@@ -319,7 +319,7 @@ const EditAndDeleteWrapper = styled.div`
     background-color: transparent;
   }
   & > button:hover {
-    color: red;
+    color: #ff006e;
   }
 `;
 
@@ -407,10 +407,10 @@ const UserCommend = styled.div`
   }
 `;
 
-const Button = styled.button`
-  border: transparent;
-  background-color: transparent;
-  &:hover {
-    color: red;
-  }
-`;
+// const Button = styled.button`
+//   border: transparent;
+//   background-color: transparent;
+//   &:hover {
+//     color: #ff006e;
+//   }
+// `;

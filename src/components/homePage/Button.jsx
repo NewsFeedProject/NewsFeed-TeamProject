@@ -10,6 +10,7 @@ const NormalButton = styled.button`
   &:hover {
     transform: scale(1.2);
     font-weight: 600;
+    color: #ff006e;
   }
 `;
 

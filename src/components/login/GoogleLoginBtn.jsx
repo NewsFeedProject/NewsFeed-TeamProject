@@ -1,6 +1,7 @@
 import { auth } from "data/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router";
+import GoogleImage from "../../assets/images/google.png";
 
 import styled from "styled-components";
 
@@ -18,17 +19,31 @@ function GoogleLoginBtn() {
     } catch (error) {
       console.error(error);
     }
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
-    <GoogleBtnStyle onClick={handleGoogleSignIn}>구글 로그인 하기</GoogleBtnStyle>
+    <GoogleBtnStyle onClick={handleGoogleSignIn}>
+      <img src={GoogleImage} />
+      <em>Google Login</em>
+    </GoogleBtnStyle>
   );
 }
 
 export default GoogleLoginBtn;
 
 const GoogleBtnStyle = styled.button`
-  width: 90%;
-  margin-bottom: 30px;
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  & > img {
+    width: 25px;
+  }
 `;

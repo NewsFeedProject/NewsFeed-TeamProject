@@ -34,6 +34,4 @@ export default PostList;
 
 const NotDetail = styled.li`
   padding: 50px;
-  margin-left: 100px;
-  margin-top: 100px;
 `;

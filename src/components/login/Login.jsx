@@ -18,7 +18,8 @@ function Login() {
     } catch (error) {
       // console.log(error);
     }
-  };
+    setUserEmail("");
+  }
 
   const navigate = useNavigate();
 
@@ -35,12 +36,17 @@ function Login() {
       <FormStyle>
         <TitleStyle>NextMove</TitleStyle>
         <Link to="/">
-          <CloseStyle>X</CloseStyle>
+          <CloseStyle>&times;</CloseStyle>
         </Link>
-        <LabelStyle>아이디</LabelStyle>
-        <InputStyle type="text" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
-        <LabelStyle>비밀번호</LabelStyle>
-        <InputStyle type="password" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+        <LabelStyle for="userId">아이디</LabelStyle>
+        <InputStyle type="text" id="userId" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
+        <LabelStyle for="userPw">비밀번호</LabelStyle>
+        <InputStyle
+          type="password"
+          for="userPw"
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
+        />
         <ButtonGroup>
           <ButtonStyle onClick={onClickHandler}>로그인</ButtonStyle>
           <Link to="/signup">
@@ -50,7 +56,7 @@ function Login() {
           <GithubButton />
           <ButtonStyle onClick={Logout}>로그아웃</ButtonStyle>
         </ButtonGroup>
-        <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주합니다.</AgreeStyle>
+        <AgreeStyle>처음 로그인하면 NextMove의 이용약관 및 개인정보처리방침에 동의한 것으로 간주됩니다.</AgreeStyle>
       </FormStyle>
     </LoginBackground>
   );
@@ -59,7 +65,7 @@ function Login() {
 export default Login;
 
 const LoginBackground = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100vh;
   display: flex;
@@ -67,10 +73,11 @@ const LoginBackground = styled.div`
   align-items: center;
 `;
 const FormStyle = styled.form`
-  width: 35%;
+  width: 550px;
   background-color: #fff;
-  padding: 50px 50px 50px 70px;
+  padding: 40px 70px;
   position: relative;
+  border-radius: 10px;
 `;
 const TitleStyle = styled.h2`
   text-align: center;
@@ -83,10 +90,11 @@ const LabelStyle = styled.label`
   display: inline-block;
   width: 15%;
   margin-right: 5%;
+  white-space: nowrap;
 `;
 const InputStyle = styled.input`
   display: inline-block;
-  width: 70%;
+  width: 80%;
   margin-bottom: 20px;
 `;
 const ButtonGroup = styled.div`
@@ -94,17 +102,21 @@ const ButtonGroup = styled.div`
   flex-direction: column;
 `;
 const ButtonStyle = styled.button`
-  width: 90%;
+  width: 100%;
   margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px 0;
 `;
 const SignUpStyle = styled.p`
   text-align: center;
   margin-bottom: 30px;
-  width: 90%;
+  width: 100%;
   cursor: pointer;
 `;
 const AgreeStyle = styled.p`
   font-size: 0.7rem;
+  line-height: 20px;
 `;
 const CloseStyle = styled.p`
   width: 30px;

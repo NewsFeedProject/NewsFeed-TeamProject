@@ -77,7 +77,7 @@ export default function Header() {
               <Button text="로그인" />
             </Link>
             <Link to="/signup">
-              <Button text="회원가입" color="red" />
+              <Button text="회원가입" color="#ff006e" />
             </Link>
           </>
         ) : (
@@ -99,8 +99,7 @@ const HeaderStyle = styled.header`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid grey;
-  height: 10rem;
-  padding: 2rem;
+  padding: 2rem 4rem;
   background-color: #fff;
   /* grid-row: 0.5;
   grid-column: 1/3; */
