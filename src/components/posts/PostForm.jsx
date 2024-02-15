@@ -89,7 +89,7 @@ const FileSelect = styled.input`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
+  const { id, posts, addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
     useContext(PostContext);
   const { imgUrl } = useContext(SingUpContext);
 
@@ -121,6 +121,8 @@ function PostForm() {
 
   const splitUserEmail = userMail.split("@")[0];
   const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+  // console.log(userNickname);
+  // console.log(userMail);
 
   /* 포스트 글 추가하기 */
   const [title, setTitle] = useState("");
@@ -153,8 +155,10 @@ function PostForm() {
     const date = Date.now();
 
     // 카드 추가하기
+
     addPostSubmit({
       userNickname: userNickname,
+      userEmail: userMail,
       postTitle: title,
       postText: text,
       postImage: previewImg,
