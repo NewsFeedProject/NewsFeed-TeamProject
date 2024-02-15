@@ -8,34 +8,16 @@ import styled from "styled-components";
 function PostCards({ post }) {
   const navigate = useNavigate();
 
-  const { id, postTitle, postText, postImage, postDate, userProfileImage, userEmail } = post;
-  const { setFormattedPostData } = useContext(PostContext);
+  const { id, postTitle, postText, postImage, postDate, userProfileImage, userNickname } = post;
 
-  const [userNickname, setUserNickName] = useState("");
-  const [formattedDate, setFormattedDate] = useState("");
-
-  useEffect(() => {
-    const splitUserEmail = userEmail.split("@")[0];
-    const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
-
-    const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric"
-    });
-
-    setUserNickName(userNickname);
-    setFormattedDate(formattedDate);
-
-    const newPostData = { ...post, userNickname, formattedDate };
-
-    if (userNickname && formattedDate) {
-      setFormattedPostData(newPostData);
-    }
-  }, []);
+  const formattedDate = new Date(postDate).toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  });
 
   /* 추천 누르기 기능 */
   // const [liked, setLiked] = useState(false);

@@ -117,8 +117,12 @@ function PostForm() {
     setSelectCategory(event.target.value);
   };
 
-  /* 포스트 글 추가하기 */
+  /* Email -> nickname으로 변경하기 */
 
+  const splitUserEmail = userMail.split("@")[0];
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+
+  /* 포스트 글 추가하기 */
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -150,14 +154,13 @@ function PostForm() {
 
     // 카드 추가하기
     addPostSubmit({
-      userEmail: userMail,
+      userNickname: userNickname,
       postTitle: title,
       postText: text,
       postImage: previewImg,
       postDate: date,
       userProfileImage: userProfileImg || imgUrl,
-      postCategory: selectCategory,
-      id: "postId"
+      postCategory: selectCategory
     });
 
     setTitle("");

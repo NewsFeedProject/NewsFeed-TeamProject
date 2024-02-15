@@ -10,7 +10,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const PostDetail = () => {
   const { id } = useParams();
   const { userUid, posts, setPosts } = useContext(PostContext);
-  const { formattedPostData } = useContext(PostContext);
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -147,6 +146,20 @@ const PostDetail = () => {
     }
   };
 
+  // /* 날짜 형식 변경 */
+  // const data = postCard.postDate;
+  // const formattedDate = new Date(postCard.postDate).toLocaleDateString("ko-KR", {
+  //   year: "numeric",
+  //   month: "numeric",
+  //   day: "numeric",
+  //   hour: "numeric",
+  //   minute: "numeric",
+  //   second: "numeric"
+  // });
+
+  // console.log(formattedDate);
+  // console.log(data);
+
   const handleEditChange = () => {
     if (userMail === postCard.userEmail) {
       setIsEditing(true);
@@ -179,8 +192,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
-                  <Date>{formattedPostData.formattedDate}</Date>
+                  <UserNickName>{postCard.userNickname}</UserNickName>
+                  <Date>{postCard.postDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={onCencelButton}>취소</button>
@@ -216,8 +229,8 @@ const PostDetail = () => {
                   <UserImage>
                     <img src={postCard.userProfileImage} alt={postCard.userProfileImage} />
                   </UserImage>
-                  <UserNickName>{formattedPostData.userNickname}</UserNickName>
-                  <Date>{formattedPostData.formattedDate}</Date>
+                  <UserNickName>{postCard.userNickname}</UserNickName>
+                  <Date>{postCard.postDate}</Date>
                 </UserInfoTitle>
                 <EditAndDeleteWrapper>
                   <button onClick={handleEditChange}>수정</button>
