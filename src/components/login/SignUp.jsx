@@ -32,7 +32,6 @@ function SignUp() {
     const file = e.target.files[0];
     if (file) {
       let image = window.URL.createObjectURL(file);
-      console.log(image);
       setImgUrl(image);
     }
   };
