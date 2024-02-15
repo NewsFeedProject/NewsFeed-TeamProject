@@ -28,6 +28,7 @@ function SignUp() {
   const [duplicateEmail, setDuplicateEmail] = useState("");
 
   const handleImageChange = (e) => {
+    e.preventDefault();
     if (!e.target.files) return;
     const file = e.target.files[0];
     if (file) {
