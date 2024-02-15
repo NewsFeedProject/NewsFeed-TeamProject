@@ -19,6 +19,7 @@ const PostProvider = ({ children }) => {
   const [userUid, setUserUid] = useState("");
 
   // 파이어베이스 데이터 불러오기
+
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
@@ -30,6 +31,7 @@ const PostProvider = ({ children }) => {
           ...doc.data(),
           id: doc.id
         };
+        // console.log(data.id);
 
         initialPosts.push(data);
       });
@@ -38,6 +40,7 @@ const PostProvider = ({ children }) => {
 
     fetchData();
   }, []);
+  // console.log("posts", posts);
 
   /* email, profileImg 데이터 불러오기 */
   useEffect(() => {
