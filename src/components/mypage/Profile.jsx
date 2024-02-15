@@ -3,7 +3,7 @@ import { auth } from "data/firebase";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
-import { getAuth, updateProfile, updatePassword, onAuthStateChanged } from "firebase/auth";
+import { updateProfile, } from "firebase/auth";
 
 function Profile() {
   const params = useParams();

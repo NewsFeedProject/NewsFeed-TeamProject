@@ -63,7 +63,8 @@ function SignUp() {
       });
       console.log(createdUser);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      return;
     }
   }
 
