@@ -1,13 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PostContext } from "context/PostContext";
 import PostCards from "./PostCards";
 import styled from "styled-components";
 
 function PostList({ category }) {
   const { posts } = useContext(PostContext);
+  const { searchTerm } = useContext(PostContext);
+
+  // const filteredPost = posts.filter((post) => {
+  //   return post.postCategory === category;
+  // });
 
   const filteredPost = posts.filter((post) => {
-    return post.postCategory === category;
+    return post.postText.toLowerCase().includes(searchTerm.toLowerCase()) && post.postCategory === category;
   });
 
   return (

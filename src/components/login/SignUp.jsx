@@ -130,12 +130,14 @@ function SignUp() {
       }
       return duplicateEmail;
     });
+
     setUserEmail(`${userId}@${userMail}`);
     const isDuplicate = duplicateEmail === userEmail;
     if (isDuplicate) {
       alert("중복됩니다. 다시 입력해주세요!");
       setUserId("");
       setUserMail("");
+
       setDuplicateEmail("");
       setUserEmail("");
       setUserMail("");

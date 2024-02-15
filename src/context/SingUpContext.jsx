@@ -14,7 +14,8 @@ function SingUpContextProvider({ children }) {
   // checkbox
   const [checkBox, setCheckBox] = useState(false);
 
-  const [imgUrl, setImgUrl] = useState('');
+  const [imgUrl, setImgUrl] = useState("");
+
   return (
     <SingUpContext.Provider
       value={{
@@ -29,7 +30,7 @@ function SingUpContextProvider({ children }) {
         checkBox,
         setCheckBox,
         imgUrl,
-        setImgUrl,
+        setImgUrl
       }}
     >
       {children}

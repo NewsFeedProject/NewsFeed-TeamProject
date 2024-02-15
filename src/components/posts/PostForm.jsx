@@ -1,7 +1,8 @@
+import { PostContext } from "context/PostContext";
+import { SingUpContext } from "context/SingUpContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PostContext } from "context/PostContext";
 
 const FormContainer = styled.main`
   width: 100%;
@@ -27,6 +28,7 @@ const StForm = styled.form`
   border-radius: 10px;
   gap: 10px;
   padding: 50px;
+
   width: 500px;
   margin: 0 auto;
 
@@ -87,8 +89,9 @@ const FileSelect = styled.input`
 
 function PostForm() {
   const navigate = useNavigate();
-  const { addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
+  const { id, posts, addPostSubmit, postImg, setPostImg, previewImg, setPreviewImg, userProfileImg, userMail } =
     useContext(PostContext);
+  const { imgUrl } = useContext(SingUpContext);
 
   /* 이미지 파일 업로드하기 */
   const fileUploadHandler = (e) => {
@@ -114,8 +117,14 @@ function PostForm() {
     setSelectCategory(event.target.value);
   };
 
-  /* 포스트 글 추가하기 */
+  /* Email -> nickname으로 변경하기 */
 
+  const splitUserEmail = userMail.split("@")[0];
+  const userNickname = splitUserEmail.slice(0, 3) + "*".repeat(Math.max(0, splitUserEmail.length - 3));
+  // console.log(userNickname);
+  // console.log(userMail);
+
+  /* 포스트 글 추가하기 */
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -146,13 +155,15 @@ function PostForm() {
     const date = Date.now();
 
     // 카드 추가하기
+
     addPostSubmit({
+      userNickname: userNickname,
       userEmail: userMail,
       postTitle: title,
       postText: text,
       postImage: previewImg,
       postDate: date,
-      userProfileImage: userProfileImg,
+      userProfileImage: userProfileImg || imgUrl,
       postCategory: selectCategory
     });
 
@@ -191,7 +202,7 @@ function PostForm() {
             onChange={addTextHandler}
             placeholder="최대 300자까지 입력 가능합니다."
             maxLength={300}
-            style={{ height: "200px" }}
+            style={{ height: "350px" }}
           />
           <StDiv style={{ flexDirection: "column" }}>
             <FileSelect type="file" accept=".png, .jpg, .jpeg, .gif" onChange={fileUploadHandler} />

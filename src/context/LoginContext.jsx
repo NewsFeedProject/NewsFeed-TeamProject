@@ -18,7 +18,7 @@ function LoginContextProvider({ children }) {
         userPassword,
         setUserPassword,
         userInfo,
-        setUserInfo,
+        setUserInfo
       }}
     >
       {children}

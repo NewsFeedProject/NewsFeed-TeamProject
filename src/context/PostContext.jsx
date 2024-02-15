@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, getDocs, query, addDoc, orderBy } from "firebase/firestore/lite";
+import { collection, getDocs, query, addDoc, orderBy, doc } from "firebase/firestore/lite";
 import { db } from "data/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -8,9 +8,6 @@ export const PostContext = createContext(null);
 const PostProvider = ({ children }) => {
   // post 데이터 관리
   const [posts, setPosts] = useState([]);
-  const [formattedPostData, setFormattedPostData] = useState([]);
-
-  // console.log(formattedPostData);
 
   // 검색 기능
   const [category, setCategory] = useState("");
@@ -22,6 +19,7 @@ const PostProvider = ({ children }) => {
   const [userUid, setUserUid] = useState("");
 
   // 파이어베이스 데이터 불러오기
+
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, "postInfo"), orderBy("postDate", "desc"));
@@ -33,6 +31,8 @@ const PostProvider = ({ children }) => {
           ...doc.data(),
           id: doc.id
         };
+        // console.log(data.id);
+
         initialPosts.push(data);
       });
       setPosts(initialPosts);
@@ -40,6 +40,7 @@ const PostProvider = ({ children }) => {
 
     fetchData();
   }, []);
+
 
   /* email, profileImg 데이터 불러오기 */
   useEffect(() => {
@@ -74,14 +75,12 @@ const PostProvider = ({ children }) => {
       }
     });
   }, []);
-
   // console.log("유저 이메일", userMail);
   // console.log("사진뭐불러와?", userProfileImg);
   // console.log("유저 아이디", userUid);
 
   /* 포스트 글 추가하기 */
   const addPostSubmit = async (newpost) => {
-    // const collectionRef = await addDoc(collection(db, "postInfo"), newpost);
     const collectionRef = collection(db, "postInfo");
     await addDoc(collectionRef, newpost);
     setPosts((posts) => [newpost, ...posts]);
@@ -108,9 +107,9 @@ const PostProvider = ({ children }) => {
         userMail,
         userProfileImg,
         userUid,
-        setUserUid,
-        formattedPostData,
-        setFormattedPostData
+        setUserUid
+        // formattedPostData,
+        // setFormattedPostData
       }}
     >
       {children}

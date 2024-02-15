@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Logout } from "components/login/Logout";
+import { PostContext } from "context/PostContext";
 
 export default function Header() {
+  const { searchTerm, setSearchTerm } = useContext(PostContext);
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+
   const [userUid, setUserUid] = useState("");
   const [userMail, setUserMail] = useState("");
 
@@ -56,7 +58,7 @@ export default function Header() {
   return (
     <HeaderStyle>
       <LogoImg src="/logo/logo.png" alt="Logo" onClick={onClickHome} />
-      <SearchBox onSubmit={handleSearchInfo}>
+      <SearchBox onSubmit={handleSearchInfo} value={searchTerm}>
         <SelectCategory onChange={handleCategory}>
           <option value="">선택해주세요.</option>
           <option value="interview">면접 후기</option>
